@@ -1,0 +1,72 @@
+\usepackage{microtype} % make everything look a tiny bit better
+
+%\overfullrule=1mm % Debug overfull/underfull hbox
+
+% intelligent quotation marks, language and nesting sensitive
+\usepackage[autostyle]{csquotes}
+
+\usepackage{mathtools}
+
+% nice, small fracs for the text with \sfrac{}{}
+\usepackage{xfrac}
+
+%\usepackage{physics}
+\usepackage{siunitx}
+\AtBeginDocument{\RenewCommandCopy\qty\SI} 
+
+\usepackage{booktabs}       % \toprule, \midrule, \bottomrule, etc
+\usepackage{multirow}       % multiple row spanning cells
+
+% keep figures and tables in the section
+\usepackage[section, below]{placeins}
+
+\usepackage{enumitem} % Custom list environments
+
+\usepackage{cleveref}
+%\usepackage{bookmark}
+%\usepackage[shortcuts]{extdash}
+
+\usepackage[
+  backend=biber,   % use modern biber backend
+  sorting=nyt,     % Sort the references numbering by name, year, title
+  style=apa,       % use [author, year] for references
+]{biblatex}
+
+% have the entire citation be a link, not only the year
+% https://tex.stackexchange.com/questions/15951/hyperlink-name-with-biblatex-authoryear-biblatex-1-4b/27107#27107
+\DeclareFieldFormat{citehyperref}{%
+  \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
+  \bibhyperref{#1}}
+
+\DeclareFieldFormat{textcitehyperref}{%
+  \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
+  \bibhyperref{%
+    #1%
+    \ifbool{cbx:parens}
+      {\bibcloseparen\global\boolfalse{cbx:parens}}
+      {}}}
+
+\savebibmacro{cite}
+\savebibmacro{textcite}
+
+\renewbibmacro*{cite}{%
+  \printtext[citehyperref]{%
+    \restorebibmacro{cite}%
+    \usebibmacro{cite}}}
+
+\renewbibmacro*{textcite}{%
+  \ifboolexpr{
+    ( not test {\iffieldundef{prenote}} and
+      test {\ifnumequal{\value{citecount}}{1}} )
+    or
+    ( not test {\iffieldundef{postnote}} and
+      test {\ifnumequal{\value{citecount}}{\value{citetotal}}} )
+  }
+    {\DeclareFieldAlias{textcitehyperref}{noformat}}
+    {}%
+  \printtext[textcitehyperref]{%
+    \restorebibmacro{textcite}%
+    \usebibmacro{textcite}}}
+
+\addbibresource{references.bib}  % the bib file to use
+
