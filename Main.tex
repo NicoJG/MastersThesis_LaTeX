@@ -9,7 +9,15 @@
 \input{include/settings/Settings}
 \input{include/settings/Custom_Settings}
 
+% To see textwidth in cm or inches
+% \usepackage{layouts}
+
 \begin{document} 
+
+% display textwidth:
+% textwidth: \the\textwidth \\
+% textwidth in cm: \printinunitsof{cm}\prntlen{\textwidth} \\
+% textwidth in inch: \printinunitsof{in}\prntlen{\textwidth}
 
 % COVER PAGE, TITLE PAGE AND IMPRINT PAGE
 \pagenumbering{roman}			% Roman numbering (starting with i (one)) until first main chapter
@@ -54,7 +62,12 @@
 \pagenumbering{arabic}			% Arabic numbering starting from 1 (one)
 \setlength{\parskip}{0pt plus 1pt}
 
-\include{include/Structure}
+\include{include/01_Introduction}
+\include{include/02_MCF}
+\include{include/03_Pellet_dynamics}
+\include{include/04_Model}
+\include{include/05_Results}
+\include{include/06_Conclusion}
 
 % REFERENCES / BIBLIOGRAPHY
 \cleardoublepage
