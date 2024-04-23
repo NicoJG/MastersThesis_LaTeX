@@ -1,0 +1,39 @@
+%\newcommand{\tensor}[1]{\overleftrightarrow{#1}}
+%\renewcommand{\vec}[1]{\vv{#1}}
+% https://tex.stackexchange.com/questions/331494/how-can-i-increase-the-length-of-the-vector-sign-to-be-almost-equal-to-the-argum#comment812638_331501
+%\newcommand{\myvec}[1]{\mkern3mu\vv{\mkern-3mu#1}}
+
+% tensor: https://tex.stackexchange.com/questions/162337/double-headed-vector
+% \def\vecsign{\mathchar"017E}
+% \def\dvecsign{\smash{\stackon[-1.95pt]{\vecsign}{\rotatebox{180}{$\vecsign$}}}}
+% \def\dvec#1{\def\useanchorwidth{T}\stackon[-4.2pt]{#1}{\,\dvecsign}}
+% \usepackage{stackengine}
+% \stackMath
+% \newcommand{\tensor}[1]{\dvec{#1}}
+
+%\newcommand{\tensor}[1]{\vec{\reflectbox{\ensuremath{\vec{\reflectbox{\ensuremath{#1}}}}}}}
+
+% better vectors and a tensor command
+% https://tex.stackexchange.com/a/693047/240711
+% https://tex.stackexchange.com/a/693125/240711
+\DeclareFontEncoding{LS1}{}{}
+\DeclareFontSubstitution{LS1}{stix}{m}{n}
+\DeclareSymbolFont{stixletters}{LS1}{stix}{m}{it}
+\DeclareMathAccent{\cev}{\mathord}{stixletters}{"91}
+\DeclareMathAccent{\vec}{\mathord}{stixletters}{"92}
+\DeclareMathAccent{\tensor}{\mathord}{stixletters}{"95}
+
+% tensor possibilities:
+% https://tex.stackexchange.com/questions/162337/double-headed-vector
+% https://tex.stackexchange.com/questions/276033/double-sided-arrow-notation-for-second-order-tensors
+% https://tex.stackexchange.com/questions/552538/how-to-write-tensor-or-leftright-double-vector-notation
+
+
+
+% better \mathbb (blackboard bold): https://programmer.group/solution-for-entering-blackboard-bold-numbers-in-latex.html
+% https://tex.stackexchange.com/questions/234451/loading-amsfonts-after-mathbbol-does-not-reset-ma
+\DeclareMathAlphabet{\mathbbnumber}{U}{bboldx}{m}{n}
+\usepackage{dsfont}
+% the font bbold has numbers for blackboard bold
+% if also symbols are needed: https://tex.stackexchange.com/questions/394965/package-bbold-for-mathematical-symbol
+\newcommand{\mathbbone}{\mathds{1}\xspace}

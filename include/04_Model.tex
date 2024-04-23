@@ -1,13 +1,144 @@
 \chapter{Modelling the pellet rocket effect}
-    \section{Force on the pellet surface}
+
+The underlying principle of the pellet rocket effect is that asymmetric heating of the pellet and the ablation cloud leads to a higher ablation and pressure on one side of the pellet. 
+This results in a rocket-like force on the pellet, which accelerates it towards the less heated side.
+In general, this phenomenon involves complex, three-dimensional, non-linear fluid dynamics.
+Fortunately, in the case of pellet injection in magnetic confinement fusion, the pellet heating can be seen as predominantly spherically symmetric.
+Taking the anisotropic pellet ablation dynamics as a linear perturbation on top of the isotropic dynamics, enables us to develop a semi-analytical model for the pellet rocket effect.
+
+Conceptually, this model is divided in three different parts.
+The first part, as described in \cref{sec:pellet_surface}, considers the momentum transfer on the pellet surface to calculate the net force on the pellet.
+Expanding the angular dependence of the gas properties at the pellet surface in spherical harmonics, yields a formula for the pellet rocket force, involving only the $\cos\theta$-dependence of the ablation rate and pressure at the pellet surface.
+
+The second part of the model, as described in \cref{sec:neutral_gas_shielding}, quantifies the shielding of the pellet from an external asymmetric heating source through the neutral gas ablation cloud.
+Widely used for predicting isotropic pellet ablation dynamics is a model known as the Neutral Gas Shielding (NGS) model, developed by \textcite{parks_effect_1978}.
+There, quasi-steady-state fluid equations for an ideal gas are solved under the approximation of a mono-energetic beam of incoming electrons, which traverse the ablation cloud radially.
+While several more sophisticated models were developed, most models yield the same results \autocite{pegourie_review_2007}.
+Therefore, the NGS model is the basis of our model.
+The asymmetric ablation dynamics are then added as a perturbation.
+Since the full radial solution of the NGS model is needed to calculate the asymmetric dynamics, the NGS model has to be fully reproduced, as described in \cref{ssec:isotropic_model}.
+The asymmetric perturbation is then solved, as described in \cref{ssec:asymmetric_perturbation_model}, to predict the gas dynamics at the pellet surface, given the external heating source.
+
+While this model can be used by itself, if the heat source into the neutral ablation cloud is known, our goal is to predict the pellet rocket acceleration along the major radius of a tokamak.
+Therefore, the third part of our model, as described in \cref{sec:plasmoid_shielding}, calculates the heat source asymmetry induced by the outward drift of the plasmoid of ablated material.
+How this drift results in a finite and varying shielding length of the electrons through the plasmoid is described in \cref{ssec:plasmoid_shielding_length}.
+In \cref{ssec:plasmoid_heat_flux_attenuation}, the shielding length is used to estimate the heat source at the boundary of the neutral gas cloud.
+
+Finally, in \cref{sec:model_summary}, all three parts are combined to describe the full model.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Force on the pellet surface}
+\label{sec:pellet_surface}
+
+Consider a spherical pellet of radius $r_\text{p}$ surrounded by a neutral gas.
+Physically, the force on the pellet is the combination of ablated particles leaving the pellet surface and the gas pressure pushing on the pellet surface.
+In the following, a formula for this force is derived under the assumption that the anisotropic dynamics are small compared to the spherically symmetric dynamics.
+
+Mathematically, the momentum transfer at a point $\vec{r}$ in the gas is expressed through the momentum flux tensor
+\begin{equation*}
+    \tensor{\Pi} = \rho \left( \vec{v} \otimes \vec{v} \right) + p \tensor{\mathbbone} \, ,
+\end{equation*}
+with the mass density $\rho(\vec{r})$, the fluid velocity $\vec{v}(\vec{r})$ and the pressure $p(\vec{r})$. 
+The symbol $\otimes$ denotes the dyadic product\footnote{equivalent to a tensor product} and $\tensor{\mathbbone}$ denotes the 3-dimensional identity tensor.  
+Assuming local momentum conservation at the pellet surface $S$, the net force on the pellet is
+\begin{equation*}
+    \vec{F} = - \iint_{S} \tensor{\Pi} \cdot \dd{\vec{S}} =  \, ,
+\end{equation*}
+where the minus sign indicates that this is the force exerted on the pellet, while the surface element $\dd{S}$ points outwards.
+\begin{figure}
+    \centering
+    \includegraphics{figure/pellet_surface_force.pdf}
+    \caption{Caption}
+    \label{fig:pellet_surface_force}
+\end{figure}
+Choosing spherical coordinates $r,\theta,\varphi$ so that the pellet is centred at the origin and a positive force $F$ points in the negative $\hat{z}$-direction, as shown in \cref{fig:pellet_surface_force}, the force becomes
+\begin{equation*}
+    F = - \hat{z} \cdot \vec{F} = r_\text{p}^2 \int_{\theta=0}^{\pi} \int_{\varphi=0}^{2\pi} \left( \rho \left(\hat{z}\cdot  \vec{v} \otimes \vec{v}  \cdot \hat{r}\right) + p \left(\hat{z}\cdot\hat{r}\right) \right) \,\dd{\Omega} \, ,
+\end{equation*}
+with the differential solid angle $\dd{\Omega}=\sin\theta \dd{\theta}\dd{\varphi}$. 
+Expressing $\vec{v} = v_r \hat{r} + v_\theta \hat{\theta} + v_\varphi \hat{\varphi}$ and using geometric relations between the unit vectors leads to
+\begin{equation*}
+    F = r_\text{p}^2 \int_{\theta=0}^{\pi} \int_{\varphi=0}^{2\pi} \left( \rho v_r (v_r \cos\theta + v_\theta \sin\theta) + p \cos\theta \right) \,\dd{\Omega} \, .
+\end{equation*}
+At this point, the first and only approximation for deriving the force formula has to be made.
+The anisotropic dynamics are taken as a small perturbation on the spherically symmetric dynamics in the form
+\begin{align*}
+    v_r(\vec{r}) &= v_0(r) + \var{v_r}(r,\theta,\varphi), &
+    v_\theta(\vec{r}) &= 0 + \var{v_\theta}(r,\theta,\varphi), \\
+    \rho(\vec{r}) &= \rho_0(r) + \var{\rho}(r,\theta,\varphi), &
+    p(\vec{r}) &= p_0(r) + \var{p}(r,\theta,\varphi) \, .
+\end{align*}
+Linearization of the force in this perturbation and using $\int_0^\pi \cos\theta \dd{\theta} = 0$ leads to
+\begin{equation}
+    F = r_\text{p}^2 \int_{\theta=0}^{\pi} \int_{\varphi=0}^{2\pi} \left(\left( \var{\rho} v_0^2 + 2 \rho_0 v_0 \var{v_r} + \var{p} \right) \cos\theta + \rho_0 v_0 \var{v_\theta} \sin\theta \right) \,\dd{\Omega} \, .
+    \label{eq:force_before_expansion}
+\end{equation}
+The last term can be rewritten as a $\cos\theta$ dependent term through integration by parts 
+\begin{equation*}
+    \int_0^\pi \var{v_\theta} \sin^2\theta \dd{\theta} = \underbrace{\left[ \left(\int \var{v_\theta} \dd{\theta}\right) \sin^2\theta \right]_0^\pi}_{=0} - \int_0^\pi \left(\int \var{v_\theta} \dd{\theta}\right) 2\cos\theta\sin\theta \dd{\theta}
+\end{equation*}
+assuming that $\left(\int \var{v_\theta} \dd{\theta}\right)$ is finite.
+The surface integral can be then solved by expanding $\var{\rho}$, $\var{v_r}$, $\var{p}$ and $\left(\int \var{v_\theta} \dd{\theta}\right)$  in terms of spherical harmonics 
+\begin{equation*}
+    Y_l^m(\theta,\varphi) = \sqrt{\frac{(l-m)!}{(l+m)!}} \mathcal{P}_l^m(\cos\theta) e^{im\varphi} \, ,
+\end{equation*}
+with the associated Legendre polynomials $\mathcal{P}_l^m$.
+Spherical harmonics are orthogonal in the sense
+\begin{equation*}
+    \int_{\theta=0}^{\pi} \int_{\varphi=0}^{2\pi} Y_l^m (Y_{l'}^{m'})^* \dd{\Omega} = 
+    \begin{cases}
+        \frac{4 \pi}{2l+1} & \text{for }l=l' \, , \, m=m' \\
+        0 & \text{else}
+    \end{cases} \, ,
+\end{equation*}
+which is helpful because ${Y_1^0=\cos\theta}$ appears in the surface integral.
+Therefore, for any general $\var{\rho}$, $\var{v_r}$, $\var{p}$ and $\int \var{v_\theta} \dd{\theta}$, only their projection onto $\cos\theta$, i.e. the coefficient of the $l=1$, $m=0$ mode, contributes to the force.
+Inserting the expansions
+\begin{align*}
+    \var{\rho}(r,\theta,\varphi) &= \rho_1(r)\cos\theta + \dots \, , & 
+    \var{p}(r,\theta,\varphi) &= p_1(r)\cos\theta + \dots \, , \\
+    \var{v_r}(r,\theta,\varphi) &= v_{1,r}(r)\cos\theta + \dots \, , &
+    \var{v_\theta}(r,\theta,\varphi) &= v_{1,\theta}(r)\sin\theta + \dots
+\end{align*}
+into \cref{eq:force_before_expansion} yields the formula for the pellet rocket force
+\begin{equation}
+    \boxed{F = \frac{4 \pi r_\text{p}^2}{3} \left( \rho_1 v_0^2 + 2 \rho_0 v_0 (v_{1,r} + v_{1,\theta}) + p_1 \right)_{r=r_\text{p}}} \, .
+    \label{eq:rocket_force_full}
+\end{equation}
+This formula can also be understood physically.
+The ablation rate per unit area $g$, i.e. the mass flux through the pellet surface, is
+\begin{equation*}
+    g(\theta) = \rho \vec{v} \cdot \hat{r} \approx \left( \rho_0 v_0 + (\rho_1 v_0 + \rho_0 v_{1,r}) \cos\theta + \dots \right)_{r=r_\text{p}} = g_0 + g_1 \cos\theta + \dots \, .
+\end{equation*}
+Therefore, the first two terms in \cref{eq:rocket_force_full} describe the force arising from an asymmetric ablation, the term $\rho_0 v_0 v_{1,\theta}$ describes a force from mass flowing around the pellet surface and the last term describes the gas pressure asymmetry. 
+All of this is integrated over the pellet surface area $4 \pi r_\text{p}^2$.
+
+Under the self-regulating shielding assumptions, used in the next parts of this model, the pellet rocket force is predominantly caused by the pressure asymmetry in the neutral gas ablation cloud.
+Therefore, the pellet rocket force is
+\begin{equation}
+    F = \frac{4 \pi r_\text{p}^2}{3} p_1(r_\text{p}) \, ,
+\end{equation}
+which is the same formula as used for the empirical model developed by \textcite{szepesi_radial_2007}.
+The main challenge of this thesis is to develop a model for the pressure asymmetry at the pellet surface $p_1(r_\text{p})$ given an external heating source.
+This is the subject of the following sections.
+
+
+    
     \section{Neutral gas shielding}
+    \label{sec:neutral_gas_shielding}
         \subsection{Isotropic model}
+        \label{ssec:isotropic_model}
             \subsubsection{Analytical description}
             \subsubsection{Numerical solution}
         \subsection{Asymmetric perturbation model}
+        \label{ssec:asymmetric_perturbation_model}
             \subsubsection{Analytical description}
             \subsubsection{Numerical solution}
     \section{Plasmoid shielding}
+    \label{sec:plasmoid_shielding}
         \subsection{Drift induced shielding length asymmetry}
+        \label{ssec:plasmoid_shielding_length}
         \subsection{Heat flux attenuation}
-    \section{Model overview (putting it all together...)}
+        \label{ssec:plasmoid_heat_flux_attenuation}
+    \section{Model summary (putting it all together...)}
+    \label{sec:model_summary}

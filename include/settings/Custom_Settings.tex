@@ -7,12 +7,18 @@
 
 \usepackage{mathtools}
 
+
 % nice, small fracs for the text with \sfrac{}{}
 \usepackage{xfrac}
 
-%\usepackage{physics}
+\usepackage{physics}
 \usepackage{siunitx}
-\AtBeginDocument{\RenewCommandCopy\qty\SI} 
+\AtBeginDocument{\RenewCommandCopy\qty\SI} % the physics package overwrites \qty
+
+
+% better vector arrows
+\usepackage[esvecta, old-arrows, allcommands]{overarrows}
+%\usepackage[a]{esvect}
 
 \usepackage{booktabs}       % \toprule, \midrule, \bottomrule, etc
 \usepackage{multirow}       % multiple row spanning cells
@@ -70,3 +76,4 @@
 
 \addbibresource{references.bib}  % the bib file to use
 
+\usepackage[acronym]{glossaries} % https://www.overleaf.com/learn/latex/Glossaries
