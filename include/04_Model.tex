@@ -13,13 +13,13 @@ Expanding the angular dependence of the gas properties at the pellet surface in 
 The second part of the model, as described in \cref{sec:neutral_gas_shielding}, quantifies the shielding of the pellet from an external asymmetric heating source through the neutral gas ablation cloud.
 Widely used for predicting isotropic pellet ablation dynamics is a model known as the Neutral Gas Shielding (NGS) model, developed by \textcite{parks_effect_1978}.
 There, quasi-steady-state fluid equations for an ideal gas are solved under the approximation of a mono-energetic beam of incoming electrons, which traverse the ablation cloud radially.
-While several more sophisticated models were developed, most models yield the same results \autocite{pegourie_review_2007}.
+This model is in good agreement with experimental data and while several more sophisticated models were developed, most models yield the same results \autocite{pegourie_review_2007}.
 Therefore, the NGS model is the basis of our model.
 The asymmetric ablation dynamics are then added as a perturbation.
 Since the full radial solution of the NGS model is needed to calculate the asymmetric dynamics, the NGS model has to be fully reproduced, as described in \cref{ssec:isotropic_model}.
-The asymmetric perturbation is then solved, as described in \cref{ssec:asymmetric_perturbation_model}, to predict the gas dynamics at the pellet surface, given the external heating source.
+The asymmetric perturbation dynamics are then modelled, as described in \cref{ssec:asymmetric_perturbation_model} given the external heating source.
 
-While this model can be used by itself, if the heat source into the neutral ablation cloud is known, our goal is to predict the pellet rocket acceleration along the major radius of a tokamak.
+While this model can be used by itself, if the heat source into the neutral ablation cloud is known, our goal is to predict the pellet rocket acceleration along the major radius of a tokamak from the background plasma parameters.
 Therefore, the third part of our model, as described in \cref{sec:plasmoid_shielding}, calculates the heat source asymmetry induced by the outward drift of the plasmoid of ablated material.
 How this drift results in a finite and varying shielding length of the electrons through the plasmoid is described in \cref{ssec:plasmoid_shielding_length}.
 In \cref{ssec:plasmoid_heat_flux_attenuation}, the shielding length is used to estimate the heat source at the boundary of the neutral gas cloud.
@@ -42,9 +42,9 @@ with the mass density $\rho(\vec{r})$, the fluid velocity $\vec{v}(\vec{r})$ and
 The symbol $\otimes$ denotes the dyadic product\footnote{equivalent to a tensor product} and $\tensor{\mathbbone}$ denotes the 3-dimensional identity tensor.  
 Assuming local momentum conservation at the pellet surface $S$, the net force on the pellet is
 \begin{equation*}
-    \vec{F} = - \iint_{S} \tensor{\Pi} \cdot \dd{\vec{S}} =  \, ,
+    \vec{F} = - \iint_{S} \tensor{\Pi} \cdot \dd{\vec{S}} \, ,
 \end{equation*}
-where the minus sign indicates that this is the force exerted on the pellet, while the surface element $\dd{S}$ points outwards.
+where the minus sign indicates that this is the force exerted on the pellet, while the surface element $\dd{\vec{S}}$ points outwards.
 \begin{figure}
     \centering
     \includegraphics{figure/pellet_surface_force.pdf}
@@ -91,7 +91,7 @@ Spherical harmonics are orthogonal in the sense
         0 & \text{else}
     \end{cases} \, ,
 \end{equation*}
-which is helpful because ${Y_1^0=\cos\theta}$ appears in the surface integral.
+which is helpful because ${Y_1^0=\cos\theta}$ appears in the surface integral \cref{eq:force_before_expansion}.
 Therefore, for any general $\var{\rho}$, $\var{v_r}$, $\var{p}$ and $\int \var{v_\theta} \dd{\theta}$, only their projection onto $\cos\theta$, i.e. the coefficient of the $l=1$, $m=0$ mode, contributes to the force.
 Inserting the expansions
 \begin{align*}
@@ -122,12 +122,57 @@ which is the same formula as used for the empirical model developed by \textcite
 The main challenge of this thesis is to develop a model for the pressure asymmetry at the pellet surface $p_1(r_\text{p})$ given an external heating source.
 This is the subject of the following sections.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Neutral gas shielding}
+\label{sec:neutral_gas_shielding}
 
-    
-    \section{Neutral gas shielding}
-    \label{sec:neutral_gas_shielding}
-        \subsection{Isotropic model}
-        \label{ssec:isotropic_model}
+As mentioned before, the basis of our model is the NGS model, developed by \textcite{parks_effect_1978}.
+Most of this section is dedicated to describing and reproducing this semi-analytical model.
+The underlying physics processes related to ablation of hydrogen pellets are described already in \cref{sec:ablation_dynamics} and will not be repeated here.
+Instead, the following sections describe first the approximations and limitations of the NGS model in \cref{ssec:ngs_assumptions} then the mathematical details of the model are presented in \cref{ssec:isotropic_model}.
+Finally, \cref{ssec:asymmetric_perturbation_model} describes in detail the perturbative extension to the NGS model, which we have developed.
+
+Since the neutral ablation cloud can be considered an ideal gas, with equation of state
+\begin{equation}
+    \rho = m \frac{p}{T} \quad \text{(ideal gas law)} \, , \label{eq:ideal_gas_law}
+\end{equation}
+the full dynamics are modelled by considering the conservation laws
+\begin{align}
+&\vec{\nabla} \cdot (\rho \vec{v}) = 0 &\text{(mass conservation)} \, , \label{eq:full_mass_conservation} \\
+&\rho (\vec{v} \cdot \vec{\nabla}) \vec{v} = - \vec{\nabla} p &\text{(momentum conservation)} \, , \label{eq:full_momentum_conservation} \\
+&\vec{\nabla} \cdot \left[\left( \frac{\rho v^2}{2} + \frac{\gamma p}{\gamma - 1} \right) \vec{v}\right] = - \mu \vec{\nabla}\cdot\vec{q} \approx \mu \dv{q}{r} &\text{(energy conservation)} \, .\label{eq:full_energy_conservation}
+\end{align}
+
+
+\subsection{Limitations of the NGS model}
+\label{ssec:ngs_assumptions}
+
+...
+        
+        
+\subsection{Isotropic model}
+\label{ssec:isotropic_model}
+
+
+
+Since the neutral ablation cloud can be considered an ideal gas, with equation of state \cref{eq:ideal_gas_law}, the fluid dynamics of this gas are described vectorially through the system of partial differential equations \cref{eq:full_mass_conservation}, \cref{eq:full_momentum_conservation} and \cref{eq:full_energy_conservation}.
+The heat source at each point of the gas is some fraction $\mu$ of the energy which the incident electrons loose while traversing the neutral cloud. ($\mu$ is between 0.6 and 0.7)
+This means the right side of \cref{eq:full_energy_conservation} is $-\vec{\nabla}\cdot\vec{q}$, where $\vec{q}(\vec{r})$ is the heat flux of the incident electrons at point $\vec{r}$ in the neutral gas cloud.
+The magnetic field constrains the electrons to travel along the field lines in gyroorbits as described in \cref{ssec:particle_in_B_field}.
+However, since the NGS model assumes spherical symmetry and is a 1D, radial model, some approximation is necessary to describe the electron heat flux through the same radial coordinate.
+It is assumed that the ablation dynamics are almost equivalent to the case of electrons traversing the neutral ablation cloud radially, with the same heat flux and energy at the cloud boundary as the electrons have which would hit the pellet along their magnetic field line.
+In the case of $\vec{q}=-q\hat{r}$
+\begin{equation}
+    - \vec{\nabla}\cdot \vec{q} = \pdv{q}{r} + \frac{2}{r}q \approx \pdv{q}{r}
+\end{equation}
+
+
+
+
+
+
+
+
             \subsubsection{Analytical description}
             \subsubsection{Numerical solution}
         \subsection{Asymmetric perturbation model}
