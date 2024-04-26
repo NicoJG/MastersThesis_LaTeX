@@ -11,9 +11,19 @@
 % nice, small fracs for the text with \sfrac{}{}
 \usepackage{xfrac}
 
+% make the gather environment scale the equation down if it is too large
+\usepackage{resizegather}
+
+\usepackage[version=4]{mhchem}
 \usepackage{physics}
 \usepackage{siunitx}
 \AtBeginDocument{\RenewCommandCopy\qty\SI} % the physics package overwrites \qty
+% silence the warning of the conflict between siunitx and physics
+% https://tex.stackexchange.com/questions/681700/silencing-siunitx-and-physics-package-qty-warning
+\ExplSyntaxOn
+\msg_redirect_name:nnn{siunitx}{physics-pkg}{none}
+\ExplSyntaxOff
+
 
 
 % better vector arrows

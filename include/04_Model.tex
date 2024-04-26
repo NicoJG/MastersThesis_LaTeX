@@ -36,7 +36,7 @@ In the following, a formula for this force is derived under the assumption that 
 
 Mathematically, the momentum transfer at a point $\vec{r}$ in the gas is expressed through the momentum flux tensor
 \begin{equation*}
-    \tensor{\Pi} = \rho \left( \vec{v} \otimes \vec{v} \right) + p \tensor{\mathbbone} \, ,
+    \tensor{\Pi} = \rho \left(\vec{v} \otimes \vec{v} \right) + p \tensor{\mathbbone} \, ,
 \end{equation*}
 with the mass density $\rho(\vec{r})$, the fluid velocity $\vec{v}(\vec{r})$ and the pressure $p(\vec{r})$. 
 The symbol $\otimes$ denotes the dyadic product\footnote{equivalent to a tensor product} and $\tensor{\mathbbone}$ denotes the 3-dimensional identity tensor.  
@@ -129,42 +129,95 @@ This is the subject of the following sections.
 As mentioned before, the basis of our model is the NGS model, developed by \textcite{parks_effect_1978}.
 Most of this section is dedicated to describing and reproducing this semi-analytical model.
 The underlying physics processes related to ablation of hydrogen pellets are described already in \cref{sec:ablation_dynamics} and will not be repeated here.
-Instead, the following sections describe first the approximations and limitations of the NGS model in \cref{ssec:ngs_assumptions} then the mathematical details of the model are presented in \cref{ssec:isotropic_model}.
-Finally, \cref{ssec:asymmetric_perturbation_model} describes in detail the perturbative extension to the NGS model, which we have developed.
+Instead, the following text describes first general ideas and approximations of the NGS model. 
+Then the mathematical details of how solutions are found are presented in \cref{ssec:isotropic_model}.
+Finally, \cref{ssec:asymmetric_perturbation_model} describes the perturbative extension to the NGS model, which we have developed.
 
-Since the neutral ablation cloud can be considered an ideal gas, with equation of state
-\begin{equation}
-    \rho = m \frac{p}{T} \quad \text{(ideal gas law)} \, , \label{eq:ideal_gas_law}
-\end{equation}
-the full dynamics are modelled by considering the conservation laws
+\begin{figure}
+    \centering
+    \includegraphics{figure/neutral_cloud_heating.pdf}
+    \caption{Caption}
+    \label{fig:neutral_cloud_heating}
+\end{figure}
+
+Since the neutral ablation cloud can be considered a transonic ideal gas, the equation of state is
 \begin{align}
+    &\rho = m \frac{p}{T}  &\text{(ideal gas law)} \, , \label{eq:ideal_gas_law}
+%\end{align}
+\intertext{%
+with mass density $\rho$, pressure $p$, temperature $T$ (in units of energy through Boltzmann's constant $k_\text{B}$) and mass $m$ of one molecule (or atom) in the gas.
+The full gas dynamics are obtained by considering the steady state conservation laws
+}
+%\begin{align}
 &\vec{\nabla} \cdot (\rho \vec{v}) = 0 &\text{(mass conservation)} \, , \label{eq:full_mass_conservation} \\
 &\rho (\vec{v} \cdot \vec{\nabla}) \vec{v} = - \vec{\nabla} p &\text{(momentum conservation)} \, , \label{eq:full_momentum_conservation} \\
-&\vec{\nabla} \cdot \left[\left( \frac{\rho v^2}{2} + \frac{\gamma p}{\gamma - 1} \right) \vec{v}\right] = - \mu \vec{\nabla}\cdot\vec{q} \approx \mu \dv{q}{r} &\text{(energy conservation)} \, .\label{eq:full_energy_conservation}
+&\vec{\nabla} \cdot \left[\left( \frac{\rho v^2}{2} + \frac{\gamma p}{\gamma - 1} \right) \vec{v}\right] = \dv{Q}{t} &\text{(energy conservation)} \, ,\label{eq:full_energy_conservation}
 \end{align}
+also known as Euler equations, with flow velocity $\vec{v}$ and internal heat $Q$.
+$\gamma = C_p/C_V$ is the adiabatic index of the gas or heat capacity ratio.
+Since in an ideal gas the adiabatic index is related to the number of degrees of freedom $f$ of the gas particles through $\gamma = 1+2/f$, it can be assumed to be $\gamma = 5/3$ for a monatomic gas, $\gamma = 7/5$ for a diatomic gas and $\gamma = 9/7$ for a linear triatomic gas.
+In the case of frozen deuterium pellets, the temperature close to the pellet is so low, that dissociation can be neglected, and the whole ablation cloud is modelled as a \ce{D2} gas.
 
+The external heat source $\dd{Q}/\dd{t}$ at each point in the gas is subject to the major approximations done in the NGS model.
+Heat conduction in the neutral cloud is neglected, since this occurs only on a much slower timescale than the heating from highly energetic electrons loosing energy in the cloud through elastic backscattering and inelastic processes \autocite{parks_effect_1978}.
+While, in reality, the incoming electrons are constrained by the magnetic field to traverse the cloud on straight parallel lines, as illustrated in \cref{fig:neutral_cloud_heating}, the NGS model assumes spherical symmetry.
+Therefore, the heat source
+\begin{equation}
+    \dv{Q}{t} \approx - \mu \vec{\nabla}\cdot \vec{q} = \mu \left( \pdv{q}{r} + \frac{2}{r}q \right) \approx \mu \pdv{q}{r}
+    \label{eq:heat_flux_approximation}
+\end{equation}
+is modelled as if the electrons lose their energy on a radial path towards the pellet. 
+Only a fraction $\mu$ of this energy loss goes into heating the gas, while the rest goes into Bremsstrahlung radiation and backscattered electrons.
+\textcite{parks_effect_1978} state that the fraction $\mu$ is fairly well modelled to be between $60 \%$ and $70\%$ at all points in the cloud.
+The exact reasoning for neglecting the term $\frac{2}{r}q$ is not clearly stated by \textcite{parks_effect_1978}.
+However, this presumably is related to an otherwise overestimated heat flux near the pellet surface and considering the success of the NGS model, this assumption is retained in our model.
+Additionally, the incident electrons are approximated to all have the same energy once they reach the point $\vec{r}$ in the neutral ablation cloud.
+These major approximations of a mono-energetic beam of incoming electrons loosing energy radially have been found to be sufficiently accurate for predicting ablation rates in magnetic confinement fusion.
+How much those approximations degrade the accuracy for predicting the pellet rocket effect has to be evaluated by comparison to experiments.
 
-\subsection{Limitations of the NGS model}
-\label{ssec:ngs_assumptions}
+Modelling the exact dynamics for how the electrons lose energy on their path through the gas is a non-trivial task.
+Therefore, the NGS model uses empirical scaling laws for the scattering cross-sections of electrons in a hydrogen gas.
+The electron dynamics are thus governed by the differential equations
+\begin{align}
+    &\dv{E}{r} = 2 \frac{\rho}{m} L(E) &\text{(electron energy loss)} \, , \label{eq:full_electron_energy_loss} \\
+    &\dv{q}{r} = \frac{q}{\lambda_\text{mfp}(E)} = \frac{\rho}{m} q \Lambda(E) &\text{(effective heat flux)}  \, , \label{eq:full_effective_heat_flux}
+\end{align}
+where the mean free path $\lambda_\text{mfp}$ is modelled through the effective energy flux cross-section $\Lambda(E) = \hat{\sigma}_T(E) + 2 L(E)/E$ with the empirical energy loss function
+\begin{gather}
+L(E>\qty{20}{\eV}) = \frac{\qty{8.62e-15}{\eV.\cm^2}}{\left(\frac{E/\unit{\eV}}{100}\right)^{0.823} \!\!\!\! +\left(\frac{E/\unit{\eV}}{60}\right)^{-0.125}  \!\!\!\! +\left(\frac{E/\unit{\eV}}{48}\right)^{-1.94}}
+\end{gather}
+derived by \textcite{miles_electron-impact_1972} and the corresponding effective backscattering cross-section
+\begin{equation}
+\hat{\sigma}_T (E) = \begin{dcases}
+    \left(\frac{\num{8.8e-13}}{(E/\unit{\eV})^{1.71}}-\frac{\num{1.62e-12}}{(E/\unit{\eV})^{1.932}} \right)\, \unit{\cm^2} & \text{for } E>\qty{100}{eV} \\
+    \left(\frac{\num{1.1e-14}}{(E/\unit{\eV})} \right) \unit{\cm^2} & \text{for } E<\qty{100}{\eV}
+\end{dcases}
+\end{equation}
+derived by \textcite{parks_model_1977-1} based on experimentally measured values by \textcite{maecker_ionen-_1955}.
 
-...
-        
+The interdependence between the electron heat flux and the ablation cloud density at each point means that the full system of \cref{eq:ideal_gas_law,eq:full_mass_conservation,eq:full_momentum_conservation,eq:full_energy_conservation,eq:heat_flux_approximation,eq:full_effective_heat_flux,eq:full_electron_energy_loss} needs to be solved self-consistently.
+For that, enough boundary conditions have to be motivated that describe the physical system.
+The low sublimation energy of hydrogen is the reason that the ablation cloud establishes itself to nearly fully shield the pellet.
+Therefore, the heat flux as well as the gas temperature at the pellet surface can be neglected and considered to be exactly zero.
+The outer boundary of the neutral ablation cloud to the plasmoid ablation cloud establishes itself as a shock front, where the flow velocity rapidly decreases to adjust to the pressure in the plasmoid.
+Considering that the back pressure through the ablation cloud and the heat conduction play no significant role in the ablation dynamics, the boundary of the neutral ablation cloud can be seen as infinitely far away from the pellet with negligible pressure.
+Given the heat flux and average energy of the electrons reaching the ablation cloud, the boundary conditions can be summarized as
+\begin{equation}
+\begin{gathered}
+    q(r_\text{p})=0, \quad T(r_\text{p})=0, \\
+    p(r \rightarrow \infty) = 0, \quad
+    q(r\rightarrow\infty) = q_\text{bc}, \quad E(r\rightarrow\infty) = E_\text{bc} \, .
+    \label{eq:full_boundary_conditions}
+\end{gathered}
+\end{equation}
+Where $q_\text{bc}(\theta,\varphi)$ and $E_\text{bc}(\theta,\varphi)$ depends on the amount of plasmoid shielding from the background plasma electrons at temperature $T_\text{bg}$ and density $n_\text{bg}$, as modelled in \cref{sec:plasmoid_shielding}.
+Note that no assumptions have to be made on the velocity at which ablated molecules leave the pellet surface, but it is found to be negligible in the numerical solutions.
+However, for our anisotropic perturbative model, we have to assume that the molecules leave the pellet surface only with a radial velocity and the angular velocity is assumed in our model to be zero.
         
 \subsection{Isotropic model}
 \label{ssec:isotropic_model}
 
 
-
-Since the neutral ablation cloud can be considered an ideal gas, with equation of state \cref{eq:ideal_gas_law}, the fluid dynamics of this gas are described vectorially through the system of partial differential equations \cref{eq:full_mass_conservation}, \cref{eq:full_momentum_conservation} and \cref{eq:full_energy_conservation}.
-The heat source at each point of the gas is some fraction $\mu$ of the energy which the incident electrons loose while traversing the neutral cloud. ($\mu$ is between 0.6 and 0.7)
-This means the right side of \cref{eq:full_energy_conservation} is $-\vec{\nabla}\cdot\vec{q}$, where $\vec{q}(\vec{r})$ is the heat flux of the incident electrons at point $\vec{r}$ in the neutral gas cloud.
-The magnetic field constrains the electrons to travel along the field lines in gyroorbits as described in \cref{ssec:particle_in_B_field}.
-However, since the NGS model assumes spherical symmetry and is a 1D, radial model, some approximation is necessary to describe the electron heat flux through the same radial coordinate.
-It is assumed that the ablation dynamics are almost equivalent to the case of electrons traversing the neutral ablation cloud radially, with the same heat flux and energy at the cloud boundary as the electrons have which would hit the pellet along their magnetic field line.
-In the case of $\vec{q}=-q\hat{r}$
-\begin{equation}
-    - \vec{\nabla}\cdot \vec{q} = \pdv{q}{r} + \frac{2}{r}q \approx \pdv{q}{r}
-\end{equation}
 
 
 

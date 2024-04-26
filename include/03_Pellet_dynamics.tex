@@ -11,7 +11,7 @@ Text snippets I have written before (not really a text):
 
 As mentioned before, the basis of our model is the NGS model, developed by \textcite{parks_effect_1978}.
 Most of this section is dedicated to describing and reproducing this semi-analytical model.
-To give an overview of the model, \cref{ssec:ngs_assumptions} describes the physics of the pellet ablation and which assumptions and approximations were made by \textcite{parks_effect_1978}.
+To give an overview of the model, ... describes the physics of the pellet ablation and which assumptions and approximations were made by \textcite{parks_effect_1978}.
 A detailed mathematical description of the NGS model follows in \cref{ssec:isotropic_model}.
 Finally, \cref{ssec:asymmetric_perturbation_model} describes in detail the perturbative extension to the NGS model, which we developed.
 
@@ -24,18 +24,23 @@ When highly energetic electrons hit the pellet surface, they deposit enough ener
 
 This is the case for pellets consisting of mainly hydrogen isotopes because the energy needed to vaporize molecules at the pellet surface is much lower than 
 
+Things to be mentioned (not only those!)
+\begin{itemize}
+    \item The importance of transonic flow, the convergent-divergent nozzle effect, where the ablated material is mainly heated until it reaches sonic speed and the at supersonic speeds mainly the increase in area is important
+    \item the formation of the shock front at the neutral ablation cloud boundary
+\end{itemize}
 
 
 \subsection{Neutral gas ablation cloud}
 \subsubsection{Ideal gas fluid dynamics}
 
-
-\begin{align}
-&\rho = m \frac{p}{T} &\text{(ideal gas)} \label{eq:ideal_gas_law} \\
-&\vec{\nabla} \cdot (\rho \vec{v}) = 0 &\text{(mass conservation)} \label{eq:full_mass_conservation} \\
-&\rho (\vec{v} \cdot \vec{\nabla}) \vec{v} = - \vec{\nabla} p &\text{(momentum conservation)} \label{eq:full_momentum_conservation} \\
-&\vec{\nabla} \cdot \left[\left( \frac{\rho v^2}{2} + \frac{\gamma p}{\gamma - 1} \right) \vec{v}\right] = - \vec{\nabla}\cdot\vec{q} \approx \mu \dv{q}{r} &\text{(energy conservation)} \label{eq:full_energy_conservation}
-\end{align}
+(derive the ideal gas Euler equations from kinetic theory like in Per's book)
+% \begin{align}
+% &\rho = m \frac{p}{T} &\text{(ideal gas)} \label{eq:ideal_gas_law} \\
+% &\vec{\nabla} \cdot (\rho \vec{v}) = 0 &\text{(mass conservation)} \label{eq:full_mass_conservation} \\
+% &\rho (\vec{v} \cdot \vec{\nabla}) \vec{v} = - \vec{\nabla} p &\text{(momentum conservation)} \label{eq:full_momentum_conservation} \\
+% &\vec{\nabla} \cdot \left[\left( \frac{\rho v^2}{2} + \frac{\gamma p}{\gamma - 1} \right) \vec{v}\right] = - \vec{\nabla}\cdot\vec{q} \approx \mu \dv{q}{r} &\text{(energy conservation)} \label{eq:full_energy_conservation}
+% \end{align}
             
         \subsection{Plasmoid ablation cloud}
     \section{Homogenization of the pellet material}
