@@ -133,16 +133,9 @@ Instead, the following text describes first general ideas and approximations of 
 Then the mathematical details of how solutions are found are presented in \cref{ssec:isotropic_model}.
 Finally, \cref{ssec:asymmetric_perturbation_model} describes the perturbative extension to the NGS model, which we have developed.
 
-\begin{figure}
-    \centering
-    \includegraphics{figure/neutral_cloud_heating.pdf}
-    \caption{Caption}
-    \label{fig:neutral_cloud_heating}
-\end{figure}
-
 Since the neutral ablation cloud can be considered a transonic ideal gas, the equation of state is
 \begin{align}
-    &\rho = m \frac{p}{T}  &\text{(ideal gas law)} \, , \label{eq:ideal_gas_law}
+    &\frac{\rho}{m} = \frac{p}{T}  &\text{(ideal gas law)} \, , \label{eq:ideal_gas_law}
 %\end{align}
 \intertext{%
 with mass density $\rho$, pressure $p$, temperature $T$ (in units of energy through Boltzmann's constant $k_\text{B}$) and mass $m$ of one molecule (or atom) in the gas.
@@ -150,13 +143,21 @@ The full gas dynamics are obtained by considering the steady state conservation 
 }
 %\begin{align}
 &\vec{\nabla} \cdot (\rho \vec{v}) = 0 &\text{(mass conservation)} \, , \label{eq:full_mass_conservation} \\
-&\rho (\vec{v} \cdot \vec{\nabla}) \vec{v} = - \vec{\nabla} p &\text{(momentum conservation)} \, , \label{eq:full_momentum_conservation} \\
+&\rho (\vec{v} \cdot \vec{\nabla}) \vec{v} = - \vec{\nabla} p &\text{(momentum conservation)\footnotemark} \, , \label{eq:full_momentum_conservation} \\
 &\vec{\nabla} \cdot \left[\left( \frac{\rho v^2}{2} + \frac{\gamma p}{\gamma - 1} \right) \vec{v}\right] = \dv{Q}{t} &\text{(energy conservation)} \, ,\label{eq:full_energy_conservation}
 \end{align}
+\footnotetext{The directional derivative of $\vec{b}$ along $\vec{a}$ is denoted as $(\vec{a}\cdot\vec{\nabla})\vec{b}$.}
 also known as Euler equations, with flow velocity $\vec{v}$ and internal heat $Q$.
 $\gamma = C_p/C_V$ is the adiabatic index of the gas or heat capacity ratio.
 Since in an ideal gas the adiabatic index is related to the number of degrees of freedom $f$ of the gas particles through $\gamma = 1+2/f$, it can be assumed to be $\gamma = 5/3$ for a monatomic gas, $\gamma = 7/5$ for a diatomic gas and $\gamma = 9/7$ for a linear triatomic gas.
 In the case of frozen deuterium pellets, the temperature close to the pellet is so low, that dissociation can be neglected, and the whole ablation cloud is modelled as a \ce{D2} gas.
+
+\begin{figure}
+    \centering
+    \includegraphics{figure/neutral_cloud_heating.pdf}
+    \caption{Caption}
+    \label{fig:neutral_cloud_heating}
+\end{figure}
 
 The external heat source $\dd{Q}/\dd{t}$ at each point in the gas is subject to the major approximations done in the NGS model.
 Heat conduction in the neutral cloud is neglected, since this occurs only on a much slower timescale than the heating from highly energetic electrons loosing energy in the cloud through elastic backscattering and inelastic processes \autocite{parks_effect_1978}.
@@ -167,6 +168,7 @@ Therefore, the heat source
     \label{eq:heat_flux_approximation}
 \end{equation}
 is modelled as if the electrons lose their energy on a radial path towards the pellet. 
+\Cref{fig:neutral_cloud_heating} also shows the coordinate system used throughout our model.
 Only a fraction $\mu$ of this energy loss goes into heating the gas, while the rest goes into Bremsstrahlung radiation and backscattered electrons.
 \textcite{parks_effect_1978} state that the fraction $\mu$ is fairly well modelled to be between $60 \%$ and $70\%$ at all points in the cloud.
 The exact reasoning for neglecting the term $\frac{2}{r}q$ is not clearly stated by \textcite{parks_effect_1978}.
@@ -213,9 +215,38 @@ Given the heat flux and average energy of the electrons reaching the ablation cl
 Where $q_\text{bc}(\theta,\varphi)$ and $E_\text{bc}(\theta,\varphi)$ depends on the amount of plasmoid shielding from the background plasma electrons at temperature $T_\text{bg}$ and density $n_\text{bg}$, as modelled in \cref{sec:plasmoid_shielding}.
 Note that no assumptions have to be made on the velocity at which ablated molecules leave the pellet surface, but it is found to be negligible in the numerical solutions.
 However, for our anisotropic perturbative model, we have to assume that the molecules leave the pellet surface only with a radial velocity and the angular velocity is assumed in our model to be zero.
+
+% Finally, before going into the specifics of the isotropic model and the anisotropic perturbation, it is helpful to get a refresher in multivariable calculus, where the general derivatives in spherical coordinates, neglecting any $\varphi$-dependence for brevity, become
+% \begin{align}
+%     \mathrm{grad}f = \vec{\nabla}f =& \, \pdv{f}{r} \hat{r} + \frac{1}{r}\pdv{f}{\theta} \hat{\theta} \, , \\ 
+%     \mathrm{div}\vec{A} = \vec{\nabla} \cdot \vec{A} =& \, \pdv{A_r}{r} + \frac{2}{r}A_r + \frac{1}{r}\pdv{A_\theta}{\theta} + \frac{\cos\theta}{r \sin\theta} A_\theta \, , \\
+%     \begin{split}
+%     (\vec{A}\cdot\vec{\nabla})\vec{B} =& 
+%      \left(A_r \pdv{B_r}{r} + \frac{A_\theta}{r}\pdv{B_r}{\theta} + \frac{A_\theta B_\theta}{r} \right) \hat{r} \\
+%      &+ \left( A_r \pdv{B_\theta}{r} + \frac{A_\theta}{r}\pdv{B_\theta}{\theta} + \frac{A_\theta B_r}{r} \right) \hat{\theta} \, .
+%     \end{split}
+% \end{align}
         
 \subsection{Isotropic model}
 \label{ssec:isotropic_model}
+
+Consider now the case of full spherical symmetry, where each quantity only depends on the radial coordinate $r$ and the velocity is purely radial ($\vec{v}=v \hat{r}$).
+Using this symmetry to evaluate and integrate the mass conservation \cref{eq:full_mass_conservation} leads to
+\begin{equation}
+    4 \pi r^2 \frac{\rho}{m} v = \textit{const} = G \, .
+    \label{eq:ngs_mass_conservation}
+\end{equation}
+The fact that this quantity is independent of the radius means that the total outflow of particles through any spherical shell is $G$, which is the particle ablation rate.
+Note that \textcite{parks_effect_1978} defined $G$ to be the mass ablation rate $G_\text{NGS} = m \cdot G$.
+Similarly, using \cref{eq:ngs_mass_conservation} and \cref{eq:ideal_gas_law}, the momentum conservation \cref{eq:full_momentum_conservation} and the energy conservation \cref{eq:full_energy_conservation} become
+\begin{gather}
+    \rho v \pdv{\rho}{r} = - \pdv{p}{r} \quad \quad \text{and} \\
+    \frac{G}{4 \pi r^2} \pdv{r}(\frac{m}{2}v^2 + \frac{\gamma}{\gamma - 1} T) = \mu \pdv{q}{r}
+\end{gather}
+respectively. 
+Together with the unchanged \cref{eq:full_electron_energy_loss,eq:full_effective_heat_flux} describing the incident electron dynamics and the boundary conditions in \cref{eq:full_boundary_conditions} the full radial solutions can be determined.
+
+(Describe how normalization is useful to reduce the amount of needed numerical solutions)
 
 
 
