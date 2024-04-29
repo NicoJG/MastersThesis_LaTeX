@@ -48,7 +48,7 @@ where the minus sign indicates that this is the force exerted on the pellet, whi
 \begin{figure}
     \centering
     \includegraphics{figure/pellet_surface_force.pdf}
-    \caption{Caption}
+    \caption{Illustration of how the pellet rocket force arises from both an asymmetry in pressure on the pellet surface (visualized by the red background) and an asymmetric ablation (visualized by the vectors). Additionally, the coordinate system used throughout this thesis is denoted by the unit vectors $\hat{z}$, $\hat{r}$, $\hat{\theta}$. The pellet is modelled as a solid sphere of radius $r_\text{p}$.}
     \label{fig:pellet_surface_force}
 \end{figure}
 Choosing spherical coordinates $r,\theta,\varphi$ so that the pellet is centred at the origin and a positive force $F$ points in the negative $\hat{z}$-direction, as shown in \cref{fig:pellet_surface_force}, the force becomes
@@ -144,10 +144,10 @@ The full gas dynamics are obtained by considering the steady state conservation 
 %\begin{align}
 &\vec{\nabla} \cdot (\rho \vec{v}) = 0 &\text{(mass conservation)} \, , \label{eq:full_mass_conservation} \\
 &\rho (\vec{v} \cdot \vec{\nabla}) \vec{v} = - \vec{\nabla} p &\text{(momentum conservation)\footnotemark} \, , \label{eq:full_momentum_conservation} \\
-&\vec{\nabla} \cdot \left[\left( \frac{\rho v^2}{2} + \frac{\gamma p}{\gamma - 1} \right) \vec{v}\right] = \dv{Q}{t} &\text{(energy conservation)} \, ,\label{eq:full_energy_conservation}
+&\vec{\nabla} \cdot \left[\left( \frac{\rho v^2}{2} + \frac{\gamma p}{\gamma - 1} \right) \vec{v}\right] = Q &\text{(energy conservation)} \, ,\label{eq:full_energy_conservation}
 \end{align}
-\footnotetext{The directional derivative of $\vec{b}$ along $\vec{a}$ is denoted as $(\vec{a}\cdot\vec{\nabla})\vec{b}$.}
-also known as Euler equations, with flow velocity $\vec{v}$ and internal heat $Q$.
+\footnotetext{The directional derivative of $\vec{b}$ along $\vec{a}$ is denoted as $(\vec{a}\cdot\vec{\nabla})\vec{b}$.}%
+also known as Euler equations, with flow velocity $\vec{v}$ and external heat source $Q$.
 $\gamma = C_p/C_V$ is the adiabatic index of the gas or heat capacity ratio.
 Since in an ideal gas the adiabatic index is related to the number of degrees of freedom $f$ of the gas particles through $\gamma = 1+2/f$, it can be assumed to be $\gamma = 5/3$ for a monatomic gas, $\gamma = 7/5$ for a diatomic gas and $\gamma = 9/7$ for a linear triatomic gas.
 In the case of frozen deuterium pellets, the temperature close to the pellet is so low, that dissociation can be neglected, and the whole ablation cloud is modelled as a \ce{D2} gas.
@@ -155,16 +155,16 @@ In the case of frozen deuterium pellets, the temperature close to the pellet is 
 \begin{figure}
     \centering
     \includegraphics{figure/neutral_cloud_heating.pdf}
-    \caption{Caption}
+    \caption{Illustration of the asymmetric heating of the neutral gas ablation cloud by incoming electrons travelling along the magnetic field lines. The boundary between the neutral ablation cloud and the ionized ablation cloud is considered as $r\rightarrow\infty$. The electrons are modelled to lose their energy radially inwards, while in reality they traverse the neutral ablation cloud on parallel straight lines from two sides.}
     \label{fig:neutral_cloud_heating}
 \end{figure}
 
-The external heat source $\dd{Q}/\dd{t}$ at each point in the gas is subject to the major approximations done in the NGS model.
+The external heat source $Q$ at each point in the gas is subject to the major approximations done in the NGS model.
 Heat conduction in the neutral cloud is neglected, since this occurs only on a much slower timescale than the heating from highly energetic electrons loosing energy in the cloud through elastic backscattering and inelastic processes \autocite{parks_effect_1978}.
 While, in reality, the incoming electrons are constrained by the magnetic field to traverse the cloud on straight parallel lines, as illustrated in \cref{fig:neutral_cloud_heating}, the NGS model assumes spherical symmetry.
 Therefore, the heat source
 \begin{equation}
-    \dv{Q}{t} \approx - \mu \vec{\nabla}\cdot \vec{q} = \mu \left( \pdv{q}{r} + \frac{2}{r}q \right) \approx \mu \pdv{q}{r}
+    Q \approx - \mu \vec{\nabla}\cdot \vec{q} = \mu \left( \pdv{q}{r} + \frac{2}{r}q \right) \approx \mu \pdv{q}{r}
     \label{eq:heat_flux_approximation}
 \end{equation}
 is modelled as if the electrons lose their energy on a radial path towards the pellet. 
@@ -187,6 +187,7 @@ The electron dynamics are thus governed by the differential equations
 where the mean free path $\lambda_\text{mfp}$ is modelled through the effective energy flux cross-section $\Lambda(E) = \hat{\sigma}_T(E) + 2 L(E)/E$ with the empirical energy loss function
 \begin{gather}
 L(E>\qty{20}{\eV}) = \frac{\qty{8.62e-15}{\eV.\cm^2}}{\left(\frac{E/\unit{\eV}}{100}\right)^{0.823} \!\!\!\! +\left(\frac{E/\unit{\eV}}{60}\right)^{-0.125}  \!\!\!\! +\left(\frac{E/\unit{\eV}}{48}\right)^{-1.94}}
+\label{eq:energy_loss_function}
 \end{gather}
 derived by \textcite{miles_electron-impact_1972} and the corresponding effective backscattering cross-section
 \begin{equation}
@@ -196,6 +197,14 @@ derived by \textcite{miles_electron-impact_1972} and the corresponding effective
 \end{dcases}
 \end{equation}
 derived by \textcite{parks_model_1977-1} based on experimentally measured values by \textcite{maecker_ionen-_1955}.
+These functions are visualized in \cref{fig:energy_attenuation}.
+
+\begin{figure}
+    \centering
+    \includegraphics{figure/empirical_cross_sections.pdf}
+    \caption{Empirical functions $\Lambda(E)$, $L(E)$ and $\hat{\sigma}_T(E)$ used in the NGS model by \textcite{parks_effect_1978} for the energy loss of electrons in a hydrogen gas.}
+    \label{fig:energy_attenuation}
+\end{figure}
 
 The interdependence between the electron heat flux and the ablation cloud density at each point means that the full system of \cref{eq:ideal_gas_law,eq:full_mass_conservation,eq:full_momentum_conservation,eq:full_energy_conservation,eq:heat_flux_approximation,eq:full_effective_heat_flux,eq:full_electron_energy_loss} needs to be solved self-consistently.
 For that, enough boundary conditions have to be motivated that describe the physical system.
@@ -207,8 +216,8 @@ Given the heat flux and average energy of the electrons reaching the ablation cl
 \begin{equation}
 \begin{gathered}
     q(r_\text{p})=0, \quad T(r_\text{p})=0, \\
-    p(r \rightarrow \infty) = 0, \quad
-    q(r\rightarrow\infty) = q_\text{bc}, \quad E(r\rightarrow\infty) = E_\text{bc} \, .
+    p_\infty := p(r \rightarrow \infty) = 0, \quad
+    q_\infty := q(r\rightarrow\infty) = q_\text{bc}, \quad E_\infty :=  E(r\rightarrow\infty) = E_\text{bc} \, .
     \label{eq:full_boundary_conditions}
 \end{gathered}
 \end{equation}
@@ -236,29 +245,142 @@ Using this symmetry to evaluate and integrate the mass conservation \cref{eq:ful
     4 \pi r^2 \frac{\rho}{m} v = \textit{const} = G \, .
     \label{eq:ngs_mass_conservation}
 \end{equation}
-The fact that this quantity is independent of the radius means that the total outflow of particles through any spherical shell is $G$, which is the particle ablation rate.
-Note that \textcite{parks_effect_1978} defined $G$ to be the mass ablation rate $G_\text{NGS} = m \cdot G$.
+This radially constant quantity represents the total outflow of particles through any spherical shell and is thus denoted as particle ablation rate $G$.
+Note that \textcite{parks_effect_1978} defined $G$ to be the mass ablation rate $G_\text{Parks} = m \cdot G$.
 Similarly, using \cref{eq:ngs_mass_conservation} and \cref{eq:ideal_gas_law}, the momentum conservation \cref{eq:full_momentum_conservation} and the energy conservation \cref{eq:full_energy_conservation} become
 \begin{gather}
-    \rho v \pdv{\rho}{r} = - \pdv{p}{r} \quad \quad \text{and} \\
-    \frac{G}{4 \pi r^2} \pdv{r}(\frac{m}{2}v^2 + \frac{\gamma}{\gamma - 1} T) = \mu \pdv{q}{r}
+    \rho v \pdv{v}{r} = - \pdv{p}{r} \quad \quad \text{and} \label{eq:ngs_momentum_conservation} \\
+    \frac{G}{4 \pi r^2} \pdv{r}(\frac{m}{2}v^2 + \frac{\gamma}{\gamma - 1} T) = \mu \pdv{q}{r} \label{eq:ngs_energy_conservation}
 \end{gather}
 respectively. 
 Together with the unchanged \cref{eq:full_electron_energy_loss,eq:full_effective_heat_flux} describing the incident electron dynamics and the boundary conditions in \cref{eq:full_boundary_conditions} the full radial solutions can be determined.
 
-(Describe how normalization is useful to reduce the amount of needed numerical solutions)
+Since finding a fully analytical expression for the solutions is too demanding and potentially impossible, the equations have to be prepared for numerical integration.
+It turns out to be useful to normalize all quantities to their value at the sonic radius $r_\star$, i.e. the radius at which the flow velocity $v$ transitions between subsonic to supersonic speeds, in the form
+\begin{gather}
+\begin{gathered}
+    \widetilde{\rho}=\frac{\rho}{\rho_\star}, \quad \widetilde{p} = \frac{p}{p_\star}, \quad \widetilde{T} = \frac{T}{T_\star}, \quad \widetilde{v}=\frac{v}{v_\star}, \quad \widetilde{r}=\frac{r}{r_\star} \\
+    \widetilde{q}=\frac{q}{q_\star}, \quad \widetilde{E}=\frac{E}{E_\star}, \quad \widetilde{\Lambda} = \frac{\Lambda}{\Lambda_\star}, \quad \widetilde{L} = \frac{L}{E_\star \Lambda_\star} , \quad \text{with} \quad \Lambda_\star=\Lambda(E_\star).
+\end{gathered}
+\label{eq:ngs_normalization}
+\end{gather}
+In this thesis, all quantities denoted with a $\star$ represent their physical values at the sonic radius.
+Here, variables denoted with a \textasciitilde{}  represent their normalized, dimensionless version.
+However, the \textasciitilde{} is omitted in the following to prevent visual clutter and all quantities can be considered normalized, if not stated otherwise.
+
+Substituting the physical quantities by the normalized quantities in the ideal gas law \cref{eq:ideal_gas_law} and the mass conservation \cref{eq:ngs_mass_conservation} gives
+\begin{gather}
+    \rho = \frac{p}{T}\, \quad \text{and} \\
+    r^2\frac{p}{T}v = 1 \, .
+\end{gather}
+The normalized set of differential equations is then obtained after some lengthy but straightforward algebra by additionally using the definition of the speed of sound in an ideal gas
+\begin{equation}
+    v_\star = \sqrt{\frac{\gamma T_\star}{m}} \, . \label{eq:speed_of_sound}
+\end{equation}
+%and evaluating \cref{eq:ideal_gas_law} and \cref{eq:ngs_mass_conservation} at the sonic radius.
+Meaning, the \cref{eq:ngs_momentum_conservation,eq:ngs_energy_conservation,eq:full_electron_energy_loss,eq:full_effective_heat_flux} can be rewritten in the normalized form
+\begin{align}
+    &\pdv{v^2}{r} = \frac{4v^2T}{(T-v^2)r}\left(\frac{q\Lambda r}{Tv} -1\right) \, , \label{eq:ngs_normalized_dv2}\\
+    &\pdv{T}{r} = \frac{2\Lambda q}{v}-\frac{1}{2}(\gamma -1)\pdv{v^2}{r} \, , \label{eq:ngs_normalized_dT}\\
+    &\pdv{E}{r} = 2\lambda _\star\frac{L}{r^2v}\, ,\label{eq:ngs_normalized_dE}\\
+    &\pdv{q}{r} = \lambda _\star\frac{q\Lambda }{vr^2} \,.\label{eq:ngs_normalized_dq}
+\end{align}
+No additional approximations were made in this derivation and all normalization constants were combined into a single dimensionless quantity
+\begin{equation}
+    \lambda_\star = r_\star \Lambda_\star \frac{p_\star}{T_\star} \, .
+    \label{eq:lambda_star_definition}
+\end{equation}
+Since, by design, all normalized quantities (except $L$) are known to be 1 at the sonic radius $r=1$, the full radial dependence of $v(r)$, $T(r)$, $E(r)$ and $q(r)$ is set by providing $\gamma$, $\lambda_\star$ and $E_\star$ (hidden in $\Lambda$ and $L$).
+While $\gamma$ is a material dependent parameter, $\lambda_\star$ and $E_\star$ will be shown to be functions only of $E_\text{bc}$ for the chosen boundary conditions in \cref{eq:full_boundary_conditions}.
+
+Considering $T(1)=v(1)=1$ in \cref{eq:ngs_normalized_dv2} could lead to believe a singularity $1/(T-v^2)$ appeared.
+However, requiring that $\partial{v^2}/\partial{r}$ is finite at the sonic radius allowed to derive the additional constraint on the normalization constants
+\begin{equation}
+    \frac{4 \pi r_\star^2}{G} \frac{(\gamma - 1)}{\gamma} \frac{\lambda_\star \mu q_\star}{T_\star} = 2 \, ,\label{eq:ngs_singularity_constraint}
+\end{equation}
+which was used in deriving \cref{eq:ngs_normalized_dv2} and \cref{eq:ngs_normalized_dT}.
+Using L'Hôpital's rule enables evaluation of the apparent singularity at the sonic radius, yielding
+\begin{equation}
+    \chi_\star := \eval{\pdv{v^2}{r}}_{r = 1} = \frac{2}{\gamma+1} \left((3 - \gamma) + \sqrt{(3-\gamma)^2 - 2(\lambda_\star + \Psi_\star - 1)(\gamma + 1)} \right) \, ,
+\end{equation}
+with an additional shorthand defined as $\Psi_\star := 2 \lambda_\star \left( L \pdv{\Lambda}{E} \right)_{E=1}$.
+Now everything is known to start finding numerical solutions for both the normalized and consequently the physical quantities.
+
+\subsubsection{Numerical solution}
+
+The goal of the procedure described below is to find numerical solutions for $v(r)$, $T(r)$, $E(r)$ and $q(r)$, which satisfy both the differential \cref{eq:ngs_normalized_dv2,eq:ngs_normalized_dT,eq:ngs_normalized_dE,eq:ngs_normalized_dq} and the boundary conditions in \cref{eq:full_boundary_conditions}. 
+For this purpose, for some chosen $\gamma$ and $E_\star$, we optimize $\lambda_\star$ so that $T(r_p) = q(r_p) = 0$ at some radius $r_p<1$, which is then interpreted as the normalized pellet radius. 
+Together with the values $q_\infty$ and $q_\infty$ all normalization constants are determined, and the full physical solution can be calculated. 
+As a first guess, it suffices to set $E_\star \approx E_\text{bc}$, since most of the energy is absorbed inside the sonic radius.
+However, a scan over $E_\star$ allows setting it more precisely.
+
+Many different methods exist to solve a set of first order differential equations numerically.
+Knowing that 
+\begin{equation*}
+    v(r=1)=1,\quad T(r=1)=1,\quad E(r=1)=1,\quad q(r=1)=1,
+\end{equation*}
+any method would work which solves initial value problems.
+The method of numerical integration found to work well here is an \enquote{implicit multi-step variable-order (1 to 5) method based on a backward differentiation formula for the derivative approximation}\footnote{see \url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html}} based on the implementation by \textcite{shampine_matlab_1997}.
+The solutions are calculated from $r=1$ both downwards and upwards.
+Optimization of $\lambda_\star$ is done through minimizing the error of the boundary conditions $T(r_p) = q(r_p) = 0$.
+Here, \enquote{a modification of the Powell hybrid method as implemented in MINPACK}\footnote{see \url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html}} is used \autocite{more_user_1980}.
+
+\begin{figure}
+    \centering
+    \includegraphics{figure/ode0_solution_Estar_3.000e+04_gamma_7_5.pdf}
+    \caption{Caption (I have to write the caption and make the figure look nicer!)}
+    \label{fig:example_0th_order_solution}
+\end{figure}
+
+An example solution for $\gamma = 7/5$ and $E_\star = \qty{30}{\keV}$ is shown in \cref{fig:example_0th_order_solution}.
+This same solution is shown by \textcite{parks_effect_1978} in their fig. 3 and 4, which serves as a validation of the correctness of our numerical solutions.
+Visible is that $E(r\rightarrow\infty) \approx 1$, which justifies $E_\star \approx E_\text{bc}$.
+
+Another validation is performed by scanning over the parameters $\gamma$ and $E_\text{bc}$ and plotting the calculated results for $\lambda_\star$, $r_\text{p}$, $E_\infty$ and $q_\infty$, as shown in \cref{fig:ode0_scan}.
+Again, the same graphic is found in the paper by \textcite{parks_effect_1978} as their fig. 1 and 2.
+Additionally, scaling laws for $\gamma = 5/3$ (dotted lines) are given in the paper, which agree well with our results.
+It is important to note that in \cref{fig:ode0_scan} the energy dependence is shown on a logarithmic x-axis, while the variance on the y-axis is small and linear.
+Thus, the dependence on $E_\text{bc}$ is very weak, and the quantities can be considered nearly constant.
+The scaling laws representing our solution (dashed lines) are given in \cref{chap:appendix_scaling_laws}.
+(Do I want to show how well the boundary conditions are met? And that the limitation $E < \qty{20}{\eV}$ might matter a bit? Also, I might want to show $p_0(r_p)$)
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figure/recreated_Parks_E_inf.pdf}
+    \caption{Caption (I have to write the caption and make the figure look nicer!)}
+    \label{fig:ode0_scan}
+\end{figure}
+
+The full solution of the normalized spherically symmetric quantities is enough for modelling the normalized asymmetric perturbation, as described in the next section.
+However, to calculate any physical quantities, the normalization constants in \cref{eq:ngs_normalization} need to be known.
+Given the physical boundary conditions, i.e. model input parameters, $r_\text{p}$, $E_\text{bc}$ and $q_\text{bc}$, the results as presented in \cref{fig:ode0_scan}, directly enable calculating
+\begin{align}
+    r_\star = \frac{r_p}{\widetilde{r}_p}, \quad 
+    E_\star = \frac{E_\text{bc}}{\widetilde{E}_\infty}, \quad \text{and} \quad
+    q_\star = \frac{q_\text{bc}}{\widetilde{q}_\infty}\,.
+\end{align}
+Apart from $\rho_\star = m p_\star/T_\star$, the still unknown normalization constants are $p_\star$, $T_\star$ and $v_\star$.
+These quantities, together with the particle ablation rate $G$, are determined by solving the system of \cref{eq:ngs_mass_conservation,eq:speed_of_sound,eq:ngs_singularity_constraint,eq:lambda_star_definition}, yielding
+\begin{align}
+    \Aboxed{p_\star &= f_p(E_\text{bc}, \gamma) \cdot \left[ \frac{m (\mu q_\text{bc})^2}{\Lambda_\star r_\text{p}} \right]^\frac{1}{3}} \, , \label{eq:prefactor_p_star} \\
+    T_\star &= f_T(E_\text{bc}, \gamma) \cdot \left[ m (\Lambda_\star \mu q_\text{bc} r_\text{p})^2 \right]^\frac{1}{3} \, , \label{eq:prefactor_T_star} \\
+    v_\star &= f_v(E_\text{bc}, \gamma) \cdot \left[ \frac{\Lambda_\star \mu q_\text{bc} r_\text{p}}{m} \right]^\frac{1}{3} \, , \label{eq:prefactor_v_star} \\
+    G &= f_G(E_\text{bc}, \gamma) \cdot \left[ \frac{\mu q_\text{bc} r_\text{p}^4}{\Lambda_\star^2 m} \right]^\frac{1}{3} \, . \label{eq:prefactor_G}
+\end{align}
+The prefactors $f_p$, $f_T$, $f_v$ and $f_G$ combine all dimensionless factors and are shown in \cref{fig:prefactors_0th_order} to only weakly depend on $E_\text{bc}$.
+Scaling laws are again provided in \cref{chap:appendix_scaling_laws}.
+Since the pellet rocket effect mainly depends on the pressure asymmetry at the pellet surface, the most important formula here is \cref{eq:prefactor_p_star}, where $f_p \approx 0.15$ and as stated earlier $\mu \approx 0.65$.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figure/prefactors_0th_order.pdf}
+    \caption{Caption (I have to write the caption and make the figure look nicer!)}
+    \label{fig:prefactors_0th_order}
+\end{figure}
+
+(Now all equations are set up. Now is a good time to summarize. I also need to describe how the sonic quantities can be derived. And then I need to describe how the numerical solutions are found)
 
 
-
-
-
-
-
-
-
-
-            \subsubsection{Analytical description}
-            \subsubsection{Numerical solution}
         \subsection{Asymmetric perturbation model}
         \label{ssec:asymmetric_perturbation_model}
             \subsubsection{Analytical description}

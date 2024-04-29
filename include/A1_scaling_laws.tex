@@ -1,0 +1,18 @@
+\chapter{Appendix: Reproduced scaling laws of the NGS model}
+\label{chap:appendix_scaling_laws}
+
+While the full radial dependence in the NGS model has to be calculated numerically as described in \cref{ssec:isotropic_model}, the normalization constants, i.e. the quantities at the sonic radius only weakly depend on the energy at the boundary condition $E_\text{bc}$, as shown in \cref{fig:ode0_scan,fig:prefactors_0th_order}.
+Scaling laws for all dimensionless quantities of importance are provided here for convenience, in the form
+\begin{equation}
+    f(E_\text{bc}) = a_0 + a_1 \cdot \log_{10}E_\text{bc} \, .
+\end{equation}
+The coefficients $a_0(\gamma)$ and $a_1(\gamma)$ are provided in \cref{tab:scaling_law_coefficients}.
+
+\begin{table}
+    \centering
+    \caption{Coefficients for the scaling laws representing our numerical results of calculating the NGS model. While $\lambda_\star$, $r_\text{p}$, $E_\infty$ and $q_\infty$ are the direct results of the numerical procedure described in \cref{ssec:isotropic_model} directly the normalized quantities, $f_p$, $f_T$, $f_v$ and $f_G$ are the dimensionless prefactors for $p_\star$, $T_\star$, $v_\star$ and $G$ in \cref{eq:prefactor_p_star,eq:prefactor_T_star,eq:prefactor_v_star,eq:prefactor_G}.}
+    \resizebox{\textwidth}{!}{%
+    \input{include/exported_latex/0th_order_fit_parameters.tex}
+    }
+    \label{tab:scaling_law_coefficients}
+\end{table}
