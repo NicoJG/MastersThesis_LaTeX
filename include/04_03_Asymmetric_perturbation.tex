@@ -1,0 +1,118 @@
+\subsection{Asymmetric perturbation model}
+\label{ssec:asymmetric_perturbation_model}
+
+Provided a procedure of calculating the full ablation dynamics under the assumption of spherical symmetry, it is now possible to describe the asymmetry in the ablation dynamics as a perturbative model.
+The baseline model is the previously described NGS model and will be denoted from now on with the index 0.
+Assuming the real ablation process is described well by the NGS model quantities $y_0(r)$ with a small correction $\var{y}(r,\theta)$, which depends on the asymmetry along one axis ($z$-axis in \cref{fig:neutral_cloud_heating}), the full physical quantities can be modelled as
+\begin{equation}
+\begin{aligned}
+    \rho &= \rho_0 + \var\rho\, , & 
+    p &= p_0 + \var{p}\, , \\
+    T &= T_0 + \var{T}\, , & 
+    \vec{v} &= \hat{r} (v_0 + \var{v}_r) + \hat{\theta} (0+\var{v}_\theta)\, , \\
+    q &= q_0 + \var{q}\, , & 
+    E &= E_0 + \var{E}\, .
+\end{aligned}
+\end{equation}
+The spherical coordinate system is chosen as depicted in \cref{fig:neutral_cloud_heating,fig:pellet_surface_force}, while neglecting the $\varphi$-dependence.
+
+Treating the system as a quasi-steady-state ideal gas is retained in our model in the same way the NGS model is treated.
+Therefore, the \cref{eq:ideal_gas_law,eq:full_mass_conservation,eq:full_momentum_conservation,eq:full_energy_conservation,eq:heat_flux_approximation,eq:full_effective_heat_flux,eq:full_electron_energy_loss} form the basis of our asymmetric perturbative model.
+This includes the approximation of a purely radial flux of electrons, as represented by \cref{eq:heat_flux_approximation}.
+Linearizing the set of equations in the perturbation quantities $\var{y}$, combined with the fact that the NGS quantities $y_0$ satisfy those equations themselves, yields
+\begin{flalign}
+    &\var{\rho} = m \frac{\var{p}}{T_0} - m \frac{p_0}{T_0^2} \var{T} 
+    &\text{(ideal gas law),}& \label{eq:linearized_ideal_gas_law} \\
+    &\vec{\nabla} \cdot (\var{\rho} \vec{v}_0 + \rho_0 \var{\vec{v}}) = 0 
+    &\text{(mass conservation),}&\label{eq:linearized_mass_conservation} \\
+    &\rho_0 (\vec{v}_0 \cdot \vec{\nabla})\var{\vec{v}} + \rho_0 (\var{\vec{v}} \cdot \vec{\nabla})\vec{v}_0 + \var{\rho} (\vec{v}_0 \cdot \vec{\nabla})\var{\vec{v}} = - \vec{\nabla}\var{p} 
+    \span\span\nonumber\\&&\text{(momentum conservation),}&\label{eq:linearized_momentum_conservation} \\
+    &\vec{\nabla} \cdot \left[ \left( \frac{1}{2}\rho_0 v_0^2 + \frac{\gamma}{\gamma - 1}p_0 \right)\var{\vec{v}} + \left( \frac{1}{2}\var{\rho} v_0^2 + \rho_0 (\vec{v}_0\cdot \var{\vec{v}}) + \frac{\gamma}{\gamma - 1}\var{p} \right)\vec{v}_0 \right] = \mu \pdv{\var{q}}{r} 
+    \span\span\nonumber\\&&\text{(energy conservation),}& \label{eq:linearized_energy_conservation} \\
+    &\pdv{\var{E}}{r} = 3\frac{\var{\rho}}{m}L(E_0) + \frac{1}{2} \frac{\rho_0}{m} \eval{\pdv{L}{E}}_{E_0}  \!\!\!\! \var{E} 
+    &\text{(electron energy loss),}&\label{eq:linearized_effective_heat_flux} \\
+    &\pdv{\var{q}}{r} = \frac{\var{\rho}}{m} q_0 \Lambda(E_0) + \frac{\rho_0}{m} \var{q} \Lambda(E_0) + \frac{\rho_0}{m} q_0 \eval{\pdv{\Lambda}{E}}_{E_0} \!\!\!\! \var{E} \quad
+    \span\text{(effective heat flux).}& \label{eq:linearized_electron_energy_loss}
+\end{flalign}
+
+Now we want to find a set of equations for the $r$-dependence and a separate set of equations for the $\theta$-dependence.
+Fortunately, this is possible without further approximations by expanding the perturbation in terms of general fully orthogonal basis functions $\{X_l(\theta)\}$ in the form
+\begin{align}
+\begin{aligned}
+    \var{\rho} &= \sum_l \rho_l(r) X_l(\theta) \, , &
+    \var{p} &= \sum_l p_l(r) X_l(\theta) \, , \\
+    \var{T} &= \sum_l T_l(r) X_l(\theta) \, , &
+    \var{v}_r &= \sum_l v_{l,r}(r) X_l(\theta) \, , \\
+    \var{q} &= \sum_l q_l(r) X_l(\theta) \, , &
+    \var{E} &= \sum_l E_l(r) X_l(\theta) \, , &
+\end{aligned}
+\end{align}
+while expanding only $\var{v}_\theta$ in terms of a different general basis $\{Y_l(\theta)\}$ as
+\begin{equation}
+    \var{v}_\theta = \sum_l v_{l,\theta}(r) Y_l(\theta) \, .
+\end{equation}
+
+% the set of \cref{eq:linearized_ideal_gas_law,eq:linearized_mass_conservation,eq:linearized_momentum_conservation,eq:linearized_energy_conservation,eq:linearized_effective_heat_flux,eq:linearized_electron_energy_loss}
+Taking the derivatives in terms of spherical coordinates, the only $\theta$-derivative appearing in \cref{eq:linearized_mass_conservation,eq:linearized_energy_conservation} is
+\begin{equation*}
+    \vec{\nabla}\cdot(\var{v}_\theta \hat{\theta}) = \frac{1}{r \sin\theta}\pdv{\theta}(\sin\theta \var{v}_\theta) \, ,
+\end{equation*}
+while all other terms are linear in the $\theta$-dependence.
+Therefore, separating the $r$- from the $\theta$-dependence in those equations is possible by requiring
+\begin{equation}
+    X_l(\theta) \propto \frac{1}{\sin\theta} \pdv{\theta}(\sin\theta Y_l(\theta)) \, .
+    \label{eq:X_l_requiremetn}
+\end{equation}
+Similarly, the only $\theta$-derivative in \cref{eq:linearized_momentum_conservation} is
+\begin{equation*}
+    \hat{\theta} \cdot \vec{\nabla}\var{p} = \frac{1}{r} \pdv{\var{p}}{\theta} \, ,
+\end{equation*}
+while the only other components in the $\hat{\theta}$-direction are linear in $\var{v}_\theta$.
+This leads us to require
+\begin{equation}
+    Y_l(\theta) = \pdv{X_l}{\theta}\, .
+    \label{eq:Y_l_requiremetn}
+\end{equation}
+The last two \cref{eq:linearized_effective_heat_flux,eq:linearized_electron_energy_loss} by design do not contain $\theta$-derivatives or $\var{v}_\theta$.
+Combining those two requirements and choosing the proportionality constant in \cref{eq:X_l_requiremetn} to be $-1/(l(l+1))$ leads to the defining differential equation for associated Legendre polynomials $X_l(\theta) = P^0_l(\cos\theta)$.
+Thus, the $\theta$-dependence of each mode $l$ is known and leads to a set of equations for the $r$-dependent coefficients of each mode $l$.
+Note that the $l=0$ mode is independent of $\theta$, which motivates our choice of notation $y_0$ for the NGS model quantities.
+
+After a rather lengthy derivation, the set of equations describing the $r$-dependence of the asymmetric neutral ablation cloud quantities is
+\begin{align}
+    &\rho_l = m \left( \frac{p_l}{T_0} - \frac{p_0}{T_0^2} T_l \right) \, , \\
+    &\pdv{\rho_0}{r}v_{l,r} + \rho_0 \left[ \frac{1}{r^2} \pdv{r}(r^2 v_{l,r}) - \frac{l(l+1)}{r} v_{l,\theta} \right] + v_0 \pdv{\rho_l}{r} + \frac{1}{r^2}\pdv{r}(r^2 v_0) \rho_l = 0 \, , \\
+    &\rho_0 v_0 \pdv{v_{l,r}}{r} + \rho_0 \pdv{v_0}{r} v_{l,r} + v_0 \pdv{v_0}{r} \rho_l = - \pdv{p_l}{r} \, , \\
+    &\rho_0 v_0 \pdv{v_{l,\theta}}{r} + \rho_0 \frac{v_0}{r} v_{l,\theta} = - \frac{p_l}{r} \, , \\
+    &\left[ v_{l,r} \pdv{r} + \frac{1}{r^2}\pdv{r}(r^2 v_{l,r}) - \frac{l(l+1)}{r} v_{l,\theta} \right] \left( \frac{1}{2} \rho v_0^2 + \frac{\gamma}{\gamma - 1} p_0 \right) \nonumber \\
+    &+ \left[ v_0 \pdv{r} + \frac{1}{r^2}\pdv{r}(r^2 v_0) \right] \left( \frac{1}{2} \rho_l v_0^2 + \rho_0 v_0 v_{l,r} + \frac{\gamma}{\gamma-1}p_l \right) = \mu \pdv{q_l}{r} \, ,
+\end{align}
+while the electron dynamics in the neutral gas are described by
+\begin{align}
+    &\pdv{E_l}{r} = 2 \frac{\rho_l}{m} L(E_0) + 2 \frac{\rho_0}{m} \eval{\pdv{L}{E}}_{E_0} E_l \, , \\
+    &\pdv{q_l}{r} = \frac{\rho_l}{m} q_0 \Lambda(E_0) + \rho_0 q_l \Lambda(E_0) + \rho_0 q_0 \eval{\pdv{\Lambda}{E}}_{E_0} E_l \, .
+\end{align}
+
+Apart from enabling the separation of variables, expansion in terms of Legendre polynomials is convenient for calculating the pellet rocket force.
+As shown in \cref{sec:pellet_surface}, the pellet rocket force only depends on the projection of $\var{\rho}$, $\var{v_r}$, $\var{p}$ and $\int \var{v_\theta} \dd{\theta}$ onto $P^0_1=\cos\theta$ at the pellet surface.
+Since the ablation dynamics of all $l$-modes are independent here, only the $l=1$ mode is needed in our model.
+Without loss of generality, it suffices to see the perturbation quantities as
+\begin{align}
+\begin{aligned}
+    \var{\rho} &= \rho_1(r) \cos\theta \, , &
+    \var{p} &= p_1(r) \cos\theta \, , \\
+    \var{T} &= T_1(r) \cos\theta \, , &
+    \var{\vec{v}} &= \hat{r} v_{1,r}(r) \cos\theta + \hat{\theta} v_{1,\theta}(r) \sin\theta \, , \\
+    \var{q} &= q_1(r) \cos\theta \, , &
+    \var{E} &= E_1(r) \cos\theta \, . &
+\end{aligned}
+\end{align}
+
+(Now is maybe the point to start explaining the normalization. Or maybe add a note to say what positive and negative $y_1$ mean. Also the boundary conditions need to be mentioned)
+
+
+
+
+
+    \subsubsection{Analytical description}
+    \subsubsection{Numerical solution}
