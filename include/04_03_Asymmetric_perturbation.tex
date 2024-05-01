@@ -133,7 +133,7 @@ Therefore, it turns out to be convenient to define the relative contributions of
     E_\text{rel} = \frac{E_{1}(\infty)}{E_{0}(\infty)} \, .
 \end{equation}
 The perturbation assumption requires $|q_\text{rel}| \ll 1$ and $|E_\text{rel}| \ll 1$.
-Although, the signs determine which side of the ablation cloud receives a higher heat flux or higher energetic electrons.
+Furthermore, the signs determine which side of the ablation cloud receives a higher heat flux or higher energetic electrons.
 
 The normalization of the NGS model to the sonic radius allowed to reduce the complexity of the problem by use of additional physics knowledge in the form of \cref{eq:speed_of_sound}.
 Such additional knowledge is not available for the asymmetric perturbation.
@@ -154,7 +154,7 @@ Together with normalizing $y_0$ as previously defined in \cref{eq:ngs_normalizat
     \widetilde{q}_{1}(\infty) = \widetilde{q}_{0}(\infty) \quad \text{and} \quad 
     \widetilde{E}_{1}(\infty) = \widetilde{E}_{0}(\infty) \frac{E_\text{rel}}{q_\text{rel}}.
 \end{equation}
-Again, the \textasciitilde notation is dropped from now on and all quantities can be considered normalized, if not stated otherwise.
+Again, the \textasciitilde{} notation is dropped from now on and all quantities can be considered normalized, if not stated otherwise.
 
 The chosen normalization leaves the system of \cref{eq:physical_perturbation_ideal_gas_law,eq:physical_perturbation_mass_conservation,eq:physical_perturbation_r_momentum_conservation,eq:physical_perturbation_theta_momentum_conservation,eq:physical_perturbation_energy_conservation,eq:physical_perturbation_effective_heat_flux,eq:physical_perturbation_electron_energy_loss} nearly unchanged.
 In particular, the linearity in the perturbation quantities leads to a cancellation of all $q_\text{rel}$ factors.
@@ -168,7 +168,27 @@ The only changes in terms of new factors on the right side of the equations are
 \end{equation*}
 Therefore, apart from the normalized NGS model parameters $\gamma$, $E_\star$ and $\lambda_\star$, the only new parameter needed to determine the normalized perturbation is $E_\text{rel}/q_\text{rel}$.
 
-(Now I need to go into the matrix equation form and talk about the singularity. Then I have to describe the numerical procedure.)
+Since the derived system of equations is linear in both the perturbation quantities $y_1$ and their derivatives $\partial y_1/\partial r$, it is convenient to write it, in terms of $6 \times 6$, $y_0$-dependent matrices $A(r)$ and $B(r)$, as
+\begin{equation}
+    A \pdv{\vec{y}_1}{r} = B \vec{y}_1 \quad \text{with} \quad \vec{y}_1 = (p_1, T_1, v_{1,r}, v_{1,\theta}, q_1, E_1)^T \, .
+\end{equation}
+Symbolic computation allows finding an analytic expression for $C = A^{-1}B$ so that
+\begin{equation}
+    \pdv{\vec{y}_1}{r} = C \vec{y}_1 \, .
+\end{equation}
+Since this expression is large and those details are not necessary here, it is only given in \cref{sec:appendix_sympy_expressions}.
+However, an important feature of $C$ is, that it contains the apparent singularity $1/(T_0 - v_0^2)$ in front of the first three rows.
+Requiring that $\partial \vec{y}_1/\partial r$ is finite at the sonic radius leads to a matrix $\eval{(T_0 - v_0^2)C}_{r=1}$ of which the first three rows have rank 1.
+Thus, this requirement reduces the number of unknowns at the sonic radius by one in the sense of
+\begin{equation}
+v_{1,\theta} = \left(1- \frac{\chi_\star}{2}\right) v_{1,r} + \left(1 + \frac{\chi_\star}{4}\right)T_1 - q_1 - \frac{\Psi_\star}{2 \lambda_\star L(E=1)} E_1 \, .
+\end{equation}
+Equivalently to the normalized NGS model, the derivatives at $r=1$ can then be evaluated using L'Hôpital's rule.
+The corresponding expression for $C_\star = \eval{C}_{r=1}$ is given in \cref{sec:appendix_sympy_expressions}.
+Having solved this apparent singularity, everything is provided to start finding numerical solutions.
+
+
+(Now I have to describe the numerical procedure.)
 
 
 
