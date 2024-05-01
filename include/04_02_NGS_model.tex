@@ -91,8 +91,8 @@ Given the heat flux and average energy of the electrons reaching the ablation cl
 \begin{equation}
 \begin{gathered}
     q(r_\text{p})=0, \quad T(r_\text{p})=0, \\
-    p_\infty := p(r \rightarrow \infty) = 0, \quad
-    q_\infty := q(r\rightarrow\infty) = q_\text{bc}, \quad E_\infty :=  E(r\rightarrow\infty) = E_\text{bc} \, .
+    p(r \rightarrow \infty) = 0, \quad
+    q(r\rightarrow\infty) = q_\text{bc}, \quad E(r\rightarrow\infty) = E_\text{bc} \, .
     \label{eq:full_boundary_conditions}
 \end{gathered}
 \end{equation}
@@ -185,7 +185,7 @@ Now everything is known to start finding numerical solutions for both the normal
 
 The goal of the procedure described below is to find numerical solutions for $v(r)$, $T(r)$, $E(r)$ and $q(r)$, which satisfy both the differential \cref{eq:ngs_normalized_dv2,eq:ngs_normalized_dT,eq:ngs_normalized_dE,eq:ngs_normalized_dq} and the boundary conditions in \cref{eq:full_boundary_conditions}. 
 For this purpose, for some chosen $\gamma$ and $E_\star$, we optimize $\lambda_\star$ so that $T(r_p) = q(r_p) = 0$ at some radius $r_p<1$, which is then interpreted as the normalized pellet radius. 
-Together with the values $q_\infty$ and $q_\infty$ all normalization constants are determined, and the full physical solution can be calculated. 
+Together with the values $q(\infty)$ and $E(\infty)$ all normalization constants are determined, and the full physical solution can be calculated. 
 As a first guess, it suffices to set $E_\star \approx E_\text{bc}$, since most of the energy is absorbed inside the sonic radius.
 However, a scan over $E_\star$ allows setting it more precisely.
 
@@ -209,9 +209,9 @@ Here, \enquote{a modification of the Powell hybrid method as implemented in MINP
 
 An example solution for $\gamma = 7/5$ and $E_\star = \qty{30}{\keV}$ is shown in \cref{fig:example_0th_order_solution}.
 This same solution is shown by \textcite{parks_effect_1978} in their fig. 3 and 4, which serves as a validation of the correctness of our numerical solutions.
-Visible is that $E(r\rightarrow\infty) \approx 1$, which justifies $E_\star \approx E_\text{bc}$.
+Visible is that $E(\infty) \approx 1$, which justifies $E_\star \approx E_\text{bc}$.
 
-Another validation is performed by scanning over the parameters $\gamma$ and $E_\text{bc}$ and plotting the calculated results for $\lambda_\star$, $r_\text{p}$, $E_\infty$ and $q_\infty$, as shown in \cref{fig:ode0_scan}.
+Another validation is performed by scanning over the parameters $\gamma$ and $E_\text{bc}$ and plotting the calculated results for $\lambda_\star$, $r_\text{p}$, $E(\infty)$ and $q(\infty)$, as shown in \cref{fig:ode0_scan}.
 Again, the same graphic is found in the paper by \textcite{parks_effect_1978} as their fig. 1 and 2.
 Additionally, scaling laws for $\gamma = 5/3$ (dotted lines) are given in the paper, which agree well with our results.
 It is important to note that in \cref{fig:ode0_scan} the energy dependence is shown on a logarithmic x-axis, while the variance on the y-axis is small and linear.
@@ -231,8 +231,8 @@ However, to calculate any physical quantities, the normalization constants in \c
 Given the physical boundary conditions, i.e. model input parameters, $r_\text{p}$, $E_\text{bc}$ and $q_\text{bc}$, the results as presented in \cref{fig:ode0_scan}, directly enable calculating
 \begin{align}
     r_\star = \frac{r_p}{\widetilde{r}_p}, \quad 
-    E_\star = \frac{E_\text{bc}}{\widetilde{E}_\infty}, \quad \text{and} \quad
-    q_\star = \frac{q_\text{bc}}{\widetilde{q}_\infty}\,.
+    E_\star = \frac{E_\text{bc}}{\widetilde{E}(\infty)}, \quad \text{and} \quad
+    q_\star = \frac{q_\text{bc}}{\widetilde{q}(\infty)}\,.
 \end{align}
 Apart from $\rho_\star = m p_\star/T_\star$, the still unknown normalization constants are $p_\star$, $T_\star$ and $v_\star$.
 These quantities, together with the particle ablation rate $G$, are determined by solving the system of \cref{eq:ngs_mass_conservation,eq:speed_of_sound,eq:ngs_singularity_constraint,eq:lambda_star_definition}, yielding

@@ -69,11 +69,11 @@ Inserting the expansions
     \var{\rho}(r,\theta,\varphi) &= \rho_1(r)\cos\theta + \dots \, , & 
     \var{p}(r,\theta,\varphi) &= p_1(r)\cos\theta + \dots \, , \\
     \var{v_r}(r,\theta,\varphi) &= v_{1,r}(r)\cos\theta + \dots \, , &
-    \var{v_\theta}(r,\theta,\varphi) &= v_{1,\theta}(r)\sin\theta + \dots
+    \var{v_\theta}(r,\theta,\varphi) &= - v_{1,\theta}(r)\sin\theta + \dots
 \end{align*}
 into \cref{eq:force_before_expansion} yields the formula for the pellet rocket force
 \begin{equation}
-    \boxed{F = \frac{4 \pi r_\text{p}^2}{3} \left( \rho_1 v_0^2 + 2 \rho_0 v_0 (v_{1,r} + v_{1,\theta}) + p_1 \right)_{r=r_\text{p}}} \, .
+    \boxed{F = \frac{4 \pi r_\text{p}^2}{3} \left( \rho_1 v_0^2 + 2 \rho_0 v_0 (v_{1,r} - v_{1,\theta}) + p_1 \right)_{r=r_\text{p}}} \, .
     \label{eq:rocket_force_full}
 \end{equation}
 This formula can also be understood physically.
