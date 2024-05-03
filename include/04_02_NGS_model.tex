@@ -181,7 +181,9 @@ Using L'Hôpital's rule enables evaluation of the apparent singularity at the so
 with an additional shorthand defined as $\Psi_\star := 2 \lambda_\star \left( L \pdv{\Lambda}{E} \right)_{E=1}$.
 Now everything is known to start finding numerical solutions for both the normalized and consequently the physical quantities.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Numerical solution}
+\label{sssec:isotropic_numerics}
 
 The goal of the procedure described below is to find numerical solutions for $v(r)$, $T(r)$, $E(r)$ and $q(r)$, which satisfy both the differential \cref{eq:ngs_normalized_dv2,eq:ngs_normalized_dT,eq:ngs_normalized_dE,eq:ngs_normalized_dq} and the boundary conditions in \cref{eq:full_boundary_conditions}. 
 For this purpose, for some chosen $\gamma$ and $E_\star$, we optimize $\lambda_\star$ so that $T(r_p) = q(r_p) = 0$ at some radius $r_p<1$, which is then interpreted as the normalized pellet radius. 
@@ -203,7 +205,7 @@ Here, \enquote{a modification of the Powell hybrid method as implemented in MINP
 \begin{figure}
     \centering
     \includegraphics{figure/ode0_solution_Estar_3.000e+04_gamma_7_5.pdf}
-    \caption{Caption (I have to write the caption and make the figure look nicer!)}
+    \caption{Numerical example solution of the normalized isotropic ablation dynamics. Chosen are the parameters $\gamma = 7/5$ and $E_\star(E_\text{bc}) = \qty{30}{\kilo\eV}$ to have a direct comparison to the solution shown by \textcite{parks_effect_1978}.}
     \label{fig:example_0th_order_solution}
 \end{figure}
 
@@ -221,8 +223,8 @@ The scaling laws representing our solution (dashed lines) are given in \cref{sec
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{figure/recreated_Parks_E_inf.pdf}
-    \caption{Caption (I have to write the caption and make the figure look nicer!)}
+    \includegraphics{figure/recreated_Parks_E_inf.pdf}
+    \caption{Weak dependence of the normalized NGS model results on $\gamma$ and $E_\star(E_\text{bc})$. The shown quantities $\lambda_\star$, $r_\text{p}$, $E_0(\infty)$ and $q_0(\infty)$ are needed to calculate the physical ablation dynamics.}
     \label{fig:ode0_scan}
 \end{figure}
 
@@ -246,13 +248,12 @@ The prefactors $f_p$, $f_T$, $f_v$ and $f_G$ combine all dimensionless factors a
 Scaling laws are again provided in \cref{sec:appendix_scaling_laws}.
 Since the pellet rocket effect mainly depends on the pressure asymmetry at the pellet surface, the most important formula here is \cref{eq:prefactor_p_star}, where $f_p \approx 0.15$ and as stated earlier $\mu \approx 0.65$.
 The importance of $p_\star$ will become more clear towards the end of the next section, where our approach of modelling asymmetry in the ablation dynamics is detailed.
-
-(Should mention the mistakes that I have found in Parks paper?)
+(Should mention the mistakes that I have found in Parks paper in his formulas?)
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{figure/prefactors_0th_order.pdf}
-    \caption{Caption (I have to write the caption and make the figure look nicer!)}
+    \includegraphics{figure/prefactors_0th_order.pdf}
+    \caption{Weak dependence of the dimensionless prefactors in the formulas for $p_\star$, $T_\star$, $v_\star$ and $G$ on $\gamma$ and $E_\star(E_\text{bc})$.}
     \label{fig:prefactors_0th_order}
 \end{figure}
 

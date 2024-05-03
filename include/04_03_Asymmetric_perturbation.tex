@@ -2,7 +2,8 @@
 \label{ssec:asymmetric_perturbation_model}
 
 Provided a procedure of calculating the full ablation dynamics under the assumption of spherical symmetry, it is now possible to describe the asymmetry in the ablation dynamics as a perturbative model.
-The baseline model is the previously described NGS model, will be denoted from now on with the index 0 and can be assumed as fully known.
+The baseline model is the previously described NGS model, which is assumed as fully known.
+It will be denoted from now on with the index 0.
 Assuming the real ablation process is described well by the NGS model quantities $y_0(r)$ with a small correction $\var{y}(r,\theta)$, which depends on the asymmetry along one axis ($z$-axis in \cref{fig:neutral_cloud_heating}), the full physical quantities can be modelled as
 \begin{equation}
 \begin{aligned}
@@ -19,7 +20,7 @@ The spherical coordinate system is chosen as depicted in \cref{fig:neutral_cloud
 Treating the system as a quasi-steady-state ideal gas is retained in our model in the same way the NGS model is treated.
 Therefore, the \cref{eq:ideal_gas_law,eq:full_mass_conservation,eq:full_momentum_conservation,eq:full_energy_conservation,eq:heat_flux_approximation,eq:full_effective_heat_flux,eq:full_electron_energy_loss} form the basis of our asymmetric perturbative model.
 This includes the approximation of a purely radial flux of electrons, as represented by \cref{eq:heat_flux_approximation}.
-Linearizing the set of equations in the perturbation quantities $\var{y}$, combined with the fact that the NGS quantities $y_0$ satisfy those equations themselves, yields
+Linearizing the set of equations in the perturbation quantities $\var{y}$, combined with the fact that the quantities $y_0$ satisfy those equations themselves, yields
 \begin{flalign}
     &\var{\rho} = m \frac{\var{p}}{T_0} - m \frac{p_0}{T_0^2} \var{T} 
     &\text{(ideal gas law),}& \label{eq:linearized_ideal_gas_law} \\
@@ -91,7 +92,7 @@ After a rather lengthy derivation, the set of equations describing the $r$-depen
 while the electron dynamics in the neutral gas are described by
 \begin{align}
     &\pdv{E_l}{r} = 2 \frac{\rho_l}{m} L(E_0) + 2 \frac{\rho_0}{m} \eval{\pdv{L}{E}}_{E_0} E_l \, , \label{eq:physical_perturbation_electron_energy_loss} \\
-    &\pdv{q_l}{r} = \frac{\rho_l}{m} q_0 \Lambda(E_0) + \rho_0 q_l \Lambda(E_0) + \rho_0 q_0 \eval{\pdv{\Lambda}{E}}_{E_0} E_l \, . \label{eq:physical_perturbation_effective_heat_flux}
+    &\pdv{q_l}{r} = \frac{\rho_l}{m} q_0 \Lambda(E_0) + \frac{\rho_0}{m} q_l \Lambda(E_0) + \frac{\rho_0}{m} q_0 \eval{\pdv{\Lambda}{E}}_{E_0} E_l \, . \label{eq:physical_perturbation_effective_heat_flux}
 \end{align}
 
 Apart from enabling the separation of variables, expansion in terms of Legendre polynomials is convenient for calculating the pellet rocket force.
@@ -111,7 +112,7 @@ Without loss of generality, it suffices to see the perturbation quantities as
 This means that for positive coefficients $y_1(r)$, the full quantity $y(\vec{r})$ has slightly increased values in the positive $\hat{z}$ direction and slightly decreased values in the negative $\hat{z}$ direction, while at $z=0$ the NGS model is unperturbed.
 However, the sign of $v_{1,\theta}$ determines the direction of the angular flow velocity, which is always largest at $z=0$ and zero along the $\hat{z}$-axis.
 
-The boundary conditions for the perturbation quantities are derived from the boundary conditions in \cref{eq:full_boundary_conditions} to be 
+The boundary conditions for the perturbation quantities are derived from the general boundary conditions in \cref{eq:full_boundary_conditions} to be 
 \begin{gather}
 \begin{gathered}
     q_1(r_p) = 0, \quad
@@ -120,22 +121,24 @@ The boundary conditions for the perturbation quantities are derived from the bou
     p_1(r \rightarrow \infty) = 0, \\
     q_1(r \rightarrow \infty) = \frac{3}{2} \int_0^\pi q_\text{bc}(\theta) \cos\theta \sin\theta \dd{\theta}, \\
     E_1(r \rightarrow \infty) = \frac{3}{2} \int_0^\pi E_\text{bc}(\theta) \cos\theta \sin\theta \dd{\theta}.
+    \label{eq:perturbation_physical_bc}
 \end{gathered}
 \end{gather}
 Since introducing $v_{1,\theta}$ adds the need for one additional boundary condition, we assume $v_{1,\theta}(r_p) = 0$.
-Without assuming a particular $\theta$-dependence of the incoming electron heat flux and energy, it is projected onto the $\cos\theta$ mode.
+The incoming electron heat flux and energy is projected onto the $\cos\theta$ mode, without assuming a particular $\theta$-dependence.
 
 Solving for the perturbative ablation dynamics is again not possible fully analytically, and the equations need to be prepared for numerical analysis.
-The perturbation quantities $y_1$ are predicted to be on the same order of magnitude as the NGS model quantities $y_0$ times the degree of asymmetry in the external heat source.
-Therefore, it turns out to be convenient to define the relative contributions of the asymmetry in the total external heat
+A convenient way to quantify the degree of asymmetry in the external heat source is by defining
 \begin{equation}
     q_\text{rel} = \frac{q_{1}(\infty)}{q_{0}(\infty)} \quad \text{and} \quad 
     E_\text{rel} = \frac{E_{1}(\infty)}{E_{0}(\infty)} \, .
+    \label{eq:perturbation_normalized_bc}
 \end{equation}
+These two quantities are the only parameters needed, on top of the NGS model parameters, to model the asymmetric ablation cloud dynamics.  
 The perturbation assumption requires $|q_\text{rel}| \ll 1$ and $|E_\text{rel}| \ll 1$.
-Furthermore, the signs determine which side of the ablation cloud receives a higher heat flux or higher energetic electrons.
+Furthermore, the signs determine which side of the ablation cloud receives a higher heat flux $q$ or higher average electron energy $E$.
 
-The normalization of the NGS model to the sonic radius allowed to reduce the complexity of the problem by use of additional physics knowledge in the form of \cref{eq:speed_of_sound}.
+The normalization of the NGS model to the sonic radius allowed to reduce the complexity of the problem by use of additional physics knowledge in the form of the speed of sound definition in \cref{eq:speed_of_sound}.
 Such additional knowledge is not available for the asymmetric perturbation.
 Nevertheless, it turns out to be convenient to normalize the perturbation quantities $y_1$, similarly to the NGS model, as
 \begin{gather}
@@ -148,6 +151,7 @@ Nevertheless, it turns out to be convenient to normalize the perturbation quanti
     \widetilde{q}_1=\frac{q_1}{q_\star q_\text{rel}}, \quad 
     \widetilde{E}_1=\frac{E_1}{E_\star  q_\text{rel}}. \quad 
 \end{gathered}
+\label{eq:1st_order_normalization}
 \end{gather}
 Together with normalizing $y_0$ as previously defined in \cref{eq:ngs_normalization}, this simplifies the heat source boundary conditions to
 \begin{equation}
@@ -155,12 +159,14 @@ Together with normalizing $y_0$ as previously defined in \cref{eq:ngs_normalizat
     \widetilde{E}_{1}(\infty) = \widetilde{E}_{0}(\infty) \frac{E_\text{rel}}{q_\text{rel}}.
 \end{equation}
 Again, the \textasciitilde{} notation is dropped from now on and all quantities can be considered normalized, if not stated otherwise.
+Note that, in contrast to the normalized NGS model, the normalized perturbation quantities at the sonic radius are unknown.
 
 The chosen normalization leaves the system of \cref{eq:physical_perturbation_ideal_gas_law,eq:physical_perturbation_mass_conservation,eq:physical_perturbation_r_momentum_conservation,eq:physical_perturbation_theta_momentum_conservation,eq:physical_perturbation_energy_conservation,eq:physical_perturbation_effective_heat_flux,eq:physical_perturbation_electron_energy_loss} nearly unchanged.
 In particular, the linearity in the perturbation quantities leads to a cancellation of all $q_\text{rel}$ factors.
 The only changes in terms of new factors on the right side of the equations are 
 \begin{equation*}
 \begin{array}{cll}
+    \frac{1}{m} && \text{in \cref{eq:physical_perturbation_ideal_gas_law},} \\
     \frac{1}{\gamma} &\quad\quad& \text{in \cref{eq:physical_perturbation_r_momentum_conservation,eq:physical_perturbation_theta_momentum_conservation},} \\
     \frac{\gamma}{\gamma-1} \frac{2}{\lambda_\star \mu} && \text{in \cref{eq:physical_perturbation_energy_conservation} and} \\
     m \lambda_\star &&\text{in \cref{eq:physical_perturbation_electron_energy_loss,eq:physical_perturbation_effective_heat_flux}.}
@@ -170,29 +176,182 @@ Therefore, apart from the normalized NGS model parameters $\gamma$, $E_\star$ an
 
 Since the derived system of equations is linear in both the perturbation quantities $y_1$ and their derivatives $\partial y_1/\partial r$, it is convenient to write it, in terms of $6 \times 6$, $y_0$-dependent matrices $A(r)$ and $B(r)$, as
 \begin{equation}
-    A \pdv{\vec{y}_1}{r} = B \vec{y}_1 \quad \text{with} \quad \vec{y}_1 = (p_1, T_1, v_{1,r}, v_{1,\theta}, q_1, E_1)^T \, .
+    A \pdv{\vec{y}_1}{r} = B \vec{y}_1 \quad \text{with} \quad \vec{y}_1 = (p_1, T_1, v_{1,r}, v_{1,\theta}, q_1, E_1)^T \, ,
 \end{equation}
+where $\rho_1$ was replaced through the linearized and normalized ideal gas law (\cref{eq:physical_perturbation_ideal_gas_law} without $m$).
 Symbolic computation allows finding an analytic expression for $C = A^{-1}B$ so that
 \begin{equation}
     \pdv{\vec{y}_1}{r} = C \vec{y}_1 \, .
+    \label{eq:perturbation_normalized_system}
 \end{equation}
 Since this expression is large and those details are not necessary here, it is only given in \cref{sec:appendix_sympy_expressions}.
 However, an important feature of $C$ is, that it contains the apparent singularity $1/(T_0 - v_0^2)$ in front of the first three rows.
 Requiring that $\partial \vec{y}_1/\partial r$ is finite at the sonic radius leads to a matrix $\eval{(T_0 - v_0^2)C}_{r=1}$ of which the first three rows have rank 1.
-Thus, this requirement reduces the number of unknowns at the sonic radius by one in the sense of
+Thus, this requirement reduces the number of unknowns at the sonic radius by one through the obtained equation
 \begin{equation}
 v_{1,\theta} = \left(1- \frac{\chi_\star}{2}\right) v_{1,r} + \left(1 + \frac{\chi_\star}{4}\right)T_1 - q_1 - \frac{\Psi_\star}{2 \lambda_\star L(E=1)} E_1 \, .
+\label{eq:perturbation_sonic_relation}
 \end{equation}
 Equivalently to the normalized NGS model, the derivatives at $r=1$ can then be evaluated using L'Hôpital's rule.
 The corresponding expression for $C_\star = \eval{C}_{r=1}$ is given in \cref{sec:appendix_sympy_expressions}.
 Having solved this apparent singularity, everything is provided to start finding numerical solutions.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Numerical solution}
 
-(Now I have to describe the numerical procedure.)
+The procedure to find the numerical solution of the normalized perturbation quantities is chosen to be similar to the procedure used for the isotropic dynamics.
+Even though, the chosen normalization in \cref{eq:1st_order_normalization} does not introduce unknown parameters into the system of equations, it also does not bring knowledge about starting values for numerical integration.
+It is difficult to start from $r_\text{p}$ because, there, the derivatives diverge.
+Starting from $r\rightarrow\infty$ is difficult to handle numerically.
+Having found a way to eliminate one unknown at $r=1$ through \cref{eq:perturbation_sonic_relation}, this poses as a convenient starting point for solving the perturbation dynamics.
+The system of differential eqs. \ref{eq:perturbation_normalized_system} is solved upwards and downwards, and the guesses for $\vec{y}_1(r=1)$ are optimized so that the boundary conditions in \cref{eq:perturbation_physical_bc,eq:perturbation_normalized_bc} are fulfilled.
+Note, that reducing the unknowns at $r=1$ also removed the need for one of the boundary conditions, and it turns out that $p_1(\infty)=0$ is always fulfilled.
+The numerical methods used here, are the same as mentioned in \cref{sssec:isotropic_numerics}.
+%Those methods take variable steps in $r$, which means that the numerical solution to the normalized NGS model needs to be interpolated to those $r$ positions to save computation time.
+%Additionally, finite numerical precision allows the boundary conditions to be fulfilled only close the $r_\text{p}$ found in the isotropic solution.
+After adjustment of various numerical tolerances and trying out different optimization schemes, a robust algorithm was developed to reliably solve the asymmetric perturbation dynamics with high precision.
+
+\begin{figure}
+    \centering
+    \includegraphics{figure/ode1_02_Estar_3.000e+04_gamma_7_5_E_rel_over_q_rel_-0.50.pdf}
+    \caption{Radial dependence of a numerical example solution to the normalized perturbative ablation dynamics. The corresponding isotropic solution is shown in \cref{fig:example_0th_order_solution} with the parameters $\gamma = 7/5$ and $E_\star(E_\text{bc}) = \qty{30}{\kilo\eV}$. The heat source asymmetry is characterized here by $E_\text{rel}/q_\text{rel} = -0.5$.}
+    \label{fig:example_1st_order_solution}
+\end{figure}
+
+An example solution is shown in \cref{fig:example_1st_order_solution}.
+This is the corresponding perturbation to the isotropic solution shown in \cref{fig:example_0th_order_solution} ($\gamma = 7/5$, $E_\star = \qty{30}{\keV}$), with a heating asymmetry ratio $E_\text{rel}/q_\text{rel} = -0.5$.
+While this plot shows the radial dependence of the asymmetry perturbation, it might be easier to interpret the asymmetry through visualization of the full radial and angular dependence.
+Therefore, \cref{fig:full_solution_visuals} shows half of the 2D spatial variation of both the isotropic dynamics (on the left) and the asymmetric perturbation (on the right).
+The pellet is visualized by the grey circle in the middle, and the dashed line around it indicates the sonic radius.
+In reality, the neutral ablation cloud boundary is much further away than visualized, but it can be considered a zoomed-in view.
+Scalar quantities are presented through a variation in colour, where darker values mean higher absolute values. 
+For the perturbation quantities, red means an increase and blue means a decrease compared to the isotropic model.
+Note that this visualization shows all quantities as their normalized version, while the physical perturbation quantities are much smaller than the isotropic quantities.
+While both the isotropic pressure $p_0$ and the isotropic density $\rho_0$ are largest close to the pellet surface, the pressure asymmetry $p_1$ shows opposite behaviour of the density asymmetry $\rho_1$.
+The quantities $T$, $q$, $E$ show clearly that the major part of heating the neutral gas happens close to the pellet and the asymmetry in temperature $T_1$ follows the asymmetry in heat flux $q_1$.
+The flow velocity is presented as a vector field, where a radial outflow in the isotropic dynamics and a flow from the upper side to the lower side in the perturbation is visible.
+
+\begin{figure}
+    \centering
+    \includegraphics{figure/full_solution_visuals.pdf}
+    \caption{Full spatial dependence of the chosen numerical example solution for the perturbative ablation dynamics. The left sides show the NGS model solution, as in \cref{fig:example_0th_order_solution}. The right sides show the $\cos\theta$ perturbation solutions, with the radial dependence as shown in \cref{fig:example_1st_order_solution}. For illustrative purposes, $v_{1,\theta}$ is scaled up by a factor of 4. The dashed circle marks the sonic radius.}
+    \label{fig:full_solution_visuals}
+\end{figure}
+
+Overall, it must be noted that, shown in \cref{fig:full_solution_visuals} is only one specific solution.
+While the dynamics only slightly change with $\gamma$ and $E_\star$, the asymmetry parameter $E_\text{rel}/q_\text{rel}$ can change the dynamics on a qualitative level.
+The previously shown solution agrees well with our expectation of how an asymmetric heat source changes the ablation dynamics.
+However, the two solutions shown in \cref{fig:ode1_interesting} give surprising insights into ablation physics.
+
+\begin{figure}
+    \captionsetup[subfigure]{justification=centering}
+    \centering
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figure/ode1_05_Estar_3.000e+04_gamma_7_5_E_rel_over_q_rel_+1.00.pdf}
+        \caption{}
+        \label{fig:ode1_interesting_+1.0}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figure/ode1_00_Estar_3.000e+04_gamma_7_5_E_rel_over_q_rel_-1.50.pdf}
+        \caption{}
+        \label{fig:ode1_interesting_-1.5}
+    \end{subfigure}
+    \caption{Further numerical solutions of the perturbative ablation dynamics. The corresponding isotropic quantities are shown in \cref{fig:example_0th_order_solution}. The left figure shows a temperature increase on the low heat flux side. The right figure shows a pressure increase on the low heat flux side, leading to a pellet rocket force towards the high heat flux side.}
+    \label{fig:ode1_interesting}
+\end{figure}
+
+With an increased average electron energy on the same side as the increased heat flux, i.e. $E_\text{rel}/q_\text{rel} = +1$, as shown in \cref{fig:ode1_interesting_+1.0}, the ablation cloud temperature and flow velocity can be larger on the opposite side.
+At first, this might seem unphysical.
+However, it can be explained since the increased density leads to more required heating energy to raise the temperature the same amount. 
+It also leads to a higher pressure asymmetry at the pellet surface compared to the $E_\text{rel}/q_\text{rel} = -0.5$ dynamics.
+
+Another qualitatively different solution, which is more relevant for modelling the pellet rocket effect, is shown in \cref{fig:ode1_interesting_-1.5} with $E_\text{rel}/q_\text{rel} = -1.5$.
+This means the asymmetry in average incident electron energy is opposite the asymmetry in incident heat flux.
+This was, to a lesser extent, also the case in the first solution, shown in \cref{fig:example_1st_order_solution} with $E_\text{rel}/q_\text{rel} = -0.5$.
+However, here, the pressure asymmetry at the pellet radius becomes negative.
+This would result in a negative pellet rocket force, i.e. towards the high external heat flux side.
+Whether this reversed rocket force is physically accurate cannot be evaluated in this thesis.
+It might be an artificial result from the approximation of mono-energetic electrons loosing heat radially.
+
+\begin{figure}
+    \centering
+    \includegraphics{figure/P1_at_r_p.pdf}
+    \caption{Linear dependence of the pressure asymmetry on the pellet surface on the parameter $E_\text{rel}/q_\text{rel}$. The vertical dashed line at $-1.17$ shows the change in polarity. The colour of the lines denote $\gamma$, while the brightness denotes $E_\text{bc}$, with the exact values shown by the black lines on the colour bars.}
+    \label{fig:P1_at_r_p}
+\end{figure}
+
+The three shown example solutions illustrate that the pellet rocket force, which stems mainly from $p_1(r_\text{p})$, highly depends on $E_\text{rel}/q_\text{rel}$.
+To quantify this phenomenon, a parameter scan is performed over $\gamma$, $E_\text{bc}$ and $E_\text{rel}/q_\text{rel}$.
+The corresponding optimized values at the sonic radius are shown in \cref{sec:appendix_1st_order_scan} for completeness.
+The resulting $p_1(r_\text{p})$ are shown in \cref{fig:P1_at_r_p}.
+Marked with a vertical dashed line is the value $E_\text{rel}/q_\text{rel} \approx -1.17$, where the pressure asymmetry, and consequently the pellet rocket force, changes polarity.
+Prominently, the dependence on $E_\text{rel}/q_\text{rel}$ is found to be purely linear, with the slope and position only depending weakly on $\gamma$ and $E_\text{bc}$.
+Linear regression has shown relative fit errors of less than $1\%$ in the tested orders of magnitude of $|E_\text{rel}/q_\text{rel}|$ from $\num{1e-2}$ to $\num{1e6}$.
+This linear dependence is convenient, since it allows for a simple semi-analytical formula
+\begin{equation}
+    p_1(r_\text{p}) = a \cdot \left(\frac{E_\text{rel}}{q_\text{rel}} - b \right) \, ,
+    \label{eq:p1_at_r_p}
+\end{equation}
+where $a$ is the slope and $b$ is the root, where $p_1(r_\text{p})$ changes polarity.
+Note that $p_1$ is normalized as chosen in \cref{eq:1st_order_normalization}.
+The fit parameters are found to be $a \approx 2.0$ to $2.9$ and $b \approx -1.21$ to $-1.17$.
+The concrete dependence on $\gamma$ and $E_\text{bc}$ values is shown in \cref{fig:P1_fit_parameters}.
+Corresponding scaling laws are provided in \cref{sec:appendix_scaling_laws}.
+(I still need to put the scaling laws into the appendix!)
+
+\begin{figure}
+    \centering
+    \includegraphics{figure/P1_fit_parameters.pdf}
+    \caption{Linear regression parameters for $p_1(r_\text{p})$ dependence on $E_\text{rel}/q_\text{rel}$. Shown is the dependence on $\gamma$ and $E_\text{bc}$. $a$ is the slope and $b$ is the value at which $p_1(r_\text{p})$ changes sign.}
+    \label{fig:P1_fit_parameters}
+\end{figure}
+
+There is one special case that has been neglected in our analysis.
+If there is no asymmetry in the external heat flux, i.e. $q_\text{rel} = 0$, but the average energy of incident electrons varies over the $\hat{z}$-axis, i.e. $E_\text{rel} \neq 0$, the chosen normalization in \cref{eq:1st_order_normalization} is not valid.
+Since the factor $q_\text{rel}$ cancelled out in the normalized system of equations, the expressions remain unchanged with normalizing to $E_\text{rel}$ instead.
+Only the normalized boundary conditions change to
+\begin{gather}
+    \frac{q_1(r \rightarrow \infty)}{q_\star E_\text{rel}} = 0 \quad \text{and} \quad 
+    \frac{E_1(r \rightarrow \infty)}{E_\star E_\text{rel}} = \widetilde{E}_0(r\rightarrow\infty) \, .
+\end{gather}
+Solving the dynamics numerically in the same way as before, yields similar results as for $q_\text{rel} \neq 0$. 
+It is found that
+\begin{equation}
+    \frac{p_1(r_p)|_{q_\text{rel}=0}}{p_\star E_\text{rel}} = a \, ,
+\end{equation}
+with the same values $a$ as shown in \cref{fig:P1_fit_parameters}.
+
+Finally, it was mentioned in \cref{sec:pellet_surface} that the pellet rocket force depends mainly on $p_1(r_\text{p})$.
+This is validated in the following to hold, given our choice of approximations and boundary conditions.
+Inserting the normalized perturbation quantities into the formula for the pellet rocket force in \cref{eq:rocket_force_full} and using $\rho_\star v_\star^2 = \gamma p_\star$ gives
+\begin{equation}
+    F = \frac{4 \pi r_\text{p}^2}{3} p_\star q_\text{rel} \underbrace{\left( \gamma \widetilde{v}_0^2 \widetilde{\rho}_1 + 2 \gamma \widetilde{\rho}_0 \widetilde{v}_0 (\widetilde{v}_{1,r} - \widetilde{v}_{1,\theta}) + \widetilde{p}_1 \right)_{r=r_\text{p}}}_{\widetilde{F}} \, .
+    \label{eq:normalized_force}
+\end{equation}
+The chosen boundary condition $v_{1,\theta}(r_\text{p}) = 0$ together with the fact that $r^2 \rho_0 v_0^2 = \textit{const.}$ results in the corresponding term in the force being zero.
+Asymptotic analysis on the other terms is non-trivial, since $v_0(r_\text{p}) \rightarrow 0$ and $v_{1,r}(r_\text{p}) \rightarrow 0$ but $\rho_0(r_\text{p})\rightarrow\infty$ and $\rho_1(r_\text{p})\rightarrow\infty$.
+Therefore, this analysis has to be done numerically and \cref{fig:force_relative_error} shows the relative contribution of the non-pressure terms in $\widetilde{F}$.
+This shows clearly that the pressure asymmetry is the only quantity that is important for the pellet rocket force, whereas adding other terms would change the result only in the third or fourth significant figure.
+Note that the noise in \cref{fig:force_relative_error} is a result of accumulated numerical errors when calculating the numerical solutions and a finite precision when optimizing the boundary conditions.
+However, the achieved numerical precision is presumably sufficient when considering the approximations of the NGS model.
+
+\begin{figure}
+    \centering
+    \includegraphics{figure/force_relative_error.pdf}
+    \caption{Relative contribution of non-pressure asymmetry ($\widetilde{p}_1(r_\text{p})$) quantities to the dimensionless terms $\widetilde{F}$ in the pellet rocket force.}
+    \label{fig:force_relative_error}
+\end{figure}
+
+Overall, it is shown that it was possible to find the numerical solutions to the perturbative dynamics in the neutral ablation cloud.
+A semi-analytical model for the pellet rocket force is derived as
+\begin{equation}
+    F = \frac{4 \pi r_\text{p}^2}{3} p_\star \left( a E_\text{rel} - a b q_\text{rel} \right) \, .
+\end{equation}
+by combining \cref{eq:p1_at_r_p,eq:normalized_force}, with $p_\star$ given through \cref{eq:prefactor_p_star} and $a$ and $b$ given in \cref{fig:P1_fit_parameters}.
+Therefore, only the shielding of the neutral ablation cloud from the background plasma electrons is still needed to model the pellet rocket effect.
+How the plasmoid shielding leads to estimates for the parameters $E_\text{bc}$, $q_\text{bc}$, $E_\text{rel}$ and $q_\text{rel}$ is the topic of the next section.
 
 
 
-
-
-    \subsubsection{Analytical description}
-    \subsubsection{Numerical solution}
