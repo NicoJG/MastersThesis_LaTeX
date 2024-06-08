@@ -1,10 +1,191 @@
-\chapter{Magnetic confinement fusion}
-    \section{Nuclear fusion}
-    \section{Dynamics of magnetized plasma}
-        \subsection{Definition of Plasma}
-        \subsection{Charged particle in a magnetic field}
-        \label{ssec:particle_in_B_field}
-        \subsection{Particle drifts in magnetized plasma}
-    \section{Tokamak design}
-        %\subsection{Disruptions}
-    %\section{Stellarator design (?)}
+\chapter{Magnetic confinement fusion (MCF)}
+\label{chap:MCF}
+
+For nuclear fusion to occur, the kinetic energy of two colliding nuclei must allow them to overcome their mutual electrostatic repulsion and get sufficiently close that the attractive nuclear force can dominate.
+%The needed kinetic energy is determined by the so-called Coulomb barrier.
+Quantum mechanical tunnelling effects allow nuclei to fuse at energies much lower than the full height of the so-called Coulomb potential barrier between them.
+Even though the sun's core has temperatures of around $\qty{15e6}{\K}$ only a tiny fraction of the protons fuse every second \autocite{chen_indispensable_2011}.
+%fraction of around $\num{2e-21}$ of the sun's mass is converted into energy every second \autocite{nasa_sun_2024}.
+The sun can thus sustain fusion for billions of years, but fusion on earth can only be a viable energy source with a much higher efficiency.
+The hydrogenic fusion reaction with the highest reactivity at the lowest required temperature is
+\begin{equation*}
+    \ce{D + T -> He^4 + n} \, ,
+\end{equation*}
+which still only reaches significant reactivities above temperatures around $\qty{100e6}{\K}$.
+This corresponds to particle kinetic energies of around $\qty{10}{\keV}$.
+The energy released is $\qty{17.6}{\MeV}$ per fusion reaction, of which around $\qty{20}{\%}$ is given to the helium ion as kinetic energy and the rest is released as kinetic energy of the neutron.
+The charged, heavy helium ion is usually stopped inside the plasma close to the reaction region and deposits it energy to heat the plasma.
+The light, uncharged neutron can escape the plasma nearly unaffected, while being highly energetic.
+Fusion reactors will be built such that the dense material around the fusion plasma is designed to capture the neutron's energy and use the corresponding heat to generate electricity.
+Since the energy gain per fusion reaction is so high\footnote{At significant reactivities.}, the plasma does not need to contain much fuel and can be 5 orders of magnitude less dense than air.
+A typical fusion plasma\footnote{Only in the case of magnetic confinement fusion.} has a particle density of around \qty{e20}{\m^{-3}} at pressures around 7 atmospheres \autocite{freidberg_plasma_2007}.
+
+Material which is hot enough to reach significant fusion activity would be driven to expand quickly.
+Allowing this expansion to happen would rapidly cool down the plasma and the burning plasma would extinguish.
+Additionally, the plasma would touch any material it is surrounded by and deposit its energy there.
+This approach of allowing fusion to happen for a very short time is the basis of inertial confinement fusion (ICF).
+A different approach is to trap the fusion plasma, which consists of charged particles, by magnetic fields.
+Most modern concepts for fusion energy generation are based on this magnetic confinement fusion (MCF) approach, which is the focus of this thesis.
+
+This chapter covers the essential dynamics of a magnetized plasma in \cref{sec:magnetized_plasma}, leading up to the design of MCF devices, as described in \cref{sec:tokamak}. 
+The definition of a plasma is detailed in \cref{ssec:plasma_definition}, before moving on to the motion of individual particles subjected to magnetic and electric fields in \cref{ssec:particle_in_B_field,ssec:particle_drifts}. The properties of such particle motions are crucial for the design of MCF devices, and are also important for the dynamics of ionized material ablated from a pellet, as described later in \cref{ssec:plasmoid_cloud}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Dynamics of magnetized plasma}
+\label{sec:magnetized_plasma}
+
+Plasma is commonly referred to as the fourth state of matter.
+Instead of containing nearly exclusively neutrally charged atoms, as in the states of gases, fluids or solids, a significant fraction of the particles in a plasma are ions and electrons, not bound to each other.
+Generally, the amount of ionization in a plasma can vary, but typical fusion plasmas can be considered fully ionized.
+Plasma can be defined concisely by the single sentence: \enquote{A plasma is a quasineutral gas of charged and neutral particles which exhibits collective behavior} \autocite[2]{chen_introduction_2016}. 
+To fully understand this sentence, the concepts of \emph{quasineutrality} and \emph{collective behaviour} must be explained.
+
+\subsection{Definition of plasma}
+\label{ssec:plasma_definition}
+
+In essence, \emph{quasineutrality} means that even though the plasma contains charged particles, these charges cancel each other over macroscopic distances and the plasma appears as neutrally charged.
+Consequently, the total number of positive and negative charges in a plasma must be approximately equal.
+Pondering on this definition, one might confuse it with the concept of neutrality in the other states of matter, since atoms consist of the positively charged protons and the negatively charged electrons.
+However, the length scale over which a plasma is considered neutral is much larger than the size of atomic orbits, while being much smaller than the length scale $L$ of the plasma itself.
+This is quantified by the so-called Debye length
+\begin{equation}
+    \lambda_\text{D} \approx \sqrt{\frac{\varepsilon_0 T_e}{n_e e^2}} \ll L  \, ,
+    \label{eq:debye_length}
+\end{equation}
+which determines the length scale over which the electrostatic potential decreases exponentially around the plasma particles\footnote{This formula is only valid in the case of one singly charged ion species.} \autocite{chen_introduction_2016}.
+The physical constants $\varepsilon_0$ and $e$ are the vacuum permittivity and the elementary charge, respectively.
+The plasma parameters are the electron temperature\footnote{Note that in plasma physics, and in this thesis, temperature is by convention given in units of energy (typically $\unit{eV}$) by including a factor of the Boltzmann constant $k_\text{B}$ in the definition.} $T_e$ and the electron density $n_e$.
+In MCF, the Debye length is typically on the order of $\qty{0.1}{\mm}$.
+
+A plasma contains many particles inside the radius of one Debye length, i.e.
+\begin{equation}
+    N_\text{D} \approx \frac{4}{3} \pi \lambda_\text{D}^3 n_e \gg 1 \, ,
+    \label{eq:debye_sphere}
+\end{equation}
+where $N_\text{D}$ is the number of particles inside a Debye sphere \autocite{chen_introduction_2016}.
+Individual particles interact with one another electromagnetically within the Debye sphere, without forming bound structures like atoms.
+Beyond the Debye length, particles no longer see the individual charges of other particles, and the plasma instead shows \emph{collective behaviour}.
+For a plasma to display such a behaviour, electromagnetic interactions must dominate over collisions with neutrals.
+This sets an additional constraint on the density of neutral particles in the plasma.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Charged particle in a magnetic field}
+\label{ssec:particle_in_B_field}
+
+Despite the quasineutrality of a plasma, external electric and magnetic fields applied to a plasma affect the dynamics drastically due to the collective behaviour of the charged particles.
+The exact response of a plasma to external electric and magnetic fields is extremely complex.
+Thus, it is useful to initially consider how an individual particle of charge $q$ moves due to the electromagnetic force
+\begin{equation}
+    \vec{F} = q\left(\vec{E} + \vec{v}\times\vec{B} \right) \, ,
+\end{equation}
+where $\vec{v}$ is the particle velocity and $\vec{E}$ and $\vec{B}$ are the electric and magnetic fields respectively.
+
+In a homogenous magnetic field, without an electric field, the particle can move freely along the magnetic field.
+In the plane perpendicular to $\vec{B}$, the particle must undergo a circular orbit, since the force is also perpendicular to $\vec{v}$ and constant.
+This movement is called gyration and has the gyro frequency\footnote{Also called cyclotron frequency.} and gyro radius\footnote{Also called Larmor radius.},
+\begin{align}
+    \omega_\text{c} &= \frac{qB}{m} \quad \quad \text{and} \\
+    r_\text{L} &= \frac{v_\perp}{\omega_\text{c}}\, ,
+\end{align}
+% and the gyro radius\footnote{Also called Larmor radius.}
+% \begin{equation}
+%     r_\text{L} = \frac{v_\perp}{\omega_\text{c}}\, ,
+% \end{equation}
+with the particle mass $m$ and the particle velocity $v_\perp$ perpendicular to $\vec{B}$.
+Note that the direction of gyration is opposite for ions and electrons, as illustrated in \cref{fig:particle_drifts}a \autocite{freidberg_plasma_2007}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Particle drifts in magnetized plasma}
+\label{ssec:particle_drifts}
+\FloatBarrier
+
+The charged particle motion becomes more complex in a non-uniform electromagnetic field, but the gyration, i.e. spiralling motion around the magnetic field line, generally persists.
+Thus, it is helpful to describe the motion of the point around which the particle gyrates, the so-called guiding centre.
+
+\begin{wrapfigure}[26]{L}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.48\textwidth]{figure/external/Charged-particle-drifts_Wikipdia.pdf}
+    \caption{Illustration of charged particle drifts. Taken from \url{https://en.wikipedia.org/wiki/Guiding_center} and edited slightly.}
+    \label{fig:particle_drifts}
+\end{wrapfigure}
+
+Since the magnetic field only acts on the particle in the perpendicular plane, the motion can be split up into motion along and across magnetic field lines.
+Any parallel component of a general force $\vec{F}$ on the particle, for example from an electric field ${F_\parallel = q E_\parallel}$, is unaffected by the magnetic field and accelerates the particle such that ${\dot{v} = F_\parallel/m}$.
+
+Allowing for general force components perpendicular to the magnetic field, the particle is accelerated on one side of the gyro orbit and decelerated on the other side. This causes the guiding centre to not be accelerated, but to undergo a drift at constant velocity
+\begin{equation}
+    \vec{v}_{\vec{F}\times\vec{B}} = \frac{1}{q} \frac{\vec{F}\times\vec{B}}{B^2} \, 
+    \label{eq:general_force_drift}
+\end{equation}
+which is perpendicular to both $\vec{B}$ and $\vec{F}$, as illustrated in \cref{fig:particle_drifts}c.
+Applying this to the case of an electric field, the charge factor in the force ${F_\perp = q E_\perp}$ cancels out and particles experience the so-called the \underline{$\vec{E}\times\vec{B}$ drift}, which is independent of the charge, as shown in \cref{fig:particle_drifts}b.
+
+A spatially varying magnetic field strength imposes a force ${\vec{F}=\vec{\nabla}(\vec{\mu}\cdot\vec{B})}$ on a particle of magnetic moment $\mu$.
+The charged particles in the plasma gyrate, and their magnetic moment ${\mu=m v_\perp^2/2B}$ opposes the external magnetic field, making the plasma diamagnetic.
+Thus, the particles are decelerated in the parallel direction in a region of increasing magnetic field strength, which is the so-called magnetic mirror effect.
+In the perpendicular plane, the resulting \underline{${\mathrm{grad}B}$ drift}
+\begin{equation}
+    v_{\mathrm{grad}B} = \frac{\mu}{q} \frac{\vec{B} \times \vec{\nabla}B}{B^2}
+\end{equation}
+essentially separates negative from positive charges, as illustrated in \cref{fig:particle_drifts}d.
+
+Three additional smaller drifts\footnote{Since these drifts only play a secondary role in this thesis, they are only briefly mentioned.} are related to the particle's inertia.
+If the magnetic field lines are curved, the particle following this curve experiences an outward centrifugal force.
+Due to \cref{eq:general_force_drift}, this results in a drift, called the \underline{curvature drift}, pointing in the same direction as the $\mathrm{grad}B$ drift and thereby enhancing the charge separation.
+However, the charge separation is opposed by a drift related to the increase in electric field strength over time coupled to the particle inertia, called the \underline{polarization drift}.
+Lastly, an effective drift in a plasma due to averaged fluid properties is the so-called \underline{diamagnetic drift}.
+This drift is caused by a plasma pressure gradient and is perpendicular to both this pressure gradient and the magnetic field but in opposite directions for ions and electrons \autocite{freidberg_plasma_2007}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tokamak design}
+\label{sec:tokamak}
+
+The net effect of a magnetic field on plasma motion is used to isolate the plasma in a MCF device.
+Several magnetic field configurations have been proposed and tested over the last 70 years, but two concepts remain the major candidates for MCF, the stellarator and the tokamak.
+Both designs rely on closing the magnetic field lines into a \enquote{loop} so that the charged particles, i.e. the plasma constituents, ideally circle around in the device.
+However, as detailed further down, the plasma can only be confined if the magnetic field lines are additionally \enquote{twisted}.
+The difference in the two concepts is mainly that a stellarator generates the full magnetic field by using external coils, while a tokamak induces a current in the plasma, which twists the magnetic field lines.
+The scope of this thesis is focussed on the tokamak design\footnote{Details of the tokamak design such as heating of the plasma, divertors, disruption mitigation and many others are not elaborated on in this thesis.}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{figure/external/tokamak_schematic_JET.png}
+    \caption{Illustration of the magnetic field in a tokamak. Specifically, shown are the poloidal and toroidal fields and the components that generate them. Taken from \textcite{li_optimal_2014}.}
+    \label{fig:tokamak_fields}
+\end{figure}
+
+In a tokamak, the main magnetic field, which defines the donut-shape of the plasma, is the \emph{toroidal} magnetic field, as illustrated in \cref{fig:tokamak_fields} by a blue arrow.
+It is generated by current flowing through external, D-shaped toroidal field coils.
+For geometric reasons\footnote{Apply Ampere's law to a toroidal loop at a given radius within the toroidal field coils.}, this magnetic field is stronger on the inner side of the caged plasma (pink in \cref{fig:tokamak_fields}) than on the outer side.
+The former is thus called the high-field side (HFS) and the latter is called the low-field side (LFS).
+That is, to a first approximation, the gradient of the magnetic field points inwards along the major radius of the torus, i.e. of a tokamak, which is measured from the vertical symmetry axis. 
+The minor radius is measured from the toroidal symmetry axis. 
+
+It is this gradient along the major radius together with the curvature of the field lines that would lead to a loss of confinement without the \enquote{twist} of the field lines.
+Additionally, the corresponding mechanism also plays an important role in the pellet ablation cloud dynamics, as explained in \cref{ssec:plasmoid_cloud}.
+The $\mathrm{grad}B$ drift points in opposite vertical directions for the positively charged ions and the negatively charged electrons.
+The opposing polarization drift, due to the increasing vertical electric field, slightly reduces the extent of this effective vertical charge separation inside the plasma, but a significant electric field is generated.
+This vertical electric field then causes the plasma particles to drift outwards, i.e. down the magnetic field gradient, due to the $\vec{E}\times\vec{B}$ drift.
+In a purely toroidal magnetic field, both of these drifts would transport the plasma particles away from the centre of the torus and cause them to exit the confinement region \autocite{freidberg_plasma_2007}.
+
+In a tokamak, this problem is avoided by introducing an additional weaker poloidal magnetic field, as illustrated in \cref{fig:tokamak_fields} by the green arrows around the plasma.
+This poloidal field twists the field lines into a helical shape, as shown by the black lines.
+The plasma particles follow the helical path, circling around the torus.
+The effect of the dominantly vertical $\mathrm{grad}B$ drift is thus cancelled out, as particles spend a roughly equal amount of time on the upper part of the plasma as on the lower part.
+Overall, the drifts are mitigated and the plasma is magnetically confined.
+
+The poloidal magnetic field in a tokamak is mainly produced by an induced plasma current in the toroidal direction.
+Since the resistivity of the hot fusion plasma is much lower than in a regular conductor, a comparatively low electric field is sufficient to drive plasma currents of up to tens of $\unit{MA}$.
+This electric field in a tokamak is often induced by a central solenoid, as shown in \cref{fig:tokamak_fields} by the inner poloidal field coils.
+The solenoid current is slowly increased, which generates a changing magnetic field and thus induces an electric current.
+Since this transformer-like induced current cannot be increased indefinitely, a tokamak is operated in a pulsed procedure.
+Additionally, outer poloidal field coils help to shape the magnetic field and stabilize the plasma.
+
+The main driving factor of plasma instabilities in a tokamak is the strong toroidal current.
+When instabilities grow large enough so that the energy confinement is lost, i.e. in a disruption event, the plasma rapidly cools down in a thermal quench.
+This causes the resistivity in the plasma to rapidly increase.
+However, the highly inductive plasma tends to then keep the current running by inducing a strong toroidal electric field during the current quench.
+This strong toroidal electric field can accelerate energetic electrons to significant fractions of the speed of light because, unlike in the other states of matter, above a critical velocity, electrons in a plasma interact less and less with the surrounding plasma particles, which decreases the effective drag force.
+Those electrons are called runaway electrons and can be seeded from various sources in a disrupting plasma.
+Mitigating disruptions is one of the major challenges in designing a fusion power plant to limit the risk of serious damage to the device components. 
+The most advanced method is to control the cooling process and evolution of the current and electric field by the injection of additional cool and dense material, in the form of cryogenic pellets \autocite{hender_chapter_2007}.

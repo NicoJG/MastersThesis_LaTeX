@@ -1,47 +1,204 @@
 \chapter{Pellet injection}
-    %\section{Disruption mitigation schemes}
-        %\subsection{Shattered pellet injection}
+\label{chap:pellet_injection}
 
+Understanding the dynamics of what happens after a pellet %(or a pellet shard in the case of SPI)
+enters the fusion plasma is of utmost importance when developing and operating pellet injection schemes in MCF devices such as tokamaks.
+The main idea is that the frozen material of the pellet is continuously ablated while traversing the fusion plasma, thereby depositing fuel or impurities in the plasma.
+The ablated material will be quickly ionized and homogenizes along the field lines.
+This not only serves the purpose of replenishing the fuel in the fusion plasma.
+Pellet injection is also used to control the density profile of the plasma, to control edge localized modes and to mitigate disruptions.
+Adding density and/or lowering the plasma temperature can greatly influence the plasma dynamics in both the core and the edge \autocite{pegourie_review_2007}.
+
+In the case of disruption mitigation, large amounts of pellet material have to quickly be deposited in the plasma.
+However, large pellets cannot disintegrate fast enough and could possibly pass through the plasma and damage the opposite wall.
+Instead of just shooting in the pellet whole, it can be directed at a target\footnote{Often a bend in the guiding tube.}, which shatters the pellet into many tiny pellet shards before entering the plasma and thereby maximizes the quick deposition of material in the plasma, starting from the edge.
+This method is called shattered pellet injection (SPI) and is essential to mitigate disruptions in future fusion reactors \autocite{commaux_demonstration_2010, hollmann_status_2015}.
+
+Optimally, a disruption event in a MCF power plant would be detected as early as possible\footnote{Fast detection of disruptions is still a major challenge in tokamaks because of the high neutron flux and the thick metal walls.} when signals of the instability onset become apparent during the precursor stage.
+Then, SPI can decrease the negative impact of the disruption in three major ways \autocite{hollmann_status_2015,vallhagen_disruption_2023}.
+First, a tokamak is designed so that most of the hot plasma exhaust is directed towards a region of more durable material, called the divertor.
+However, during a disruption, localized heat fluxes can be too large even for the divertor\footnote{Other wall components can also be damaged by the intense radiation or through heat conduction.} material and can damage it.
+Injecting pellets that contain impurities such as neon or argon\footnote{Neon and argon are noble gases that emit radiation at the right temperature and do not integrate into the MCF device components.} can dissipate some of the energy homogeneously through emission of radiation in atomic processes.
+Second, during the current quench of a disruption, the plasma current can leak to the device components and induce strong eddy currents or halo currents.
+Combined with the strong magnetic fields, this can put the structural device components under intense physical stress. % present structural materials can reasonably withstand 3000 atm of stress and a tokamak needs to be designed accordingly
+The pellet induced cooling of the plasma can be used to tune the plasma resistivity, which then mitigates untolerable stresses.
+Last, runaway electrons can be mitigated by increasing the density in the plasma, which effectively increases the drag felt by electrons in the plasma. 
+
+Theoretical predictions are used to help plan pellet injection schemes, so that the material is efficiently delivered at the right location in the plasma.
+A first important prediction is the ablation rate, i.e. how fast the pellet\footnote{In the following, the word pellet is used to refer to both whole pellets or pellet shards in the case of SPI.} loses material to the plasma.
+The dynamics involved are further explained in \cref{sec:ablation_dynamics}, with a focus on the inner cloud of neutral gas in \cref{ssec:neutral_gas_cloud} and a focus on the outer cloud of cold plasma in \cref{ssec:plasmoid_cloud}.
+Another important factor is how fast and in what way the cold plasma equilibrates with the hot fusion plasma, which is also briefly touched upon in \cref{ssec:plasmoid_cloud}.
+Finally, the full effect of an injected pellet can only be estimated if the pellet trajectory is accurately predicted, which is the topic of \cref{sec:pellet_trajectory}.
+
+% After ablation and ionisation, the deposited cold plasma material was observed to drift outwards down the magnetic field gradient.
+% Consequently, some of the pellet material will be lost towards the outside.
+% The fuelling efficiency is thus better the deeper the pellet can penetrate the plasma before being fully disintegrated.
+% However, the pellet should not be too fast so that pellet material is lost to the wall opposite of the pellet injector.
+% To find the right injection speed and angle and the right pellet size, predictions have to be made based on physical principles about the dynamics of the pellet and its material.
+
+% Several phenomena and plasma dynamics contribute to the pellet material being spread around in a tokamak.
+% Once ionized, the material mainly expands along the field lines, while the magnetic field constrains it in the perpendicular direction, until the pressure has equilibrated with the background plasma.
+% Additionally, the much higher mobility of the electrons compared to the ions causes modifications to the electric potential in the plasma, which affects the plasma current and thus the poloidal magnetic field.
+% The main source of the cross field drift of the pellet material is the $\vec{E}\times\vec{B}$ drift along the major radius, which is induced by the charge separation due to the $\mathrm{grad}B$ drift.
+% Since the material drifts and is ablated at different positions along the pellet trajectory, eventually all magnetic field flux surfaces in the torus will be reached, and the material deposition is nearly homogeneous.
+% This homogenization process is typically completed in around $\qty{1}{\ms}$ after the material is ablated \autocite{pegourie_review_2007}.
+% Since the ablation process and trajectory are not significantly affected by the material homogenization and the presence of other pellet shards, further explanations of these dynamics are outside the scope of this thesis.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ablation dynamics}
 \label{sec:ablation_dynamics}
 
-Text snippets I have written before (not really a text):
+Immediately after a pellet of frozen material is exposed to the high heat flux in a fusion plasma, the outer layers of the pellet sublimate and form a dense cold cloud around the pellet, as illustrated in \cref{fig:ablation_cloud_illustration}.
+Close to the pellet, this ablation cloud is a nearly spherical neutral gas and further away the material ionizes and forms an elongated plasma cloud, called the plasmoid.
+The ablation cloud absorbs or scatters most of the energy of the incident electrons and ions, which effectively shields the pellet from the heat flux.
+Ions in a fusion plasma have a much lower thermal speed than electrons and are stopped more easily.
+Thus, electrons are the main heat source reaching the pellet.
+%Only in the case of neutral beam injection, ions can be fast enough to have gyro orbits larger than the ablation cloud, which can then reach the pellet more easily.
+Overall, pellet ablation dynamics can be seen as a self-regulating process, where the ablation cloud establishes itself to largely shield the pellet from the incoming heat.
+The ablation rate and shielding capability balance each other so that the cloud has the right density.
+%the rate at which the ablation cloud loses material to the plasma.
+Since the ablation cloud adapts nearly instantaneously\footnote{On timescales faster than $\qty{1}{\micro\s}$ \autocite{parks_effect_1978}.} to changes in the pellet and outside plasma conditions, it is sufficient to treat the cloud in a quasi steady state approximation.
 
-As mentioned before, the basis of our model is the NGS model, developed by \textcite{parks_effect_1978}.
-Most of this section is dedicated to describing and reproducing this semi-analytical model.
-To give an overview of the model, ... describes the physics of the pellet ablation and which assumptions and approximations were made by \textcite{parks_effect_1978}.
-A detailed mathematical description of the NGS model follows in \cref{ssec:isotropic_model}.
-Finally, \cref{ssec:asymmetric_perturbation_model} describes in detail the perturbative extension to the NGS model, which we developed.
+In the case of hydrogenic pellets, where the sublimation energy per molecule\footnote{Frozen hydrogen sublimates as a molecular $\ce{H2}$ gas instead of an atomic $\ce{H1}$ gas.} is low (around $\qty{0.01}{\eV/\text{molecule}}$), the pellet is nearly fully shielded from the incident energy flux from the plasma \autocite{pegourie_review_2007}. 
+Impurities like neon and argon have comparable sublimation energies \autocite{gebhart_experimental_2020}. 
+However, impurities like carbon or beryllium have sublimation energies of $\qtyrange{1}{10}{\eV/atom}$ \autocite{parks_analysis_1988}, which results in only partial shielding.
+This thesis is restricted to the case of hydrogenic pellets.
 
+\begin{figure}
+    \centering
+    \includegraphics{figure/ablation_cloud_overview.pdf}
+    \caption{Illustration of the ablation cloud that shields an injected pellet. The neutral part of the ablation cloud expands nearly spherically (shown in orange) and once the material is ionized it expands along the field lines (shown in pink). Note that the shown proportions are not to scale. In reality, the plasmoid is much larger than the neutral gas cloud, which in turn is much larger than the pellet and the electron gyration radius is even smaller. Inspired by \textcite{baylor_projected_2016}.}
+    \label{fig:ablation_cloud_illustration}
+\end{figure}
 
-Pellet ablation is a self regulating process where the ablation cloud establishes itself so that nearly all of the incident heat flux is absorbed in the neutral gas of ablated material.
-Heat from incident highly energetic electrons reaching the pellet surface breaks the bonds between the molecules and evaporates them into the ablation cloud.
-In the case of hydrogen isotopes (Hydrogen, Deuterium, Tritium), the energy needed to sublimate one of those molecules is approximately $\qty{0.01}{\eV}$
+Most of the dynamics explained in this chapter are based on theoretical models rather than experimental observations.
+Time-resolved measurements of pellet ablation dynamics are rare and difficult to perform. Pellets have typical lifetimes of a few $\unit{ms}$, speeds of $\qtyrange{100}{1000}{m/s}$ and sizes on the $\unit{\mm}$ scale.
+Nevertheless, measurements of general properties, such as the pellet trajectory, the ablation profile and material deposition profile\footnote{Obtained by spectroscopy.} were able to validate some quantitative predictions of theoretical models \autocite{pegourie_review_2007}.
+Thus, the following qualitative description presents the most likely underlying dynamics.
 
-When highly energetic electrons hit the pellet surface, they deposit enough energy 
-
-This is the case for pellets consisting of mainly hydrogen isotopes because the energy needed to vaporize molecules at the pellet surface is much lower than 
-
-Things to be mentioned (not only those!)
-\begin{itemize}
-    \item The importance of transonic flow, the convergent-divergent nozzle effect, where the ablated material is mainly heated until it reaches sonic speed and the at supersonic speeds mainly the increase in area is important
-    \item the formation of the shock front at the neutral ablation cloud boundary
-\end{itemize}
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Neutral gas ablation cloud}
-\subsubsection{Ideal gas fluid dynamics}
+\label{ssec:neutral_gas_cloud}
 
-(derive the ideal gas Euler equations from kinetic theory like in Per's book)
-% \begin{align}
-% &\rho = m \frac{p}{T} &\text{(ideal gas)} \label{eq:ideal_gas_law} \\
-% &\vec{\nabla} \cdot (\rho \vec{v}) = 0 &\text{(mass conservation)} \label{eq:full_mass_conservation} \\
-% &\rho (\vec{v} \cdot \vec{\nabla}) \vec{v} = - \vec{\nabla} p &\text{(momentum conservation)} \label{eq:full_momentum_conservation} \\
-% &\vec{\nabla} \cdot \left[\left( \frac{\rho v^2}{2} + \frac{\gamma p}{\gamma - 1} \right) \vec{v}\right] = - \vec{\nabla}\cdot\vec{q} \approx \mu \dv{q}{r} &\text{(energy conservation)} \label{eq:full_energy_conservation}
-% \end{align}
-            
-        \subsection{Plasmoid ablation cloud}
-    %\section{Homogenization of the pellet material}
-    \section{Pellet trajectory}
+Directly after leaving the pellet surface, the ablated molecules form a cold neutral gas. 
+Electrons traverse the neutral gas along the field lines and deposit their energy through processes such as absorption, atomic excitation, dissociation and scattering.
+Because of this continuous heating, the gas expands and is accelerated outwards nearly spherically symmetrically.
+At the same time, a continuous outflow of particles from the pellet surface supplies the cloud with newly ablated material.
+Close to the pellet surface, the neutral gas cloud is very dense, with pressures of around a hundred atmospheres, but still much less dense than the pellet itself.
+Further outwards, the density and pressure quickly drop, while the temperature and flow velocity are continuously increased.
+Since the pressure of the fusion plasma is still several orders of magnitude lower than in the ablation cloud, back pressure effects from the outside are negligible.
+Once the flow velocity reaches the speed of sound in the gas, the expansion becomes the driving factor for further acceleration to supersonic speeds.
+This transonic acceleration effect can be seen as similar to the dynamics in a convergent-divergent nozzle, such as those used for rocket propulsion \autocite{parks_effect_1978}.
+
+% If I have time I could explain this more by making an illustration of a nozzle ontop of the ablation cloud and having arrows indicating the pressure
+
+As they flow away from the pellet, the ablated molecules dissociate into hydrogen atoms, and these atoms eventually ionize.
+While the material is fully dissociated inside the sonic radius, ionization occurs at higher energies and therefore in the supersonic part further outwards.
+When the ablated material ionizes, the kinetic energy is reduced\footnote{Ionization leads to an energy sink in the ablation cloud.} and the flow velocity rapidly slows down to subsonic speeds.
+The resulting shock front thus separates the neutral part of the ablation cloud from the nearly fully ionized part \autocite{ishizaki_fluid_2003,pegourie_review_2007}.
+
+The ablation cloud was first modelled as this transonic phenomenon by \textcite{parks_effect_1978}.
+They developed a semi-analytical model for the neutral gas dynamics, commonly referred to as the neutral gas shielding (NGS) model, and provided scaling laws for ablation properties such as the ablation rate.
+Even though the NGS model contains many strong assumptions, it agrees surprisingly well with experimental measurements of pellet lifetimes and ablation rates \autocite{pegourie_review_2007}.
+It is thus still used for ablation rate predictions in pellet injection simulations.
+The success of the NGS model is the reason it was chosen to be the basis of our model for the pellet rocket effect.
+The details of the NGS model and how we extend it to include asymmetric dynamics are explained in \cref{sec:neutral_gas_shielding}.
+While \textcite{parks_effect_1978} assumed the ionization to play no significant role in the shielding dynamics, we have to account for this effect in our model and the relevant physics is explained qualitatively in the next section.
+
+% \subsubsection{Ideal gas fluid dynamics}
+% (optionally, derive the ideal gas Euler equations from kinetic theory?)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Plasmoid ablation cloud}
+\label{ssec:plasmoid_cloud}
+
+Once the ablated material is ionized, it is effectively a magnetized plasma like the fusion plasma around it.
+However, the density is still very high ($\sim \qty{e24}{\text{particles}/\m^3}$) compared to the fusion plasma density ($\sim \qty{e20}{\text{particles}/\m^3}$) and the temperature is only $\qtyrange{1}{4}{\eV}$ \autocite{muller_high_2002, matsuyama_neutral_2022}.
+The external heating and the outflow of particles drives the ionized cloud to further expand.
+But since the charged particles are confined to the magnetic field lines, expansion perpendicular to the field lines is prevented.
+Instead, the cold plasma cloud expands along the field lines at its ion sound speed and forms initially a cigar shaped plasmoid.
+
+The plasmoid contributes at least in three separate ways to the shielding of the heat flux \autocite{pegourie_review_2007}.
+The most important shielding mechanism is the elastic and inelastic scattering of incoming ions and electrons, similarly to the gas shielding.
+Furthermore, a slight potential difference arises between the neutral ablation cloud and the plasmoid because the electrons of the fusion plasma penetrate deeper than the ions.
+%the neutral ablation cloud is slightly negatively charged compared to the plasmoid, since electrons can leave the plasmoid faster than ions. 
+This potential difference then repels incoming electrons and shields the pellet electrostatically.
+Conversely, ions in the plasmoid are slightly attracted towards the pellet, but they deposit their energy already after a short path through the neutral cloud and do not heat the pellet surface.
+Lastly, the plasmoid is diamagnetic. This means that the magnetic field is slightly expelled from the plasmoid and the field lines are somewhat bent around the pellet.
+This partially deflects the incoming heat flux and shields the pellet magnetically.
+
+Since the plasmoid is initially localized around the pellet, it does not benefit from the (drift cancelling) poloidal twist of the field lines that is the concept of the tokamak.
+Therefore, the same $\vec{E}\times\vec{B}$ drift, that would affect a fusion plasma in a purely toroidal magnetic field, also leads to a drift of ionized ablation material down the magnetic field gradient, i.e. outwards along the major radius.
+As illustrated in \cref{fig:plasmoid_drift_pellet_shadow}, this produces a finite plasmoid shielding length along the field lines hitting the pellet.
+This phenomenon is important for our model and is further explained and quantified in \cref{sec:plasmoid_shielding}.
+During the initial phase of the plasmoid expansion, the acceleration of the outward $\vec{E}\times\vec{B}$ drift is determined by the balance of the $\mathrm{grad}B$ drift, the curvature drift and the opposing polarization drift.
+During the later phases, additional effects define the plasmoid motion as it continues to move away from the pellet. 
+These effects include the depletion of the plasmoid charge due to plasma waves and ohmic currents exiting the plasmoid parallel to the field lines.
+The full dynamics of the drift of the ionized ablation material has been studied by \textcite{vallhagen_drift_2023}.
+
+\begin{figure}
+    \centering
+    \includegraphics{figure/plasmoid_drift_pellet_shadow.pdf}
+    \caption{Illustration of the $\vec{E}\times\vec{B}$ drift induced plasmoid shielding length along the field lines hitting the pellet. The proportions do not reflect reality. Inspired by \textcite{samulyak_simulation_2023}.}
+    \label{fig:plasmoid_drift_pellet_shadow}
+\end{figure}
+
+The plasmoid expansion along the field lines continues until the pressure and density have equilibrated with the background plasma.
+Eventually, the material deposited on one field line almost fully covers the corresponding flux surface due to the poloidal twist of the field lines.
+This poloidal homogenization process is typically completed in around $\qty{1}{\ms}$ after ablation \autocite{pegourie_review_2007}.
+Additionally, the pellet deposits its material on the different magnetic flux surfaces along its trajectory.
+Thus, the pellet effectively modifies the density profile of the plasma along the minor radius, depending on how fast it disintegrates and if it reaches into the plasma core.
+However, the outward drift can push some of the deposited material out of the confinement region before it completes one poloidal turn.
+This material is lost to the device walls, which can severely limit the fuelling efficiency.
+Since the pellet rocket effect is mainly related to the pellet ablation process and trajectory, which are not significantly affected by the homogenization dynamics, further explanations of these dynamics are outside the scope of this thesis.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pellet trajectory}
+\label{sec:pellet_trajectory}
+
+% After ablation and ionisation, the deposited cold plasma material was observed to drift outwards down the magnetic field gradient.
+% Consequently, some of the pellet material will be lost towards the outside.
+% The fuelling efficiency is thus better the deeper the pellet can penetrate the plasma before being fully disintegrated.
+% However, the pellet should not be too fast so that pellet material is lost to the wall opposite of the pellet injector.
+
+As discussed in the last section, after ablation and ionization, the deposited cold plasma material further drifts outwards.
+This makes it important that the pellet reaches the plasma core before it is fully disintegrated. 
+The fuelling efficiency is better the deeper the pellet can penetrate the plasma before fully disintegrating \autocite{pegourie_review_2007}.
+This consideration is less critical when the pellet is injected from the high-field side (HFS) since then the ablated material drifts towards the plasma core.
+However, the geometry of a tokamak makes HFS injection challenging because there is little to no space in the centre of the torus.
+Nevertheless, HFS injection has been performed in tokamak experiments, where the pellet is generated and accelerated outside the LFS, but then guided along a tube towards the HFS \autocite{combs_high-field-side_1998}.
+This type of injection is a much greater engineering challenge.
+It also restricts the pellet velocity and size, which is especially unfavourable for disruption mitigation, where a large amount of pellet material has to be deposited in the plasma quickly.
+In most cases, injection from the LFS is preferable.
+From both the LFS and HFS, pellets have to be injected at the right speeds to reach the plasma core but not shoot through the plasma towards the opposite wall.
+To find the right injection speed, injection angle and the right pellet size, predictions about the ablation and homogenization dynamics have to be accompanied by predictions of the pellet trajectory based on physical principles.
+
+During the early stages of research on pellet injection technology for MCF, it was believed that the high velocities of around $\qtyrange{100}{1000}{\m/\s}$ would allow the pellet to traverse the plasma in a straight line.
+The gravitational acceleration on earth of $\qty{9.8}{\m/\s^2}$ is too weak to significantly affect the pellet trajectory.
+Furthermore, the neutrality of the pellet combined with the low density of the fusion plasma suggested that no other significant forces would act on the pellet.
+
+However, several experimental observations have indicated that the pellet is both deflected and slowed down in the fusion plasma \autocite{pegourie_review_2007}.
+One of those experimental results is shown in \cref{fig:pellet_deflection}, where \textcite{waller_investigation_2003} measured the ablation profile of a pellet injected into the Tore Supra tokamak.
+The pellet trajectory could be reconstructed by observation of the $\ce{H}_\alpha$ emission due to the excitation of the hydrogen atoms ablated from the pellet.
+A clear deflection of the pellet in the toroidal direction is visible.
+Radial and toroidal acceleration of the pellet was also observed in the ASDEX Upgrade tokamak by \textcite{kocsis_fast_2004, muller_high_2002}.
+%The effect of neutral beam injection on the pellet trajectory was shown by \textcite{morita_observation_2002}.
+A deflection in the vertical direction of the TJ-II stellarator was measured by \textcite{medina-roque_studies_2021}.
+
+The observed changes in the pellet trajectory are commonly attributed to the \emph{pellet rocket effect}, resulting from asymmetric heating.
+For example, in the case of a pellet being deflected in the toroidal direction, it is related to the toroidal plasma current.
+In the case of acceleration (or deceleration) along the major radius, the asymmetry is induced by the mentioned outwards drift of the plasmoid, creating a shielding length asymmetry across the pellet.
+The only other plausible explanation for the pellet's acceleration are drag forces between the drifting plasmoid and the neutral ablation cloud (or the pellet directly) \autocite{pegourie_review_2007}.
+\textcite{polevoi_simplified_2001} predicted that this could cause a pellet acceleration 3 to 4 orders of magnitude lower than the plasmoid drift acceleration.
+Predictions for the pellet rocket effect show this difference to be of around 2 to 3 orders of magnitude \autocite{samulyak_simulation_2023,vallhagen_drift_2023}.
+Thus, while drag forces could contribute to pellet acceleration, the rocket effect is predicted to be the main mechanism and this thesis does not further consider these viscosity effects.
+
+Two main attempts were previously made, to predict and quantify pellet rocket acceleration.
+First, a model developed by \textcite{senichenkov_pellet_2007} associates an enhanced ablation on one side of the pellet with the shielding asymmetry due to the plasmoid drift.
+The model is based on the ablation model presented by \textcite{rozhansky_ablation_2005}, which provides analytical scaling laws from first principles, including also the plasmoid physics, but which is not used as much as the NGS model.
+The plasmoid drift is considered in a simplified way, and the spatial dependence of the ablation cloud properties are mostly neglected.
+These effects are, however, essential to model in more detail.
+Second, a semi-empirical model developed by \textcite{szepesi_radial_2007} associates the rocket acceleration to a difference in pressure on both sides of the pellet.
+Although the isotropic pressure is taken from the NGS model, the asymmetry factor is a model parameter, that has to be calculated from experimental observations of pellet trajectories or from simulation results.
+Recently, \textcite{samulyak_simulation_2023} presented predictions for the pellet rocket acceleration based on pressure asymmetries calculated in a Lagrangian particle simulation, which included the plasmoid drift and plasmoid shielding dynamics.
+The developed models are not widely used, and this thesis develops the concepts further into a new semi-analytical model for the pellet rocket effect.

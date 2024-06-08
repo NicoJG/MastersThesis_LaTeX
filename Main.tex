@@ -14,7 +14,6 @@
 % \usepackage{layouts}
 
 \begin{document} 
-
 % display textwidth:
 % textwidth: \the\textwidth \\
 % textwidth in cm: \printinunitsof{cm}\prntlen{\textwidth} \\
@@ -32,29 +31,35 @@
 \newpage
 \input{include/frontmatter/Acknowledgements}
 
+% TABLE OF CONTENTS
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\contentsname} 
+\tableofcontents
+
 % Acronyms
-\newpage
+\cleardoublepage
+\phantomsection
 \addcontentsline{toc}{chapter}{List of Acronyms}
 \input{include/frontmatter/Acronyms}
 
 % Nomenclature
-\newpage
-\addcontentsline{toc}{chapter}{Nomenclature}
-\input{include/frontmatter/Nomenclature}
-
-% TABLE OF CONTENTS
-\newpage
-\tableofcontents
+% \newpage
+% \phantomsection
+% \addcontentsline{toc}{chapter}{Nomenclature}
+% \input{include/frontmatter/Nomenclature}
 
 % OTHER FRONTMATTER
 % List of figures (add to table of contents)
 \cleardoublepage
+\phantomsection
 \addcontentsline{toc}{chapter}{\listfigurename} 
 \listoffigures
 % List of tables (add to table of contents)
 \cleardoublepage
-\addcontentsline{toc}{chapter}{\listtablename}  
-\listoftables
+\phantomsection
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables  
 
 
 % START OF MAIN DOCUMENT
@@ -66,13 +71,13 @@
 \input{include/02_MCF}
 \input{include/03_Pellet_dynamics}
 \input{include/04_Model}
-\input{include/05_Results}
-\input{include/06_Conclusion}
+\input{include/05_Conclusion}
 
 % REFERENCES / BIBLIOGRAPHY
 \cleardoublepage
-\printbibliography
+\phantomsection
 \addcontentsline{toc}{chapter}{Bibliography}
+\printbibliography
 %\input{include/backmatter/References}
 
 % APPENDICES

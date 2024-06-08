@@ -1,81 +1,73 @@
-\section{Perturbation model expressions derived with SymPy}
+\section{Asymmetric NGS model expressions derived with SymPy}
 \label{sec:appendix_sympy_expressions}
 
-This section provides the full expressions found for the normalized perturbation model.
+\begingroup
+\renewcommand*{\arraystretch}{2}
+This section provides the full expressions found for the normalized asymmetric NGS model, as explained in \cref{ssec:asymmetric_perturbation_model}.
 Algebraic operations were performed using the Python package SymPy, since the expressions are too large to handle manually.
-The system of equations describing the normalized perturbation $\vec{y}_1$ to the NGS model $\vec{y}_0$ is written in the form
+Consider the system of \cref{eq:physical_perturbation_ideal_gas_law,eq:physical_perturbation_mass_conservation,eq:physical_perturbation_r_momentum_conservation,eq:physical_perturbation_energy_conservation,eq:physical_perturbation_theta_momentum_conservation,eq:physical_perturbation_effective_heat_flux,eq:physical_perturbation_electron_energy_loss} with $l=1$ and the changes due to normalization listed after \cref{eq:perturbation_normalized_bc}.
+It describes the normalized perturbation $\vec{y}_1$ to the isotropic NGS model $\vec{y}_0$ and is now written in the form
 \begin{equation}
     A \pdv{\vec{y}_1}{r} = B \vec{y}_1 \quad \text{with} \quad \vec{y}_1 = (p_1, T_1, v_{1,r}, v_{1,\theta}, q_1, E_1)^T \, .
 \end{equation}
-where
+Since all the following expressions contain only the isotropic NGS model quantities, the subscript 0 is omitted.
+We also denote $y' = \partial y/ \partial r$ and $\lambda = \lambda_\star$.
+The corresponding matrices are
 \begin{gather}
-    A(r) = \begin{pmatrix}
-    -v_0/T_0 & v_0 \cdot \rho_0/T_0 &  -\rho_0 &  0 &  0 & 0 \\
-    -1/\gamma &  0 &  -\rho_0 \cdot v_0 &  0 &  0 &  0 \\
-    0 &  0 &  0 &  -\rho_0 \cdot v_0 &  0 &  0 \\
-    -v_0/(\gamma-1) - 1/2 \cdot v_0^3/T_0 &  1/2 \cdot \rho_0 \cdot v_0^3/T_0 &  -k_0-\rho_0 \cdot v_0^2 &  0 &  2/((\gamma-1) \cdot \lambda_\star) &  0 \\
-    0 & 0 & 0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 1
-    \end{pmatrix} \quad\text{and} \\
-    B = \begin{pmatrix}
-    v_0 \cdot \frac{d}{dr}(1/T_0) + (\nabla \cdot \vec{v_0})/T_0 &  -v_0 \cdot \frac{d}{dr}(\rho_0/T_0)-(\nabla \cdot \vec{v_0}) \cdot \rho_0/T_0 &  \frac{d}{dr}(\rho_0)+2 \cdot \rho_0/r &  -2 \cdot \rho_0/r &  0 &  0 \\
-    v_0 \cdot \frac{d}{dr}(v_0)/T_0 &  -v_0 \cdot \frac{d}{dr}(v_0) \cdot \rho_0/T_0 &  \rho_0 \cdot \frac{d}{dr}(v_0) &  0 &  0 &  0 \\
-    1/(\gamma \cdot r) &  0 &  0 &  v_0 \cdot \rho_0/r &  0 &  0 \\
-    (\nabla \cdot \vec{v_0}) \cdot (1/(\gamma-1) + 1/2 \cdot v_0^2/T_0)+1/2 \cdot v_0 \cdot \frac{d}{dr}(v_0^2/T_0) &  -(\nabla \cdot \vec{v_0}) \cdot 1/2 \cdot \rho_0 \cdot v_0^2/T_0-1/2 \cdot v_0 \cdot \frac{d}{dr}(\rho_0 \cdot v_0^2/T_0) &  \frac{d}{dr}(k_0)+2 \cdot k_0/r+v_0 \cdot \frac{d}{dr}(\rho_0 \cdot v_0)+(\nabla \cdot \vec{v_0}) \cdot \rho_0 \cdot v_0 &  -2 \cdot k_0/r &  0 &  0 \\
-    \lambda_\star \cdot q \cdot \Lambda(E_0)/T_0 &  -\lambda_\star \cdot \rho_0 \cdot q \cdot \Lambda(E_0)/T_0 &  0 &  0 &  \lambda_\star \cdot \rho_0 \cdot \Lambda(E_0) &  \lambda_\star \cdot \rho_0 \cdot q_0 \cdot \Lambda'(E_0) \\
-    2 \cdot \lambda_\star \cdot L(E_0)/T_0 &  -2 \cdot \lambda_\star \cdot \rho_0 \cdot L(E_0)/T_0 & 0 &  0 &  0 &  2 \cdot \lambda_\star \cdot \rho_0 \cdot L'(E_0)
-\end{pmatrix}\, ,
+    \input{include/exported_latex/A} \\
+    \intertext{and}
+    \input{include/exported_latex/B} \, .
 \end{gather}
-with the shorthands
+We have denoted
 \begin{gather}
-    k_0 = 1/2\cdot \rho \cdot v^2 + p/(\gamma-1) \, , \\
-    \nabla \cdot \vec{v}_0 = \frac{1}{r^2} \cdot \frac{d}{dr}(r^2 \cdot v_0) \, .
+    k = \frac{1}{2} \rho v^2 + \frac{p}{\gamma-1} \, , \\
+    \vec{\nabla} \cdot \vec{v} = \frac{1}{r^2} \cdot \frac{d}{dr}(r^2 v) \, .
 \end{gather}
-Symbolic computation allows finding an analytic expression for $C = A^{-1}B$ so that
+Symbolic computation allows us to find an analytic expression for $C = A^{-1}B$ so that
 \begin{equation}
-    \pdv{\vec{y}_1}{r} = C \vec{y}_1 \, .
+\boxed{%
+    \pdv{\vec{y}_1}{r} = C \vec{y}_1} \, .
 \end{equation}
-The expression for matrix $C$ in terms of $3 \times 3$ blocks, dropping the index 0 (and $\star$) and $w=v^2$ is found to be
+The expression for matrix $C$ in terms of $3 \times 3$ blocks with $w=v^2$ is provided on the next page.
+
+\begin{landscape}
 \begin{gather}
-    C = \begin{pmatrix}
-        C_{11} & C_{12} \\
-        C_{21} & C_{22}
-    \end{pmatrix} \\
-    C_{11} = \frac{1}{T-v^2} \left[\begin{matrix}- \frac{2 \Lambda \gamma q \sqrt{w}}{T} + \frac{2 \gamma w}{r} & \frac{2 \Lambda \gamma q}{T r^{2}} + \frac{\gamma \frac{d}{d r} w}{2 r^{2} \sqrt{w}} & \frac{\gamma \left(- T \frac{d}{d r} w + w \left(\frac{\gamma \frac{d}{d r} w}{2} + \frac{d}{d r} T - \frac{\frac{d}{d r} w}{2}\right)\right)}{r^{2} w}\\\frac{r \left(- 2 \Lambda \gamma q r w + T \left(2 \Lambda q r + 2 \gamma w^{\frac{3}{2}} - r \sqrt{w} \frac{d}{d r} T - 2 w^{\frac{3}{2}}\right) + r w^{\frac{3}{2}} \frac{d}{d r} T\right)}{T} & - \frac{2 \Lambda q}{\sqrt{w}} + \frac{2 \Lambda \gamma q \sqrt{w}}{T} + \frac{\gamma \frac{d}{d r} w}{2} + \frac{d}{d r} T - \frac{\frac{d}{d r} w}{2} - \frac{w \frac{d}{d r} T}{T} & \frac{- \frac{3 T \gamma \frac{d}{d r} w}{2} - T \frac{d}{d r} T + \frac{3 T \frac{d}{d r} w}{2} + \frac{\gamma^{2} w \frac{d}{d r} w}{2} + \gamma w \frac{d}{d r} T - \frac{\gamma w \frac{d}{d r} w}{2}}{\sqrt{w}}\\\frac{r \left(2 \Lambda q r \sqrt{w} - \frac{T r \frac{d}{d r} w}{2} - 2 T w + \frac{r w \frac{d}{d r} w}{2}\right)}{T} & \frac{- 2 \Lambda q - \frac{\sqrt{w} \frac{d}{d r} w}{2}}{T} & \frac{T \frac{d}{d r} w}{2 w} - \frac{\gamma \frac{d}{d r} w}{2} - \frac{d}{d r} T + \frac{d}{d r} w\end{matrix}\right]
-\\C_{12} = \frac{1}{T-v^2} \left[\begin{matrix}- \frac{2 T \gamma}{r^{3}} & - \frac{2 \Lambda \gamma}{r^{2}} & - \frac{2 \gamma q \frac{d}{d E} \Lambda}{r^{2}}\\\frac{2 T \sqrt{w} \left(1 - \gamma\right)}{r} & \frac{2 \Lambda \left(T - \gamma w\right)}{\sqrt{w}} & \frac{2 q \left(T - \gamma w\right) \frac{d}{d E} \Lambda}{\sqrt{w}}\\\frac{2 T}{r} & 2 \Lambda & 2 q \frac{d}{d E} \Lambda\end{matrix}\right]
-\\C_{21} =  \left[\begin{matrix}- \frac{r}{\gamma} & 0 & 0\\\frac{\Lambda \lambda q}{T} & - \frac{\Lambda \lambda q}{T r^{2} \sqrt{w}} & 0\\\frac{2 L \lambda}{T} & - \frac{2 L \lambda}{T r^{2} \sqrt{w}} & 0\end{matrix}\right]
-\\C_{22} =  \left[\begin{matrix}- \frac{1}{r} & 0 & 0\\0 & \frac{\Lambda \lambda}{r^{2} \sqrt{w}} & \frac{\lambda q \frac{d}{d E} \Lambda}{r^{2} \sqrt{w}}\\0 & 0 & \frac{2 \lambda \frac{d}{d E} L}{r^{2} \sqrt{w}}\end{matrix}\right] 
-\, .
+    \input{include/exported_latex/C} \, .
 \end{gather}
+\end{landscape}
 
 As can be seen, the first three rows of $C$ share the apparent singularity $1/(T_0 - v_0^2)$ at $r=1$.
 We now require that $\vec{y}'_1(r=1)$ is finite.
 Defining the singularity-reduced matrix $D = (T_0 - v_0^2)C$, the first three rows of $D(r=1)$ are
 \begin{gather}
-    \\D_{1}(r=1) =  \left[\begin{matrix}0 & \gamma \left(\frac{\chi}{2} + 2\right) & \gamma \left(2 - \chi\right) & - 2 \gamma & - 2 \gamma & - \frac{\Psi \gamma}{\lambda L{\left(1 \right)}}\\0 & \frac{\chi \left(\gamma - 1\right)}{2} + 2 \gamma - 2 & - \chi \gamma + \chi + 2 \gamma - 2 & 2 - 2 \gamma & 2 - 2 \gamma & \frac{\Psi \left(1 - \gamma\right)}{\lambda L{\left(1 \right)}}\\0 & - \frac{\chi}{2} - 2 & \chi - 2 & 2 & 2 & \frac{\Psi}{\lambda L{\left(1 \right)}}\end{matrix}\right] \, .
+    \input{include/exported_latex/D1} \, ,
 \end{gather}
+where $\chi$ and $\Psi$ are defined by \cref{eq:chi_star} and $L$ is the empirical electron energy loss function of \cref{eq:energy_loss_function} normalized through \cref{eq:ngs_normalization}.
 This is a matrix of rank 1 and $D(r=1)\vec{y}_1$ yields
 \begin{equation}
-    v_{1,\theta} = \left(1- \frac{\chi_\star}{2}\right) v_{1,r} + \left(1 + \frac{\chi_\star}{4}\right)T_1 - q_1 - \frac{\Psi_\star}{2 \lambda_\star L(E=1)} E_1 \, .
+\boxed{%
+    v_{1,\theta} = \left(1- \frac{\chi_\star}{2}\right) v_{1,r} + \left(1 + \frac{\chi_\star}{4}\right)T_1 - q_1 - \frac{\Psi_\star}{2 \lambda_\star L(E=1)} E_1} \, .
 \end{equation}
-Which is used in the numerical procedure for solving for $\vec{y}_1(r)$ to reduce the number of unknowns at the sonic radius by one.
+This is used in the numerical procedure for solving for $\vec{y}_1(r)$ to reduce the number of unknowns at the sonic radius by one.
 
 To be able to calculate the derivatives $\vec{y}'_1(r=1)$, we need to apply L'Hôpital's rule in the sense
-\begin{gather}
-\lim_{r\rightarrow 1} \vec{y}' = \lim_{r\rightarrow 1} \frac{1}{\frac{d}{dr}(T-w)} \frac{d}{dr} \left( D \vec{y} \right) \\
-\Leftrightarrow \lim_{r\rightarrow 1} \vec{y}' = \lim_{r\rightarrow 1} \frac{1}{\frac{d}{dr}(T-w)} \left( D' \vec{y} + D\vec{y}' \right) \\
-\Leftrightarrow \lim_{r\rightarrow 1} \left(\frac{d}{dr}(T-w)\mathbbone{}_{6x6} - D \right) \vec{y}' = \lim_{r\rightarrow 1} D' \vec{y} \\
-\Leftrightarrow \lim_{r\rightarrow 1} \vec{y}' = \lim_{r\rightarrow 1} \left(\frac{d}{dr}(T-w)\mathbbone{}_{6x6} - D \right)^{-1} D' \vec{y}.
-\end{gather}
-So we need to find $D'(r=1)$ and $\left((T-w)\mathbbone{}_{6x6} - D \right)^{-1}|_{r=1}$. 
+\begin{gather*}
+\lim_{r\rightarrow 1} \vec{y}'_1 = \lim_{r\rightarrow 1} \frac{1}{\frac{d}{dr}(T-w)} \frac{d}{dr} \left( D \vec{y}_1 \right) \\
+\Leftrightarrow \lim_{r\rightarrow 1} \vec{y}'_1 = \lim_{r\rightarrow 1} \frac{1}{\frac{d}{dr}(T-w)} \left( D' \vec{y}_1 + D\vec{y}'_1 \right) \\
+\Leftrightarrow \lim_{r\rightarrow 1} \left(\frac{d}{dr}(T-w)\mathbbone{}_{6x6} - D \right) \vec{y}'_1 = \lim_{r\rightarrow 1} D' \vec{y}_1 \\
+\Leftrightarrow \lim_{r\rightarrow 1} \vec{y}'_1 = \lim_{r\rightarrow 1} \left(\frac{d}{dr}(T-w)\mathbbone{}_{6x6} - D \right)^{-1} D' \vec{y}_1.
+\end{gather*}
+So we need to find $D'(r=1)$ and $\left(\frac{d}{dr}(T-w)\mathbbone{}_{6x6} - D \right)^{-1}|_{r=1}$. 
 We also define the matrix
 \begin{gather}
 C_\star = \lim_{r\rightarrow 1} \left(\frac{d}{dr}(T-w)\mathbbone{}_{6x6} - D \right)^{-1} D' \\
-\text{so that} \quad \Rightarrow \quad \vec{y}'(r=1) = C_\star \vec{y}(r=1) \, ,
+\text{so that} \quad \Rightarrow \quad \boxed{\vec{y}'_1(r=1) = C_\star \vec{y}_1(r=1)} \, .
 \end{gather}
-which, after defining $\Xi = 4 \lambda L^2|_{E=1} \frac{d^2 \Lambda}{dE^2}|_{E=1} $, ends up having the elements
-\begin{gather}
+We now define $\Xi = 4 \lambda L^2|_{E=1} \frac{d^2 \Lambda}{dE^2}|_{E=1} $ and provide the resulting large expressions for the elements of $C_\star$ on the next pages.
+\begin{landscape}
+\begin{gather*}
 \input{include/exported_latex/Cstar}
 .
-\end{gather}
-
+\end{gather*}
+\end{landscape}
+\endgroup

@@ -1,13 +1,173 @@
 \chapter{Introduction}
 
-\autocite{parks_effect_1978} % just so that there is a citation
+One of the main challenges of the 21st century is finding sustainable ways for humanity to use and generate energy, while the demand for electrical energy is constantly growing.
+Therefore, new power plants are being built worldwide and the efficiency of power generation technology has to be improved through continuous research.
+At the same time, climate change forces us to shift from burning fossil fuels, such as coal or gas, to renewable energy sources, such as solar or wind power, thereby reducing the emission of greenhouse gases \autocite{ipcc_summary_2023}.
+However, most renewable energy sources rely on environmental conditions, leading to a time-varying amount of produced power \autocite{chen_indispensable_2011}.
 
-\begin{itemize}
-    \item Increasing energy demand
-    \item Nuclear fusion as a clean energy source
-    \item Magnetic confinement as most promising design
-    \item Pellet injection as a way to refuel and control the plasma
-    \item Pellet penetration determines efficiency
-    \item Pellet rocket effect as an explanation for observed trajectory changes
-    \item Thesis overview
-\end{itemize}
+An alternative to fossil fuels for baseload power plants is nuclear power.
+Instead of releasing the energy stored in the chemical bonds of the fuel, nuclear power uses the binding energy between the protons and neutrons inside atomic nuclei.
+Not only does this reduce the direct emission of greenhouse gases to virtually zero, it also increases the efficiency of energy released per mass of fuel by a factor of around a million.
+Two different types of nuclear energy generation are possible, nuclear fission and nuclear fusion.
+While nuclear fission has been in use supplying power to the electricity grid since 1954, nuclear fusion is the only naturally occurring energy source that humanity does not directly use yet.
+Both concepts use the same fundamental physics principles.
+However, the technology needed for controlled power generation differs drastically.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Nuclear fusion as a sustainable energy source}
+
+Nuclear fission is the process of splitting heavy atomic nuclei such as certain uranium isotopes into lighter atomic nuclei.
+The total mass of the reaction products can be smaller than that of the reactants.
+Energy conservation and the equivalence of energy and mass, as described by Einstein's famous equation $E = m c^2$, means that the mass difference has to be converted into energy.
+The resulting kinetic energy of the fission products or additional photons can then be extracted in the form of heat.
+Nuclear fusion uses the opposite process, where light nuclei such as various hydrogen isotopes are combined into heavier nuclei, and again the mass of the fusion products is less than the combined mass before fusion.
+At first sight, it might seem unreasonable that energy can be gained by both breaking apart or creating nuclear bonds.
+However, the energy needed to break nuclear bonds depends heavily on the number of protons and neutrons in the nucleus, as shown in \cref{fig:binding_energy}.
+%https://www.britannica.com/science/binding-energy
+Breaking apart, for example, deuterium (\ce{H^2} or \ce{D}) into hydrogen (\ce{H^1}) and a neutron requires around\footnote{One electronvolt ($\unit{eV}$) is equivalent to the energy gained by an electron travelling along a potential difference of $\qty{1}{\volt}$.} $\qty{2}{\MeV}$.
+Therefore, the fusion process \ce{H^1 + n \rightarrow H^2} releases $\qty{2}{\MeV}$ of energy.
+For elements lighter than iron (\ce{Fe^{56}}), the binding energy generally increases with the number of nucleons and here a fusion process releases energy, but for heavier elements the binding energy decreases and fission releases energy.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{figure/external/binding_energy_chen.png}
+    \caption{Nuclear binding energy dependence on the atomic number for common isotopes. Taken from \textcite{chen_indispensable_2011}.}
+    \label{fig:binding_energy}
+\end{figure}
+
+The main technological difficulty of a nuclear fission power plant is to control the amount of fission activity. 
+Since fission of \ce{U^{235}} occurs under atmospheric pressures and temperatures, it is easily sustained and leads to nuclear chain reactions.
+A nuclear meltdown, where these chain reactions cannot be sufficiently moderated, can cause disasters such as the one in Chernobyl in 1986.
+In a meltdown, highly radioactive material can leak into the atmosphere or the groundwater, and can contaminate wide areas, making them uninhabitable for a long time. 
+While the much improved safety of modern fission power plants makes similar disasters highly unlikely, a major remaining problem is the disposal of long-lived radioactive waste.
+Some of the fission products remain highly radioactive for as long as a million years.
+
+Controlled nuclear fusion is currently in the experimental phase, and several technological questions regarding the design and maintenance of power plants are still open.
+However, the main difficulty in controlling the energy generation at the heart of a fusion reactor is quite the opposite to a fission reactor.
+%However, the energy generation at the heart of a fusion reactor has the opposite control challenge to a fission reactor.
+Extreme temperatures are needed for fusion reactions to occur, which makes it very challenging to sustain them in significant amounts \autocite{freidberg_plasma_2007}.
+A failure in the reactor would simply stop nearly all fusion activity, and no nuclear chain reactions have to be moderated, even though off-normal events can significantly damage the reactor vessel itself.
+
+The major advantage of nuclear fusion is the lack of long-lived radioactive waste, that would require safe storage for thousands of years, as in the case of nuclear fission.
+None of the fusion fuels or fusion products have high levels of radioactivity.
+The only involved radioactive isotope is tritium (\ce{H^3} or \ce{T}), which emits low energy $\beta$-radiation, that is unable to penetrate even the outer dead skin layer of humans.
+Nonetheless, safety measures have to be implemented to avoid larger leaks of tritium into groundwater, since related health risks have not been ruled out.
+A more serious challenge regarding radioactivity is posed by the reactor wall components.
+The energy from nuclear fusion is mostly captured as the highly energetic neutrons, released by the fusion reactions, deposit their energy in an absorbing \enquote{blanket} material.
+It is an ongoing effort to choose the best materials to both increase efficiency and decrease the amount of activated waste.
+Especially, structural steel around the reactor vessel can be activated to high levels of radioactivity, which means it has to be safely extracted and replaced during maintenance.
+However, the short half lives of those activated steels requires storage of only around 100 years \autocite{freidberg_plasma_2007}.
+
+Nuclear fusion also has the additional advantage of abundant fuel material.
+Though there is some theoretical flexibility in the choice of fuel for nuclear fusion, the most promising candidates are deuterium and tritium \autocite{chen_indispensable_2011}. 
+While deuterium is naturally abundant in water, with $\qty{0.015}{\%}$ of hydrogen atoms in water being deuterium, tritium has a half-life of 12 years and is thus not naturally occurring on earth \autocite{freidberg_plasma_2007}.
+However, tritium can be obtained by splitting, for example, lithium (\ce{Li^6}) by a neutron into helium (\ce{He^4}) and tritium (\ce{H^3}).
+In the context of fusion, lithium is abundant on earth, and thus a shortage of fuel is not foreseen.
+
+% The final reason listed here to pursue nuclear fusion as an energy source is that it is the only energy source naturally occurring, which humanity is not using yet.
+% All stars in the universe, including our sun, generate energy through fusing hydrogen atoms and even heavier elements.
+% Besides matter-antimatter annihilation, nuclear fusion is the most efficient energy source physically possible.
+% The only reason we are not using it yet is that it is technologically extremely challenging to sustain the needed temperatures and pressures on earth.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{figure/external/ITER_illustration.jpg}
+    \caption{Illustration of the ITER tokamak, currently under construction in France. Shown is the cryostat with a diameter and height of around $\qty{30}{\m}$ containing superconducting magnetic coils, which surround the vacuum vessel filled with the fusion plasma. Credit \copyright ITER Organization, \url{https://www.iter.org/}.}
+    \label{fig:ITER_illustration}
+\end{figure}
+
+Many ideas on controlled nuclear fusion have been put forward in over 70 years of research.
+The most promising concept so far is magnetic confinement fusion (MCF).
+At the temperatures of around 100 million degrees kelvin needed for nuclear fusion to occur, any material is in a plasma state.
+In a plasma, the thermal kinetic energy is large enough to ionize most of the plasma particles, i.e. separate the electrons from the atomic nuclei.
+Therefore, particles in a plasma are electrically charged and interact strongly with electromagnetic fields.
+This is used in MCF to compress the fusion fuel and isolate it.
+Any interaction with outside material would cool down the fusion fuel rapidly.
+The physical principles of MCF, in particular that of the tokamak design, are detailed in \cref{chap:MCF}.
+For now, it suffices to think of MCF as levitating extremely hot plasma, with a density much lower than air, in a large toroidal (donut-shaped) vacuum chamber, as illustrated in \cref{fig:ITER_illustration} for the case of the ITER tokamak.
+The magnetic field is mainly pointing in the toroidal direction and is strongest close to the centre.
+An additional twisting of the field lines is generated by a toroidal plasma current externally induced by a strong electric field.
+ITER is the next step MCF device, currently being built in the south of France. 
+It is expected to be one of the first MCF devices to achieve a net energy gain and to demonstrate the feasibility of a nuclear fusion power plant.
+DT plasma operation in ITER is scheduled for 2035.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pellet injection for fuelling and controlling fusion plasmas}
+
+Once the fusion plasma is magnetically confined and heated, it has to be sustained.
+Not only is the fusion fuel gradually being used up, but instabilities in the plasma necessitate control of the temperature and density profile inside the torus.
+In the case of large-scale instabilities, the plasma confinement is lost, and the fusion extinguishes in a thermal quench.
+This thermal quench is often followed by a current quench, where the external electric field may accelerate electrons in the plasma to relativistic energies, forming a beam of so-called runaway electrons.
+Consequently, most of the energy stored in the fusion plasma quickly leaves the confinement region, which can damage or potentially destroy the reactor walls and components.
+These violent events are called disruptions and have to be mitigated efficiently \autocite{hender_chapter_2007,hollmann_status_2015}.
+
+The injection of cold, dense material into the plasma can both help sustain the plasma in the case of additional fuel material or reduce the risk of damage during disruptions, mainly in the case of impurities \autocite{hollmann_status_2015}.
+While it was thought initially to be easiest to pump this material in as a gas, it was realized that gas cannot easily penetrate the plasma, since it is heated up too quickly at the plasma edge and most of the material is repelled.
+Instead, the state-of-the-art approach for injecting material into a fusion plasma is to shoot it in as solid cryogenic pellets at high velocities.
+Both the fuel and noble gas impurities are in a gaseous form under atmospheric conditions. 
+Therefore, the material has to be cooled to only a few degrees kelvin and must be compressed to high densities to become a solid pellet.
+The low densities found in the fusion plasma enable even tiny pellets of millimetre scale to have large effects \autocite{pegourie_review_2007}.
+
+The extreme heat flux from the fusion plasma on these frozen pellets causes them to disintegrate in only a few milliseconds.
+Depending on the size of the pellet and the injection speed, this might be fast enough to stop it from reaching the core of the MCF device.
+
+Once the material of the pellet is ionized, it begins to spreads around the fusion plasma.
+However, this homogenization is not fully symmetric, as the still cold but ionized material mostly drifts outwards.
+This material outflow is instrumental in setting limits on how much of the material of the pellet is deposited in the plasma and how much is lost to the reactor walls as prompt mass loss \autocite{panadero_comparison_2023,samulyak_simulation_2023}.
+If the pellet is injected from the outside of the torus, i.e. the low-field side (LFS), fuelling the plasma core is only possible if the pellet penetrates deep into the plasma.
+This favours injection from the inside of the torus, i.e. the high-field side (HFS).
+However, due to the limited space for reactor components, HFS pellet injection is technologically challenging and might not be possible in many MCF devices, especially in the use case of disruption mitigation.
+
+The material deposition profile depends highly on the pellet's trajectory through the plasma and the rate of ablation, i.e. how quickly the outer shells of the material are sublimated and removed.
+Therefore, the planning and execution of pellet injection procedures in fusion plasmas requires efficient and accurate models that predict these dynamics.
+The physics around pellet injection, which is important for this thesis, is explained in \cref{chap:pellet_injection}.
+
+The ablation rate of pellets in MCF has been studied extensively, and many models exist which predict this rate in good agreement with past and current MCF experiments.
+Widely used for its low computational complexity is a semi-analytical model called the neutral gas shielding (NGS) model by \textcite{parks_effect_1978}.
+The ablated material is assumed to form a dense cloud of neutrally charged gas around the pellet, which strongly shields the pellet from the heat flux of incoming plasma electrons (and ions).
+While this model is one of the earliest models and contains many approximations, more sophisticated models do not yield significantly higher accuracy \autocite{pegourie_review_2007}.
+For example, it was found that the pellet is further shielded by the ionized part of the ablation cloud, which surrounds the neutral gas cloud.
+Including this ionized ablation cloud (or plasmoid) in theoretical models did not significantly change the predictions of the ablation rate.
+However, it is important in the context of this thesis.
+The ablation dynamics are further detailed qualitatively in \cref{sec:ablation_dynamics} and the NGS model is explained in detail in \cref{sec:neutral_gas_shielding}.
+
+\section{The pellet rocket effect}
+
+The trajectory of pellets in MCF has been studied less extensively.
+Initially, it was assumed that pellets in MCF devices travel along a straight line at constant velocity, since the pellet is neutrally charged and injected at very high speeds.
+%The neutrally charged pellet does not interact directly with the electromagnetic fields.
+%Furthermore, the gravitational acceleration on earth of $\qty{9.8}{\m / \s^2}$ does not significantly affect the pellet trajectory, since pellets are usually injected at high speeds of around $\num{100}-\qty{1000}{\m/\s}$ and disintegrate in a few milliseconds.
+However, experimental observations, as shown in \cref{fig:pellet_deflection}, strongly suggest that pellets injected into MCF devices are both deflected and slowed down significantly, which could affect the fuelling efficiency and deposition profile.
+While the exact physics behind this pellet acceleration (or deceleration) is not fully understood yet, it is commonly attributed to a phenomenon called the \emph{pellet rocket effect}, which is the main subject of this thesis.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{figure/external/pellet_deflection_Waller.png}
+    \caption{Experimental observation of a pellet deflected in the toroidal direction ($D\phi$) in the Tore Supra tokamak. Shown is the time-integrated ablation pattern as measured from the $\ce{H}_\alpha$ emission of the ablated material. The estimated pellet trajectory is indicated in the right image. Taken from \textcite{waller_investigation_2003}.}
+    \label{fig:pellet_deflection}
+\end{figure}
+
+A rocket generates thrust by expelling mass at high velocity in one direction.
+Momentum conservation, a fundamental law in physics, dictates that the momentum (mass times velocity) carried by this material must be compensated by an equal but opposite momentum gain by the rocket.
+%\footnote{Equivalently, Newton's third law states that every force is accompanied by an equal but opposite force.}.
+The same principle is believed to accelerate pellets in MCF\footnote{Even other solid material in a tokamak like metallic dust experiences this rocket acceleration \autocite{lazzaro_rocket_2020}.}.
+An asymmetry in the heat source around the pellet leads to an enhanced ablation on the more strongly heated side.
+The ablated material is continuously heated, which generates pressure in the neutral ablation cloud.
+The resulting pressure asymmetry pushes the pellet towards the less strongly heated side and accelerates the ablated material the other way.
+Equivalent pressure dynamics are found in a rocket engine nozzle.
+The physics behind pellet trajectories and pellet acceleration is detailed further in \cref{sec:pellet_trajectory}.
+
+Previously, two models have been developed to predict the pellet rocket acceleration.
+\textcite{senichenkov_pellet_2007} assumed the ablation cloud to be homogeneous and attributed the acceleration purely to an enhanced ablation rate on one side of the pellet.
+\textcite{szepesi_radial_2007} proposed a semi-empirical model based on the NGS model, in which the pressure asymmetry is the driving factor of the acceleration but must be given as a model parameter.
+These models are not widely used.
+Therefore, we attempt with this thesis to develop a semi-analytical model by building on those previous ideas on the pellet rocket effect.
+The basis of our model is the NGS model to describe the spherically symmetric ablation dynamics of a pellet from first principles.
+The asymmetric ablation dynamics are then modelled as a perturbation on top of the NGS model.
+The scope of the thesis limits our attention to only considering the case of hydrogenic pellets.
+While our model presumably works for any MCF device and any direction of acceleration, it is applied here only to the case of radial pellet acceleration in tokamaks during LFS injection. 
+The model derivation is detailed in \cref{sec:pellet_surface,sec:neutral_gas_shielding,sec:plasmoid_shielding}.
+The results are then compared to recent simulation studies by \textcite{samulyak_simulation_2023} in \cref{sec:results}.
+
+The final part of this thesis, \cref{chap:conclusion}, discusses the limitations of our model and the impact this may have on the presented results.
+An outlook is given for possible future modelling efforts on the pellet rocket effect.

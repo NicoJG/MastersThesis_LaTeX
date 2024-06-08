@@ -24,6 +24,8 @@
 \msg_redirect_name:nnn{siunitx}{physics-pkg}{none}
 \ExplSyntaxOff
 
+\sisetup{range-units=single} 
+
 
 
 % better vector arrows
@@ -87,3 +89,21 @@
 \addbibresource{references.bib}  % the bib file to use
 
 \usepackage[acronym]{glossaries} % https://www.overleaf.com/learn/latex/Glossaries
+
+\usepackage{svg}
+
+\usepackage{wrapfig}
+
+% include bibliography and table of contents in the table of contents
+%\usepackage{tocbibind}
+
+% I have a reference that contains the unicode beta
+\DeclareUnicodeCharacter{03B2}{{$\beta$}}
+
+
+\hypersetup{
+  pdfkeywords={fusion plasma, magnetic confinement, pellet injection, ablation, pellet rocket acceleration, asymmetric heating, NGS model},
+}
+
+\usepackage{pdflscape}
+

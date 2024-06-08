@@ -1,4 +1,4 @@
-\section{Reproduced scaling laws of the NGS model}
+\section{Scaling laws of the NGS model}
 \label{sec:appendix_scaling_laws}
 
 While the full radial dependence in the NGS model has to be calculated numerically as described in \cref{ssec:isotropic_model}, the normalization constants, i.e. the quantities at the sonic radius only weakly depend on the energy at the boundary condition $E_\text{bc}$, as shown in \cref{fig:ode0_scan,fig:prefactors_0th_order}.
@@ -7,12 +7,36 @@ Scaling laws for all dimensionless quantities of importance are provided here fo
     f(E_\text{bc}) = a_0 + a_1 \cdot \log_{10}E_\text{bc} \, .
 \end{equation}
 The coefficients $a_0(\gamma)$ and $a_1(\gamma)$ are provided in \cref{tab:scaling_law_coefficients}.
+Especially important for the pellet rocket force is $p_\star$ (\cref{eq:prefactor_p_star}) and the corresponding prefactor $f_p$.
+Note that we have found two small mistakes in the corresponding equations given by \textcite{parks_effect_1978}. 
+For $v_\star$, they missed a factor of $\sqrt{T_{e0}}$ and for $p_\star$ they missed a factor of $\sim 10^{-12}$.
 
 \begin{table}
     \centering
-    \caption{Coefficients for the scaling laws representing our numerical results of calculating the NGS model. While $\lambda_\star$, $r_\text{p}$, $E_\infty$ and $q_\infty$ are the direct results of the numerical procedure described in \cref{ssec:isotropic_model} directly the normalized quantities, $f_p$, $f_T$, $f_v$ and $f_G$ are the dimensionless prefactors for $p_\star$, $T_\star$, $v_\star$ and $G$ in \cref{eq:prefactor_p_star,eq:prefactor_T_star,eq:prefactor_v_star,eq:prefactor_G}.}
+    \caption{Coefficients for the scaling laws representing our numerical results when calculating the NGS model. While $\lambda_\star$, $r_\text{p}$, $E_\infty$ and $q_\infty$ are the direct results of the numerical procedure described in \cref{ssec:isotropic_model}, the normalized quantities $f_p$, $f_T$, $f_v$ and $f_G$ are the dimensionless prefactors for $p_\star$, $T_\star$, $v_\star$ and $G$ in \cref{eq:prefactor_p_star,eq:prefactor_T_star,eq:prefactor_v_star,eq:prefactor_G}. Note that these equations slightly differ from the equations given by \textcite{parks_effect_1978}, since they already assumed certain units and }
     \resizebox{\textwidth}{!}{%
     \input{include/exported_latex/0th_order_fit_parameters.tex}
     }
     \label{tab:scaling_law_coefficients}
+\end{table}
+
+The perturbative pressure asymmetry $p_1(r_\text{p})$ is found to depend linearly on the heat source asymmetry parameter $E_\text{rel}/q_\text{rel}$ in \cref{ssec:asymmetric_perturbation_model}.
+Linear regression in the form 
+\begin{equation}
+    p_1(r_\text{p}) = a \cdot \left(\frac{E_\text{rel}}{q_\text{rel}} - b \right)
+\end{equation}
+is performed on the numerical results.
+However, the parameters $a$ and $b$ depend on the parameters $\gamma$ and $E_\text{bc}$, as shown in \cref{fig:P1_fit_parameters}.
+Here, we provide scaling laws for these parameters in the form
+\begin{gather}
+    a = a_0 + a_1 \log_{10} E_\text{bc} \, \\
+    b = b_0 + b_1 (\log_{10} E_\text{bc})^{b_2} \, .
+\end{gather}
+The corresponding coefficients are listed in \cref{tab:p1_fit_scaling_laws}.
+
+\begin{table}
+    \centering
+    \caption{Coefficients for the scaling laws representing the linear fits of the numerical solutions for the perturbative pressure asymmetry $p_1(r_\text{p})$.}
+    \input{include/exported_latex/P1_useful_fit_parameters}
+    \label{tab:p1_fit_scaling_laws}
 \end{table}

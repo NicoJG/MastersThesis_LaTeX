@@ -1,6 +1,241 @@
 \section{Plasmoid shielding}
 \label{sec:plasmoid_shielding}
-    \subsection{Drift induced shielding length asymmetry}
-    \label{ssec:plasmoid_shielding_length}
-    \subsection{Heat flux attenuation}
-    \label{ssec:plasmoid_heat_flux_attenuation}
+
+Even though the major part of the heating occurs in the neutral gas close to the pellet, the electrons already lose some energy while traversing the ionized part of the ablation cloud.
+This \emph{plasmoid shielding} of the background plasma electrons depends mainly on the integrated density along the electron path through the plasmoid.
+As described in \cref{ssec:plasmoid_cloud}, the ablated material becomes confined by the magnetic field lines once it is ionized, while the pellet and the neutral ablation cloud move unaffected by the magnetic field.
+Additionally, the plasmoid drifts towards the low-field side due to an $\vec{E} \times \vec{B}$-drift, as described in \cref{ssec:plasmoid_cloud}.
+In \cref{ssec:plasmoid_shielding_length} we quantify how the drift of the ionized ablation material leads to a varying shielding length across the magnetic field lines, which in turn affects the pellet ablation dynamics.
+\cref{ssec:plasmoid_heat_flux_attenuation} describes then our model for calculating the effective heat flux and effective electron energy arriving at the neutral cloud and their asymmetries, which are considered as boundary conditions for the neutral ablation cloud dynamics.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Drift induced shielding length asymmetry}
+\label{ssec:plasmoid_shielding_length}
+
+As described in \cref{sec:ablation_dynamics}, the flow velocity at the boundary of the neutral ablation cloud rapidly drops to subsonic speeds and a shock front forms.
+Beyond this shock front, at ionization radius\footnote{Not to be confused with the sonic radius $r_\star$ much closer to the pellet.} $r_\text{i}$, the ablated material can be considered fully ionized and forms the plasmoid ablation cloud.
+Radial expansion of the plasmoid due to heating is restricted in the direction perpendicular to the magnetic field lines.
+Thus, the plasmoid expands in a tube parallel to the field lines at the speed of sound 
+\begin{equation}
+    c_\text{s} = \sqrt{\frac{(\gamma_e \langle Z \rangle + \gamma_i) T_\text{pl}}{\langle m_i \rangle}} \, ,
+\end{equation}
+where plasmoid temperature $T_\text{pl}$ (in units of energy).
+In the case of pellets containing only a given hydrogen isotope, the adiabatic indices are $\gamma_e = 1$, $\gamma_i = 3$, the average charge number is $\langle Z \rangle = 1$ and the average ion mass is $\langle m_i \rangle =  m_\mathrm{H}$, $m_\mathrm{D}$ or $m_\mathrm{T}$ \autocite{vallhagen_drift_2023}.
+
+Assuming the pellet is injected radially inwards from the low-field side, the ionized ablated material initially moves, relative to the pellet, at the pellet velocity $v_\text{p}$ outward along the major radius.
+Additionally, the $\vec{E} \times \vec{B}$-drift towards the low-field side gradually accelerates material across the field lines and the plasmoid bends outwards compared to the flux surfaces, as illustrated in \cref{fig:plasmoid_shielding}.
+As modelled by \textcite{vallhagen_drift_2023}, plasmoid material at the major radius $R_\text{m}$ is under constant acceleration
+\begin{equation}
+    \dot{v}_\text{pl} = \frac{2 (1+ \langle Z \rangle)}{\langle m_i \rangle R_\text{m}} \left( T_\text{pl} - \frac{2n_\text{bg}}{(1+ \langle Z \rangle)n_\text{pl}} T_\text{bg} \right) 
+\end{equation}
+shortly after ionization, where $T_\text{bg}$ and $n_\text{bg}$ are the electron temperature and electron density of the background plasma and $n_\text{pl}$ is the electron density in the plasmoid.
+% The electron density in the plasmoid
+% \begin{equation}
+%     n_\text{pl} = \frac{(1+ \langle Z \rangle) \mathcal{G}}{2 \langle m_i \rangle c_\text{s} \pi r_\text{i}^2}
+% \end{equation}
+% is given by considering that ablated material is outflowing at the mass ablation rate $\mathcal{G}$ along a tube of cross-section $\pi r_\text{i}^2$. 
+
+\begin{figure}
+    \centering
+    \includegraphics{figure/plasmoid_shielding.pdf}
+    \caption{Illustration of the plasmoid shielding asymmetry of the ablation cloud. The drift towards the low-field side induces a shorter shielding length at the high-field side. Note that this is not to scale. The pellet is much smaller than the neutral ablation cloud and the plasmoid shielding length is much longer than the ionization radius, with a less pronounced shielding length difference.}
+    \label{fig:plasmoid_shielding}
+\end{figure}
+
+Since the particles, once ionized, stop their motion in the positive $\hat{z}$-direction nearly instantaneously, the plasmoid boundary $z(x)$, as depicted in \cref{fig:plasmoid_shielding} with the pellet at the origin, is determined by the trajectory of particles, which are ionized at $(x=0, z=r_\text{i})$.
+These particles follow the equation of motion
+\begin{equation}
+    \vec{r}(t) = (\pm c_\text{s} t) \hat{x} + \left(r_\text{i} - v_\text{p} t - \frac{1}{2} \dot{v}_\text{pl} t^2 \right) \hat{z} \, .
+\end{equation}
+The shielding length $s(z)$ along a field line at position $z$ is the distance from the plasmoid boundary to the neutral ablation cloud boundary (which lies at ${x = \pm \sqrt{r_\text{i}^2 - z^2}}$).
+Therefore, the shielding length can be estimated by eliminating the time dependence in the equation of motion\footnote{We assume a constant acceleration over the whole trajectory, which might not be true in reality.} and taking the absolute value, which gives
+\begin{equation}
+    s(z) = c_\text{s} \left( - \frac{v_\text{p}}{\dot{v}_\text{pl}} + \sqrt{\left(\frac{v_\text{p}}{\dot{v}_\text{pl}}\right)^2 + \frac{2}{\dot{v}_\text{pl}}(r_\text{i} - z)} \right) - \sqrt{r_\text{i}^2 - z^2} \, .
+\end{equation}
+The spherically symmetric ablation dynamics are considered to be determined solely through the central shielding length 
+\begin{equation}
+    s_0 = s(z=0) = c_\text{s} \frac{v_\text{p}}{\dot{v}_\text{pl}} \left( - 1 + \sqrt{1 + \frac{2 \dot{v}_\text{pl}}{v_\text{p}^2} r_\text{i}} \right) - r_\text{i} \, .
+    \label{eq:central_shielding_length}
+\end{equation}
+The asymmetry in the neutral ablation cloud heating is determined by the shielding length variation $\var{s}$ across the field lines hitting the pellet.
+Ideally, one would consider the shielding length variation across the whole neutral ablation cloud.
+However, this would largely overestimate the degree of asymmetry in our model.
+The reason follows from the approximation of a purely radial flux of electrons $\vec{\nabla}\cdot\vec{q} \approx \partial q / \partial r$, as illustrated in \cref{fig:neutral_cloud_heating}.
+Since the heating close to the pellet surface dominates, the field lines in the interval $z \in [-r_\text{p}, r_\text{p}]$ are assumed to correspond to the full range $\theta \in [0, \pi]$ of heat flux in our model.
+Under the assumption that the shielding length varies nearly linear in this interval, the variation becomes
+\begin{align}
+    \var{s}(z) &= \eval{\dv{s}{z}}_{z=0} \!\!\!\! \cdot z = \eval{\dv{s}{z}}_{z=0}  \!\!\!\! \cdot  r_\text{p} \cos{\theta} \, , \label{eq:shielding_length_variation} \\
+    \text{with} \quad \eval{\dv{s}{z}}_{z=0} &= \frac{- c_\text{s}}{\sqrt{v_\text{p}^2 + 2 \dot{v}_\text{pl} r_\text{i}}} \, . \label{eq:shielding_length_derivative} 
+\end{align}
+% (Should I compare it to the \textcite{szepesi_comparison_2009} expression for the shielding length, as in Oskars summary document?)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Heat flux attenuation}
+\label{ssec:plasmoid_heat_flux_attenuation}
+
+The full dynamics of hot electrons losing energy while traversing a colder plasma involves multiple different mechanisms.
+A rigorous description of this plasma shielding is ultimately kinetic, and it is outside the scope of this thesis.
+Therefore, we approximate the heat flux attenuation by assuming that electrons only reach the neutral ablation cloud if their mean free path $\lambda_\text{mfp}$ is longer than the distance $d$ that they travel through the plasmoid.
+Additionally, we assume that the electrons which reach the neutral ablation cloud are unaffected by the plasmoid and retain their thermal kinetic energy from the background plasma.
+
+Although the electrons travel along the magnetic field lines according to the shielding lengths, as derived in \cref{ssec:plasmoid_heat_flux_attenuation}, their gyration around the field line leads to a longer total distance travelled through the plasmoid.
+Let $\xi$ be the cosine of the pitch angle of an electron, i.e. the angle between the total velocity vector $\vec{v}_e$ and the velocity $\vec{v}_\parallel$ parallel to the magnetic field line.
+Assuming the pitch angle of each electron stays constant while traversing the plasmoid, electrons contribute to heating the neutral ablation cloud if
+\begin{equation}
+    d = \frac{s}{\xi} < \lambda_\text{mfp} \, .
+\end{equation}
+Hot electrons slowing down in a cold plasma (the plasmoid) experience dominant collisions with the cold plasma electrons.
+The corresponding mean free path is
+\begin{equation}
+    \lambda_\text{mfp} = \frac{v_e}{\nu_{ee}} = \frac{4 \pi \varepsilon_0^2 m_e^2 v_e^4}{n_\text{pl} e^4 \ln\Lambda} = \left( \frac{v_e}{v_\text{th}} \right)^4 \lambda_T \, , 
+    \label{eq:lambda_mfp}
+\end{equation} % remove (1+Z)
+with the collision frequency $\nu_{ee}$, the hot electron velocity $v_e$, the cold electron density $n_\text{pl}$ in the plasmoid and the electron mass $m_e$ \autocite{helander_collisional_2005}.
+For convenience, we define the mean free path $\lambda_T$ at thermal velocity $v_\text{th} = \sqrt{2T_\text{bg}/m_e}$.
+The Coulomb-logarithm 
+\begin{equation}
+    \ln\Lambda = \ln\left( \lambda_\text{D} \cdot b_\text{min}^{-1} \right) = \ln \left( \sqrt{\frac{\varepsilon_0 T_\text{pl}}{n_\text{pl} e^2}} \cdot \left( \frac{\langle Z \rangle e^2}{2 \pi \varepsilon_0 m_e v_\text{th}^2} \right)^{-1} \right)
+\end{equation}
+is the order of magnitude of the number of particles in the Debye sphere of the plasma, which is typically between 10 and 20 in MCF plasmas \autocite{helander_collisional_2005}.
+
+Since the mean free path depends mainly on the hot electron velocity, the condition for passing through the plasmoid unaffected can be written in terms of a critical velocity $v_\text{c}$ as
+\begin{equation}
+    v_e > v_\text{c} \quad \text{with} \quad v_\text{c} = \left( \frac{s}{\xi \lambda_T} \right)^\frac{1}{4} v_\text{th} \, .
+\end{equation}
+We assume that the hot electrons in the background plasma are distributed according to the three-dimensional Maxwellian distribution
+\begin{equation}
+    f_\text{Maxwell}(\vec{v}) = \left( \frac{1}{\sqrt{\pi} v_\text{th}} \right)^3 \exp\left[-\left(\frac{v}{v_\text{th}}\right)^2\right] \, .
+\end{equation}
+Then, the heat flux boundary condition for the neutral ablation cloud can be estimated by averaging the energy flux $q(\vec{v})$ over the velocities sufficient to pass through the plasmoid as
+\begin{gather}
+    q_\text{pl} = \underset{\substack{\abs{\vec{v}_e} > v_\text{c} \\  \xi \in [0,1]}}{\iiint} 
+    \underbrace{\underbrace{\xi v_e}_{v_\parallel} \frac{m_e v_e^2}{2} n_\text{bg}}_{q(\vec{v}_e)} f_\text{Maxwell}(\vec{v}_e) \dd[3]{v_e} \, .
+    % &= \int_0^{2\pi} \int_0^1 \int_{v_\text{c}}^\infty \left( \xi v_e \frac{m_e v_e^2}{2} n_\text{pl} \right) \left( \frac{1}{\sqrt{\pi} v_\text{th}} \right)^3 \exp\left[-\left(\frac{\abs{\vec{v}}}{v_\text{th}}\right)^2\right] v_e^2 \dd{v_e} \dd{\xi} \dd{\varphi_\text{gyr}}  \, .
+\end{gather}
+This integral can be solved exactly by substituting ${u := v_e/v_\text{th}} \Rightarrow {u(v_\text{c}) = \left( \xi \alpha \right)^{-\sfrac{1}{4}}}$, with the shorthand ${\alpha := \lambda_T/s}$. The result is
+\begin{equation}
+\boxed{%
+    q_\text{pl}(s) = \underbrace{2 \sqrt{\frac{T_\text{bg}^3}{2 \pi m_e}} n_\text{bg}}_{q_\text{Parks}} 
+    \underbrace{\frac{1}{\alpha^2}\left[ e^{\frac{-1}{\sqrt{\alpha}}}\left(-\frac{1}{2}\sqrt{\alpha}+\frac{1}{2}\alpha+\alpha^{3/2}+\alpha^2\right)-\frac{1}{2}\mathrm{Ei}\left(-\frac{1}{\sqrt{\alpha}}\right)\right]}_{f_q(\alpha)} \, , }
+    \label{eq:plasmoid_shielding_q}
+\end{equation}
+with the exponential integral $\mathrm{Ei}(x) = - \int_{-x}^{\infty} \exp(-t)/t \dd{t}$.
+Consequently, the heat flux without any plasmoid shielding $q_\text{Parks}$, as assumed by \textcite{parks_effect_1978}, is scaled down in our model by the shielding length-dependent dimensionless function $f_q(\alpha)$.
+
+The effective electron energy at the neutral ablation cloud boundary is assumed to be
+\begin{equation}
+    E_\text{pl} = \frac{q_\text{pl}}{\Gamma_\text{pl}} \, ,
+\end{equation}
+where the particle flux $\Gamma_\text{pl}$ of electrons reaching the neutral ablation cloud is estimated similarly to the heat flux as
+\begin{equation}
+    \Gamma_\text{pl}(\theta) = \underset{\substack{\abs{\vec{v}_e} > v_\text{c} \\  \xi \in [0,1]}}{\iiint} 
+    \underbrace{\xi v_e n_\text{bg}}_{\Gamma(\vec{v}_e)} f_\text{Maxwell}(\vec{v}_e) \dd[3]{v_e} \, .
+\end{equation}
+The result is again a scaling of the effective energy assumed by \textcite{parks_effect_1978} $E_\text{Parks}$ by a dimensionless function $f_E(\alpha)$, as
+\begin{equation}
+\boxed{%
+    E_\text{pl}(s) = \underbrace{2 T_\text{bg}}_{E_\text{Parks}} 
+    \underbrace{\left[
+    \frac{ e^{\frac{-1}{\sqrt{\alpha}}}\left(-\frac{1}{2}\sqrt{\alpha}+\frac{1}{2}\alpha+\alpha^{3/2}+\alpha^2\right)-\frac{1}{2}\mathrm{Ei}\left(-\frac{1}{\sqrt{\alpha}}\right)}
+    {e^{\frac{-1}{\sqrt{\alpha}}}\left(+\frac{1}{2}\sqrt{\alpha}-\frac{1}{2}\alpha+\alpha^{3/2}+\alpha^2\right) + \frac{1}{2}\mathrm{Ei}\left(-\frac{1}{\sqrt{\alpha}}\right)}
+    \right]}_{f_E(\alpha)} \, .
+    }
+    \label{eq:plasmoid_shielding_E}
+\end{equation}
+The dimensionless functions $f_q(\alpha)$ and $f_E(\alpha)$ are visualized in \cref{fig:plasmoid_shielding_functions}.
+While increasing shielding length $s$, i.e. decreasing $\alpha$, attenuates the heat flux, the effective energy is enhanced.
+This can be explained qualitatively by noticing that, with a longer shielding length through the plasmoid, fewer electrons reach the neutral cloud, but on average, those electrons are more energetic.
+Whether the quantitative prediction of this effect is accurate will need further investigation.
+
+\begin{figure}
+    \centering
+    \includegraphics{figure/plasmoid_shielding_functions.pdf}
+    \caption{Scaling functions for the heat flux and energy boundary conditions due to plasmoid shielding, inversely depending on the shielding length $s$.}
+    \label{fig:plasmoid_shielding_functions}
+\end{figure}
+
+After modelling how the heat flux and effective energy into the neutral ablation cloud depends on the shielding length, it can be combined with the shielding length prediction across different field lines to provide expressions for the boundary conditions to our model.
+The central shielding length $s_0$ in \cref{eq:central_shielding_length} directly determines the boundary conditions to the isotropic NGS model as
+\begin{equation}
+\boxed{
+\begin{aligned}
+    q_\text{bc} &= q_\text{pl}(s_0) = q_\text{Parks} f_q(\alpha_0) \quad \quad \text{and} \\
+    E_\text{bc} &= E_\text{pl}(s_0) = E_\text{Parks} f_E(\alpha_0)
+\end{aligned}
+} \, ,
+\label{eq:plasmoid_shielding_isotropic}
+\end{equation}
+with $\alpha_0 := \lambda_T/s_0$.
+
+The degree of asymmetry in heating the neutral ablation cloud depends on the shielding length variation given in \cref{eq:shielding_length_variation,eq:shielding_length_derivative}.
+However, an additional source of asymmetry are the temperature and electron density gradients of the background plasma.
+Consider thus the first order variation
+\begin{align}
+    \var{q_\text{pl}}(z) &= \eval{\dv{q_\text{pl}}{z}}_{z=0} z \\
+    &= \left[ \pdv{q_\text{pl}}{T_\text{bg}} \dv{T_\text{bg}}{z} + \pdv{q_\text{pl}}{n_\text{bg}} \dv{n_\text{bg}}{z} + \pdv{q_\text{pl}}{\alpha} \left( \pdv{\alpha}{T_\text{bg}} \dv{T_\text{bg}}{z} + \pdv{\alpha}{s} \dv{s}{z} \right)  \right]_{z=0} z \\
+    &= \left[ \frac{3}{2}\frac{q_\text{pl}}{T_\text{bg}} \dv{T_\text{bg}}{z} + \frac{q_\text{pl}}{n_\text{bg}} \dv{n_\text{bg}}{z} + q_\text{Parks} f'_q \left( \frac{2 \alpha}{\sqrt{T_\text{bg}}} \dv{T_\text{bg}}{z} - \frac{\alpha}{s} \dv{s}{z} \right)  \right]_{z=0} z \, ,
+    \label{eq:q_pl_variation}
+\end{align}
+where $f'_q$ denotes $\partial f_q/\partial \alpha$.
+While the heat flux asymmetry depends on the temperature and density gradients, this dependence is assumed to be negligible for the shielding length.
+Thus $\partial \alpha/\partial T_\text{bg}$ is derived from the definition of $\lambda_T$ in \cref{eq:lambda_mfp} alone\footnote{Neglecting also the Coulomb logarithm dependence $\partial \ln\Lambda/\partial T_\text{bg}$.}.
+Equivalently to the shielding length variation, we let $z = r_\text{p} \cos\theta$.
+Consequently, the variation $\var{q_\text{pl}}$ corresponds to $q_1(\infty)\cos\theta$ in our asymmetric NGS model.
+Comparison to the definition of the heat flux asymmetry parameter then leads to
+\begin{equation}
+    q_\text{rel} = \frac{q_1(\infty)}{q_\text{bc}} = \frac{1}{q_\text{pl}(s_0)} \eval{\dv{q_\text{pl}}{z}}_{z=0} r_\text{p} \, .
+\end{equation}
+Inserting the expressions of \cref{eq:plasmoid_shielding_isotropic,eq:q_pl_variation} and performing an equivalent derivation for the effective energy asymmetry finally gives
+\begin{equation}
+\boxed{%
+\begin{aligned}
+    q_\text{rel} &= r_\text{p} \left[ \left(\frac{3}{2} \frac{1}{T_\text{bg}} + \frac{f'_q}{f_q}  \frac{2 \alpha}{\sqrt{T_\text{bg}}} \right) \dv{T_\text{bg}}{z} + \frac{1}{n_\text{bg}} \dv{n_\text{bg}}{z} - \frac{f'_q}{f_q} \frac{\alpha}{s} \dv{s}{z} \right]_{z=0} \quad \quad \text{and} \\
+    E_\text{rel} &= r_\text{p} \left[ \left( \frac{1}{T_\text{bg}} + \frac{f'_E}{f_E} \frac{2 \alpha}{\sqrt{T_\text{bg}}} \right) \dv{T_\text{bg}}{z} - \frac{f'_E}{f_E} \frac{\alpha}{s} \dv{s}{z} \right]_{z=0}
+\end{aligned}
+} \, ,
+\label{eq:plasmoid_shielding_asymmetry}
+\end{equation}
+where the plasmoid shielding functions $f_q(\alpha)$ and $f_E(\alpha)$ are given by \cref{eq:plasmoid_shielding_q,eq:plasmoid_shielding_E}, and the shielding length variation $\eval{\dd s/\dd z}_{z=0}$ is described by \cref{eq:shielding_length_derivative}.
+Note that in this model, $q_\text{rel}$ is always positive, but for a moderate temperature gradient, $E_\text{rel}$ is always negative.
+Thus, $E_\text{rel}/q_\text{rel} \lesssim -1.17$ is possible, which would mean a pellet rocket acceleration towards the high-field side, according to \cref{fig:P1_at_r_p}.
+
+
+% The degree of asymmetry in the neutral ablation cloud heating is obtained by taking the first order variation
+% \begin{align}
+%     \var{q_\text{pl}}(z) = \eval{\dv{q_\text{pl}}{z}}_{z=0} z
+
+%     % q_1(\infty) \cos\theta = \eval{\pdv{q_\text{bc}}{s}}_{s=s_0} \var{s}(\theta) = \eval{\pdv{q_\text{bc}}{\alpha}}_{\alpha=\alpha_0} \underbrace{\eval{\pdv{\alpha}{s}}_{s=s_0}}_{=-\alpha_0/s_0} \eval{\pdv{s}{z}}_{z=0} r_p \cos\theta
+%     q_1(\infty) \cos\theta &= \eval{\dv{q_\text{pl}}{z}}_{z=0} z
+%     &= \left( \right)_{z=0} z
+%     = \eval{\dv{q_\text{bc}}{z}}_{z=0} r_\text{p} \cos\theta \, ,
+%     %= \eval{\pdv{q_\text{bc}}{\alpha}}_{\alpha=\alpha_0} \underbrace{\eval{\pdv{\alpha}{s}}_{s=s_0}}_{=-\alpha_0/s_0} \eval{\pdv{s}{z}}_{z=0} r_p \cos\theta
+% \end{align}
+% where $\var{z} = r_\text{p} \cos\theta$ reflects the same reasoning as explained for the shielding length variation in \cref{eq:shielding_length_variation}.
+% Comparing this with the definition $q_\text{rel} = q_1(\infty)/q_\text(bc)$ .
+% By handling the effective energy equivalently, the parameters to the asymmetric NGS model become
+% \begin{equation}
+% \boxed{%
+% \begin{aligned}
+%     q_\text{rel} &= \frac{-1}{f_q(\alpha_0)} \eval{\pdv{f_q}{\alpha}}_{\alpha=\alpha_0} \frac{\alpha_0}{s_0} \eval{\pdv{s}{z}}_{z=0} r_p \quad \text{and} \\
+%     E_\text{rel} &= \frac{-1}{f_E(\alpha_0)} \eval{\pdv{f_E}{\alpha}}_{\alpha=\alpha_0} \frac{\alpha_0}{s_0} \eval{\pdv{s}{z}}_{z=0} r_p \, ,
+% \end{aligned}
+% }
+% \label{eq:plasmoid_shielding_asymmetry}
+% \end{equation}
+% where the plasmoid shielding functions $f_q$ and $f_E$ are described by \cref{eq:plasmoid_shielding_q,eq:plasmoid_shielding_E}, and the shielding length variation $\eval{\partial s/\partial z}_{z=0}$ is described by \cref{eq:shielding_length_derivative}.
+% Note that in this model, $E_\text{rel}/q_\text{rel}$ is always negative, since $\partial f_E/\partial \alpha$ is negative and $\partial f_q/\partial \alpha$ is positive.
+
+In summary, the plasmoid shielding depends mainly on the pellet injection parameters $v_\text{p}$ and$r_\text{p}$, the background plasma parameters $T_\text{bg}$ and $n_\text{bg}$ (and their gradients), and the pellet position along the major radius of the magnetic confinement device $R_\text{m}$.
+Since the plasmoid formation is not fully modelled here, values have to be given for the plasmoid temperature $T_\text{pl}$ and the ionization radius $r_\text{i}$.
+Whereas, the plasmoid electron density can be estimated as
+\begin{equation}
+    n_\text{pl} = \frac{ \mathcal{G}}{2 \langle m_i \rangle c_\text{s}(T_\text{pl}) \pi r_\text{i}^2}
+\end{equation}
+by considering that ablated material is outflowing at the mass ablation rate $\mathcal{G}=mG$ along a tube of cross-sectional area $\pi r_\text{i}^2$.
+Note that $m$ is the mass of the ablated molecules, i.e. before dissociation, and $\langle m_i \rangle$ is the mass of the ionized atoms.
+However, the particle ablation rate $G$, as predicted by the isotropic NGS model in \cref{eq:prefactor_G}, depends itself on the heat flux $q_\text{bc}$ and effective electron energy $E_\text{bc}$.
+Therefore, the plasmoid shielding, as estimated by \cref{eq:plasmoid_shielding_isotropic}, has to be calculated in a self-consistent iteration until the particle ablation rate $G$ is converged.
+Then, the heat source asymmetry parameters in \cref{eq:plasmoid_shielding_asymmetry} can be used in \cref{eq:final_pellet_rocket_force} to predict the pellet rocket force.
+
+

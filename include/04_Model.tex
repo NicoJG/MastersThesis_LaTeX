@@ -1,30 +1,35 @@
 \chapter{Modelling the pellet rocket effect}
+\label{chap:model}
 
-The underlying principle of the pellet rocket effect is that asymmetric heating of the pellet and the ablation cloud leads to a higher ablation and pressure on one side of the pellet. 
+The underlying principle of the pellet rocket effect is that any asymmetric heating of the pellet and the ablation cloud will lead to a higher ablation and pressure on one side of the pellet. 
 This results in a rocket-like force on the pellet, which accelerates it towards the less heated side.
-In general, this phenomenon involves complex, three-dimensional, non-linear fluid dynamics.
+In general, this phenomenon involves complex, three-dimensional, non-linear dynamics.
 Fortunately, in the case of pellet injection in magnetic confinement fusion, the pellet heating can be seen as predominantly spherically symmetric.
-Taking the anisotropic pellet ablation dynamics as a linear perturbation on top of the isotropic dynamics, enables us to develop a semi-analytical model for the pellet rocket effect.
+Taking the anisotropic pellet ablation dynamics as a linear perturbation on top of the isotropic dynamics enables us to develop a semi-analytical model for the pellet rocket effect.
 
-Conceptually, this model is divided in three different parts.
-The first part, as described in \cref{sec:pellet_surface}, considers the momentum transfer on the pellet surface to calculate the net force on the pellet.
-Expanding the angular dependence of the gas properties at the pellet surface in spherical harmonics, yields a formula for the pellet rocket force, involving only the $\cos\theta$-dependence of the ablation rate and pressure at the pellet surface.
+Conceptually, the model we use is divided into three different parts.
+The first part, as described in \cref{sec:pellet_surface}, considers the momentum transfer to the pellet surface to calculate the net force on the pellet.
+Expanding the angular dependence of the gas properties at the pellet surface in spherical harmonics yields a formula for the pellet rocket force, involving only the first order mode ($\cos\theta$-dependence) of the ablation rate and pressure at the pellet surface.
 
-The second part of the model, as described in \cref{sec:neutral_gas_shielding}, quantifies the shielding of the pellet from an external asymmetric heating source through the neutral gas ablation cloud.
-Widely used for predicting isotropic pellet ablation dynamics is a model known as the Neutral Gas Shielding (NGS) model, developed by \textcite{parks_effect_1978}.
-There, quasi-steady-state fluid equations for an ideal gas are solved under the approximation of a mono-energetic beam of incoming electrons, which traverse the ablation cloud radially.
-This model is in good agreement with experimental data and while several more sophisticated models were developed, most models yield the same results \autocite{pegourie_review_2007}.
-Therefore, the NGS model is the basis of our model.
-The asymmetric ablation dynamics are then added as a perturbation.
-Since the full radial solution of the NGS model is needed to calculate the asymmetric dynamics, the NGS model has to be fully reproduced, as described in \cref{ssec:isotropic_model}.
-The asymmetric perturbation dynamics are then modelled, as described in \cref{ssec:asymmetric_perturbation_model} given the external heating source.
+The second part of the model, as described in \cref{sec:neutral_gas_shielding}, quantifies the shielding of the pellet from an external asymmetric heating source by the neutral gas ablation cloud.
+The NGS model, originally developed by \textcite{parks_effect_1978}, is widely used for predicting isotropic pellet ablation dynamics.
+Quasi-steady state fluid equations for an ideal gas are solved under two major approximations.
+First, the external source of heat is assumed as a mono-energetic beam of incoming electrons. 
+Second, all ablation cloud dynamics are simplified to a spherically symmetric geometry.
+This model is in good agreement with experimental data and while several more sophisticated models were developed, most models yield similar results \autocite{pegourie_review_2007}.
+Therefore, the NGS model is used as the basis of our model and is referred to in the following as the \emph{isotropic NGS model}.
+The asymmetric ablation dynamics are then added as a perturbation in our model, which we refer to as the \emph{asymmetric NGS model}.
+Since the full radial solution of the isotropic NGS model is needed to calculate the asymmetric dynamics, the isotropic NGS model is described in detail in \cref{ssec:isotropic_model}.
+The asymmetric perturbation dynamics are then modelled as described in \cref{ssec:asymmetric_perturbation_model}, given the external heating source parameters.
+The most important prediction of this model for the pellet rocket effect is the quantified pressure asymmetry at the pellet surface.
 
-While this model can be used by itself, if the heat source into the neutral ablation cloud is known, our goal is to predict the pellet rocket acceleration along the major radius of a tokamak from the background plasma parameters.
-Therefore, the third part of our model, as described in \cref{sec:plasmoid_shielding}, calculates the heat source asymmetry induced by the outward drift of the plasmoid of ablated material.
+While the asymmetric NGS model can be used by itself, if the heat source into the neutral ablation cloud is known, our goal is to provide predictions of the pellet rocket acceleration along the major radius of a tokamak for given background plasma parameters.
+Therefore, the third part of our model, as described in \cref{sec:plasmoid_shielding}, determines the heat source asymmetry induced by the outward drift of the plasmoid of ablated material.
 How this drift results in a finite and varying shielding length of the electrons through the plasmoid is described in \cref{ssec:plasmoid_shielding_length}.
 In \cref{ssec:plasmoid_heat_flux_attenuation}, the shielding length is used to estimate the heat source at the boundary of the neutral gas cloud.
 
-Finally, in \cref{sec:model_summary}, all three parts are combined to describe the full model.
+Finally, in \cref{sec:results}, all three parts of our model are combined to make predictions for specific pellet injection parameters in the tokamaks ASDEX Upgrade and ITER.
+Those predictions are then compared to previous simulation results presented by \textcite{samulyak_simulation_2023}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{include/04_01_Rocket_Force}
@@ -35,6 +40,4 @@ Finally, in \cref{sec:model_summary}, all three parts are combined to describe t
 
 \input{include/04_04_Plasmoid_shielding}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Model summary (putting it all together...)}
-\label{sec:model_summary}
+\input{include/04_05_Results}

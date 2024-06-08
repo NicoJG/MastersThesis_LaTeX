@@ -2,15 +2,15 @@
 \label{sec:pellet_surface}
 
 Consider a spherical pellet of radius $r_\text{p}$ surrounded by a neutral gas.
-Physically, the force on the pellet is the combination of ablated particles leaving the pellet surface and the gas pressure pushing on the pellet surface.
+Physically, the force on the pellet arises from the combination of ablated particles leaving the pellet surface and the gas pressure pushing on the pellet surface.
 In the following, a formula for this force is derived under the assumption that the anisotropic dynamics are small compared to the spherically symmetric dynamics.
 
 Mathematically, the momentum transfer at a point $\vec{r}$ in the gas is expressed through the momentum flux tensor
 \begin{equation*}
-    \tensor{\Pi} = \rho \left(\vec{v} \otimes \vec{v} \right) + p \tensor{\mathbbone} \, ,
+    \tensor{\Pi} = \rho \vec{v} \vec{v} + p \tensor{\mathbbone} \, ,
 \end{equation*}
 with the mass density $\rho(\vec{r})$, the fluid velocity $\vec{v}(\vec{r})$ and the pressure $p(\vec{r})$. 
-The symbol $\otimes$ denotes the dyadic product\footnote{equivalent to a tensor product} and $\tensor{\mathbbone}$ denotes the 3-dimensional identity tensor.  
+The notation $\vec{v}\vec{v}$ represents the dyadic product\footnote{Equivalent to a tensor product.}, and $\tensor{\mathbbone}$ denotes the 3-dimensional identity tensor.  
 Assuming local momentum conservation at the pellet surface $S$, the net force on the pellet is
 \begin{equation*}
     \vec{F} = - \iint_{S} \tensor{\Pi} \cdot \dd{\vec{S}} \, ,
@@ -22,14 +22,15 @@ where the minus sign indicates that this is the force exerted on the pellet, whi
     \caption{Illustration of how the pellet rocket force arises from both an asymmetry in pressure on the pellet surface (visualized by the red background) and an asymmetric ablation (visualized by the vectors). Additionally, the coordinate system used throughout this thesis is denoted by the unit vectors $\hat{z}$, $\hat{r}$, $\hat{\theta}$. The pellet is modelled as a solid sphere of radius $r_\text{p}$.}
     \label{fig:pellet_surface_force}
 \end{figure}
-Choosing spherical coordinates $r,\theta,\varphi$ so that the pellet is centred at the origin and a positive force $F$ points in the negative $\hat{z}$-direction, as shown in \cref{fig:pellet_surface_force}, the force becomes
+We choose spherical coordinates $\{r,\theta,\varphi\}$ so that the pellet is centred at the origin and a positive force $F$ points in the negative $\hat{z}$-direction, as shown in \cref{fig:pellet_surface_force}. 
+The force then becomes
 \begin{equation*}
-    F = - \hat{z} \cdot \vec{F} = r_\text{p}^2 \int_{\theta=0}^{\pi} \int_{\varphi=0}^{2\pi} \left( \rho \left(\hat{z}\cdot  \vec{v} \otimes \vec{v}  \cdot \hat{r}\right) + p \left(\hat{z}\cdot\hat{r}\right) \right) \,\dd{\Omega} \, ,
+    F = - \hat{z} \cdot \vec{F} = r_\text{p}^2 \iint_{S} \left[ \rho \left(\hat{z}\cdot  \vec{v} \vec{v}  \cdot \hat{r}\right) + p \left(\hat{z}\cdot\hat{r}\right) \right] \,\dd{\Omega} \, ,
 \end{equation*}
 with the differential solid angle $\dd{\Omega}=\sin\theta \dd{\theta}\dd{\varphi}$. 
 Expressing $\vec{v} = v_r \hat{r} + v_\theta \hat{\theta} + v_\varphi \hat{\varphi}$ and using geometric relations between the unit vectors leads to
 \begin{equation*}
-    F = r_\text{p}^2 \int_{\theta=0}^{\pi} \int_{\varphi=0}^{2\pi} \left( \rho v_r (v_r \cos\theta + v_\theta \sin\theta) + p \cos\theta \right) \,\dd{\Omega} \, .
+    F = r_\text{p}^2 \iint_{S} \left[ \rho v_r (v_r \cos\theta + v_\theta \sin\theta) + p \cos\theta \right] \,\dd{\Omega} \, .
 \end{equation*}
 At this point, the first and only approximation for deriving the force formula has to be made.
 The anisotropic dynamics are taken as a small perturbation on the spherically symmetric dynamics in the form
@@ -39,32 +40,33 @@ The anisotropic dynamics are taken as a small perturbation on the spherically sy
     \rho(\vec{r}) &= \rho_0(r) + \var{\rho}(r,\theta,\varphi), &
     p(\vec{r}) &= p_0(r) + \var{p}(r,\theta,\varphi) \, .
 \end{align*}
-Linearization of the force in this perturbation and using $\int_0^\pi \cos\theta \dd{\theta} = 0$ leads to
+Linearizing the force in this perturbation and using $\int_0^\pi \cos\theta \dd{\theta} = 0$ leads to
 \begin{equation}
-    F = r_\text{p}^2 \int_{\theta=0}^{\pi} \int_{\varphi=0}^{2\pi} \left(\left( \var{\rho} v_0^2 + 2 \rho_0 v_0 \var{v_r} + \var{p} \right) \cos\theta + \rho_0 v_0 \var{v_\theta} \sin\theta \right) \,\dd{\Omega} \, .
+    F = r_\text{p}^2 \int_{\theta=0}^{\pi} \int_{\varphi=0}^{2\pi} \left(\left( \var{\rho} v_0^2 + 2 \rho_0 v_0 \var{v_r} + \var{p} \right) \cos\theta + \rho_0 v_0 \var{v_\theta} \sin\theta \right) \, \sin\theta \dd{\theta}\dd{\varphi} \, .
     \label{eq:force_before_expansion}
 \end{equation}
-The last term can be rewritten as a $\cos\theta$ dependent term through integration by parts 
+The last term can be rewritten as a term proportional to $\cos\theta$ through integration by parts 
 \begin{equation*}
-    \int_0^\pi \var{v_\theta} \sin^2\theta \dd{\theta} = \underbrace{\left[ \left(\int \var{v_\theta} \dd{\theta}\right) \sin^2\theta \right]_0^\pi}_{=0} - \int_0^\pi \left(\int \var{v_\theta} \dd{\theta}\right) 2\cos\theta\sin\theta \dd{\theta}
+    \int_0^\pi \var{v_\theta} \sin^2\theta \dd{\theta} = \underbrace{\left[ \left(\int \var{v_\theta} \dd{\theta}\right) \sin^2\theta \right]_0^\pi}_{=0} - \int_0^\pi \left(\int \var{v_\theta} \dd{\theta}\right) 2\cos\theta\sin\theta \dd{\theta} \, ,
 \end{equation*}
 assuming that $\left(\int \var{v_\theta} \dd{\theta}\right)$ is finite.
-The surface integral can be then solved by expanding $\var{\rho}$, $\var{v_r}$, $\var{p}$ and $\left(\int \var{v_\theta} \dd{\theta}\right)$  in terms of spherical harmonics 
+The surface integral can then be solved by expanding $\var{\rho}$, $\var{v_r}$, $\var{p}$ and $\left(\int \var{v_\theta} \dd{\theta}\right)$  in terms of spherical harmonics 
 \begin{equation*}
     Y_l^m(\theta,\varphi) = \sqrt{\frac{(l-m)!}{(l+m)!}} \mathcal{P}_l^m(\cos\theta) e^{im\varphi} \, ,
 \end{equation*}
 with the associated Legendre polynomials $\mathcal{P}_l^m$.
 Spherical harmonics are orthogonal in the sense
 \begin{equation*}
-    \int_{\theta=0}^{\pi} \int_{\varphi=0}^{2\pi} Y_l^m (Y_{l'}^{m'})^* \dd{\Omega} = 
+    \int_{\theta=0}^{\pi} \int_{\varphi=0}^{2\pi} Y_l^m (Y_{l'}^{m'})^* \sin\theta \dd{\theta}\dd{\varphi} = 
     \begin{cases}
         \frac{4 \pi}{2l+1} & \text{for }l=l' \, , \, m=m' \\
-        0 & \text{else}
+        0 & \text{otherwise}
     \end{cases} \, ,
 \end{equation*}
-which is helpful because ${Y_1^0=\cos\theta}$ appears in the surface integral \cref{eq:force_before_expansion}.
-Therefore, for any general $\var{\rho}$, $\var{v_r}$, $\var{p}$ and $\int \var{v_\theta} \dd{\theta}$, only their projection onto $\cos\theta$, i.e. the coefficient of the $l=1$, $m=0$ mode, contributes to the force.
-Inserting the expansions
+which is helpful because ${Y_1^0=\cos\theta}$ appears in front of every term in the surface integral \cref{eq:force_before_expansion}.
+Therefore, for any general variations $\var{\rho}$, $\var{v_r}$, $\var{p}$ and $\int \var{v_\theta} \dd{\theta}$, only their projection onto $\cos\theta$, i.e. the coefficient of the $l=1$, $m=0$ mode, contributes to the force.
+Note that for $\var{v_\theta}$ the projection onto $-\sin\theta$ is relevant, since only the integral $\int \var{v_\theta} \dd{\theta}$ is expanded in terms of spherical harmonics.
+Inserting the relevant expansions
 \begin{align*}
     \var{\rho}(r,\theta,\varphi) &= \rho_1(r)\cos\theta + \dots \, , & 
     \var{p}(r,\theta,\varphi) &= p_1(r)\cos\theta + \dots \, , \\
@@ -81,7 +83,8 @@ The ablation rate per unit area $g$, i.e. the mass flux through the pellet surfa
 \begin{equation*}
     g(\theta) = \rho \vec{v} \cdot \hat{r} \approx \left( \rho_0 v_0 + (\rho_1 v_0 + \rho_0 v_{1,r}) \cos\theta + \dots \right)_{r=r_\text{p}} = g_0 + g_1 \cos\theta + \dots \, .
 \end{equation*}
-Therefore, the first two terms in \cref{eq:rocket_force_full} describe the force arising from an asymmetric ablation, the term $\rho_0 v_0 v_{1,\theta}$ describes a force from mass flowing around the pellet surface and the last term describes the gas pressure asymmetry. 
+Therefore, the first two terms in \cref{eq:rocket_force_full} describe the force arising from asymmetric ablation.
+The term $\rho_0 v_0 v_{1,\theta}$ describes a force from mass flowing around the pellet surface, and the last term $p_1$ describes the gas pressure asymmetry. 
 All of this is integrated over the pellet surface area $4 \pi r_\text{p}^2$.
 
 Under the self-regulating shielding assumptions, used in the next parts of this model, the pellet rocket force is predominantly caused by the pressure asymmetry in the neutral gas ablation cloud.
@@ -89,6 +92,6 @@ Therefore, the pellet rocket force is
 \begin{equation}
     F = \frac{4 \pi r_\text{p}^2}{3} p_1(r_\text{p}) \, ,
 \end{equation}
-which is the same formula as used for the empirical model developed by \textcite{szepesi_radial_2007}.
+which is essentially the same formula as used for the empirical model developed by \textcite{szepesi_radial_2007}.
 The main challenge of this thesis is to develop a model for the pressure asymmetry at the pellet surface $p_1(r_\text{p})$ given an external heating source.
-This is the subject of the following sections.
+This is the subject of the following sections, by developing the asymmetric NGS model.

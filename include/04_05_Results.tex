@@ -1,0 +1,96 @@
+\section{Quantifying the radial acceleration of pellets in tokamaks}
+\label{sec:results}
+
+Having developed and presented our self-consistent semi-analytical model for the pellet rocket force, it can now be used to predict the magnitude of the radial pellet acceleration in example tokamak scenarios.
+The tokamaks chosen here are ASDEX Upgrade (AUG), which is operational in Germany, and ITER, which is currently under construction in France.
+Specifically, choosing the same plasma and pellet parameters as used by \textcite{samulyak_simulation_2023} enables direct quantitative comparison.
+The simulations presented by \textcite{samulyak_simulation_2023} use a three-dimensional Lagrangian particle code \autocite{samulyak_lagrangian_2021}, which is more sophisticated and has a higher computational cost than our scaling laws and formulas.
+
+In both cases, the injected pellets are assumed to consist of pure deuterium. 
+This makes the neutral gas cloud around the pellet a mostly diatomic gas of $\ce{D2}$, which suggests the adiabatic index $\gamma = 7/5$.
+Deuterium atoms (and ions) have a mass of $\sim\qty{2}{u}$ and the $\ce{D2}$ molecules have a mass of $\sim\qty{4}{u}$, where the atomic mass unit is $\qty{1}{u} = \qty{1.661e-27}{\kg}$.
+Assuming spherical pellets, the pellet rocket force $F$, leads to an expression for the pellet rocket acceleration as
+\begin{equation}
+    a = \frac{F}{\frac{4}{3} \pi r_\text{p}^3 \rho_\text{p}} \, ,
+\end{equation}
+where $\rho_\text{p} \approx \qty{204}{\kg/\m^3}$ \autocite{senichenkov_pellet_2007} is the typical density of cryogenic deuterium pellets. 
+
+\textcite{samulyak_simulation_2023} presents his results for AUG together with the used pellet radii, plasma temperatures and plasma densities.
+However, the radial position $R_\text{m}$ of the pellet, the pellet velocity $v_\text{p}$ and the gradients have to be assumed here.
+The plasma in AUG has a major radius of $\qty{1.65}{\m}$ and a minor radius of $\qty{0.5}{\m}$.
+Assuming the pellet is close to the low-field side edge, but not in the pedestal\footnote{The pedestal in a tokamak is the region at the plasma edge, where the density and temperature rapidly increase.}, a radial position of $R_\text{m} = \qty{2}{\m}$ is reasonable.
+A related experiment performed by \textcite{muller_high_2002} notes radial pellet velocities of $v_\text{p} = \qty{240}{\m/\s}$, which is thus assumed here.
+Assuming a linear temperature gradient, with a temperature of $\qty{2}{\keV}$ in the centre and a pedestal height of $50\%$, we estimate the temperature gradient to be $\dv{T_\text{bg}}{z} \approx \qty{2}{\keV/\m}$.
+The density gradient does not play a significant role and is neglected here.
+
+For the ablation cloud, several additional parameters have to be provided.
+Based on a simulation by \textcite{matsuyama_neutral_2022} and experimental observations by \textcite{muller_high_2002} of the ablation dynamics under similar conditions, the ionization radius is estimated as $r_\text{i} \approx \qty{1}{\cm}$ (similar to Samulyak's figures) and the plasmoid cloud temperature is estimated as $T_\text{pl} \approx \qty{2}{\eV}$.
+The fraction of electron energy loss going into heating the neutral gas cloud is taken to be $\mu = 0.65$, in line with predictions by \textcite{parks_effect_1978}.
+
+\begin{table}
+    \centering
+    %\resizebox{\textwidth}{!}{%
+    \begin{tabular}{S[table-format=1.1] S[table-format=1.1e2] S[table-format=1.1] c S[table-format=1.1e1]}
+        \toprule
+        {$T_\text{bg} \: (\unit{\keV})$} & {$n_\text{bg} \: (\unit{1/\m^{3}})$} & {$r_\text{p} \: (\unit{\mm})$} & {$a_\text{our model} \: (\unit{\m/\s^2})$} & {$a_\text{Samulyak} \: (\unit{\m/\s^2})$} \\
+        \midrule
+        2.0 & 6.0e19 & 1.0 & $(1.45 - 3.92) \times 10^5$ & 1.7e5 \\
+        2.0 & 6.0e19 & 0.5 & $(0.47 - 2.60) \times 10^5$ & 2.4e5 \\
+        2.2 & 9.4e19 & 0.5 & $(0.98 - 4.84) \times 10^5$ & 7.0e5 \\
+        \bottomrule
+    \end{tabular}
+    %}
+    \caption{Predictions for the pellet rocket acceleration in ASDEX Upgrade in comparison to predictions by \textcite{samulyak_simulation_2023}. The lower estimate is the full model prediction and the upper estimate is the prediction while setting $E_\text{rel}=0$. Note that, except for the listed parameters, \textcite{samulyak_simulation_2023} might have used different assumptions and their results are given just for reference.}
+    \label{tab:AUG_results}
+\end{table}
+
+The results for three different plasma and pellet parameter combinations are listed in \cref{tab:AUG_results}, together with Samulyak's predictions.
+In addition to the model prediction as described in the previous sections (lower prediction), an upper prediction is given by assuming that the plasmoid shielding overpredicts the effective energy asymmetry and setting $E_\text{rel} = 0$ in \cref{eq:final_pellet_rocket_force}.
+This was motivated by the fact that the full model predicts a negative acceleration when neglecting the temperature gradient.
+The observed overestimation of $E_\text{rel}$ could be a result of reducing the Maxwellian-distributed electrons traversing the plasmoid to a mono-energetic beam traversing the neutral cloud.
+The temperature gradient was found to account for about 10\% to 30\% of the acceleration when setting $E_\text{rel} = 0$.
+Overall, the estimates of the pellet rocket acceleration agree reasonably well with the predictions by \textcite{samulyak_simulation_2023}.
+Experimental observations have shown an average acceleration of $\sim\qty{5e5}{\m/\s^2}$ \autocite{muller_high_2002}.
+Similar values are obtained in our model, and our compares even better with the experiment than with Samulyak's simulation results.
+
+However, it must be noted that changing the above estimated parameters ($\dv{T_\text{bg}}{z}$, $r_\text{i}$, $T_\text{pl}$, $\mu$, $\gamma$) individually within reasonable ranges can change the prediction by around 50\%.
+Varying the radial position or pellet velocity does not significantly change the predicted acceleration.
+Our plasmoid shielding model is particularly sensitive to $r_\text{i}$, where in the last case listed in \cref{tab:AUG_results} increasing $r_\text{i}$ by $\sim\qty{0.25}{\cm}$ causes $a_\text{pl}$ to flip sign, which is leads to unphysical results. 
+With this larger ionization radius, our model predicts a plasmoid pressure which is lower than in the background plasma, indicating that the plasmoid would in reality not expand to such a large radius.
+
+Qualitative comparison of the parameter dependence in \cref{tab:AUG_results} with Samulyak's results shows a much weaker dependence on $T_\text{bg}$ and $n_\text{bg}$ in our model.
+Furthermore, Samulyak's model predicts a larger acceleration for smaller pellets, our model predicts the opposite.
+However, when a large enough temperature gradient is given, this $r_\text{p}$ dependence in our model flips.
+Resolving these discrepancies is non-trivial.
+Thorough investigation of how all parameters are involved in our model predictions, i.e. a proper qualitative and quantitative benchmark of our model, is outside the scope of this thesis.
+
+\begin{table}
+    \centering
+    %\resizebox{\textwidth}{!}{%
+    %\begin{tabular}{S[table-format=1.1e] c S[table-format=1.3] S[table-format=1.2] S[table-format=2.0]}
+    \begin{tabular}{ccccccc}
+        \toprule
+        {$a_\text{pl} \: (\unit{\m/\s^2})$} & {$s_0 \pm \var{s}(r_\text{p}) \: (\unit{\cm})$} & {$f_q$} & {$f_E$} & {$q_\text{rel}$} & {$\frac{E_\text{rel}}{q_\text{rel}}$} & {$p_\star \: (\text{atm})$} \\
+        \midrule
+        $1.6 \times 10^8$ & $18 \pm 1.0$ & 0.82 & 1.39 & 0.014 & -0.75 & 22 \\
+        $1.1 \times 10^8$ & $22 \pm 0.7$ & 0.92 & 1.22 & 0.004 & -0.97 & 28 \\
+        $0.9 \times 10^8$ & $23 \pm 0.7$ & 0.90 & 1.26 & 0.004 & -0.94 & 44 \\
+        \bottomrule
+    \end{tabular}
+    %}
+    \caption{Predictions of ablation cloud quantities estimated from the plasmoid shielding and isotropic NGS model. The rows correspond to the pellet rocket effect results and parameters listed in \cref{tab:AUG_results}.}
+    \label{tab:AUG_intermediate_results}
+\end{table}
+
+Some of the predicted ablation cloud and shielding quantities are listed in \cref{tab:AUG_intermediate_results}, where the rows correspond to the same parameters as listed in \cref{tab:AUG_results}.
+The predicted central shielding length in our model of $s_0 \sim 20\,\unit{\cm}$ with a variation across the pellet of $\var{s}(r_\text{p}) \sim \qty{\pm 1}{\cm}$ is in line with Samulyak's prediction. 
+The listed degrees of asymmetry in the heating source, $q_\text{rel}$ and $E_\text{rel}$, validate our assumption of the asymmetry in the ablation dynamics being only a small perturbative effect.
+
+Finally, Samulyak also predicts the pellet rocket acceleration for the expected larger pellets in the ITER tokamak.
+The parameters used are ${R_\text{m} = \qty{8}{\m}}$, ${v_\text{p} = \qty{500}{\m/\s}}$, ${r_\text{p} = \qty{5}{\mm}}$, ${n_\text{bg} = \qty{e20}{\m^{-3}}}$, ${T_\text{bg} = \qty{5}{\keV}}$, ${\dv{n_\text{bg}}{z} = \qty{6e19}{\m^{-4}}}$ and ${\dv{T_\text{bg}}{z} = \qty{10}{\keV/\m}}$.
+The rest of the parameters are assumed to be the same as for AUG.
+The resulting pellet rocket acceleration is predicted in our model to be $\sim\qty{5e6}{\m/\s^2}$ while Samulyak's model predicts $\sim\qty{1e6}{\m/\s^2}$.
+However, with a larger pellet, the plasmoid cloud could be larger than simulated by \textcite{matsuyama_neutral_2022}, which would give the plasmoid material more time to heat up while drifting across the pellet.
+Our model shows similar predictions to Samulyak's model, when assuming the plasmoid cloud parameters as $r_\text{i} \approx \qty{3}{\cm}$ and $T_\text{pl} \approx \qty{5}{\eV}$.
+This indicates that our model captures the essential physics of the pellet rocket effect, provided that an accurate plasmoid cloud temperature and ionization radius are given.
+%This shows the importance of modelling the plasmoid cloud temperature and the ionization radius accurately.

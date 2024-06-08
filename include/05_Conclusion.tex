@@ -1,0 +1,106 @@
+\chapter{Concluding remarks}
+\label{chap:conclusion}
+
+In summary, this thesis presented a semi-analytical model for the pellet rocket effect that predicts similar magnitudes of the radial pellet acceleration to those found in earlier simulations and experiments.
+Evaluating the asymmetry of the ablation cloud and the pellet heating is a remarkably complex physics problem. 
+We have reduced this complexity through theoretical model development, using several assumptions and approximations.
+%The complexity of the full physics problem of heating a pellet and its ablation cloud asymmetrically is reduced by several assumptions and approximations.
+This enabled us to develop a model of low computational cost but evaluating the accuracy of the predictions is beyond this thesis. 
+
+In this final part of the thesis, the developed model is summarized, and its limitations are discussed in \cref{sec:summary}.
+Then, an outlook is given in \cref{sec:outlook} on how future models of the pellet rocket effect could build on the presented ideas.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Summary + Discussion
+\section{Model summary and discussion}
+\label{sec:summary}
+
+The main premise of our model is the assumption of dominantly isotropic pellet ablation dynamics, onto which a small asymmetric perturbation is added.
+This is presumably the case in most MCF pellet injection scenarios, and our estimates for the heat source asymmetry in example scenarios confirm this assumption.
+The perturbative assumption alone is sufficient to derive an expression for the force on the pellet (\cref{eq:rocket_force_full}), by considering the fluid dynamical momentum transfer between the pellet surface and its surrounding neutral gas.
+In an expansion of the neutral gas properties at the pellet surface in terms of spherical harmonics, all contributions orthogonal to the $\cos\theta$ dependence ($l=1,m=0$) cancel out.
+Consequently, only the asymmetries in the pressure and ablation rate contribute to the total force on the pellet.
+
+Building on this assumption, we decided to model the isotropic dynamics of the neutral ablation cloud according to the NGS model as developed by \textcite{parks_effect_1978}.
+The involved empirical electron cross-sections directly limit our thesis to the case of hydrogenic pellets.
+The success of the NGS model in predicting pellet ablation rates suggests that the essential physics is captured well.
+However, all related approximations had to be carried over to our asymmetric NGS model.
+While the underlying assumption of quasi-steady state ideal gas dynamics is expected to not differ under asymmetric heating, the two major approximations for the incident electron heat flux might affect the accuracy of our model.
+
+First, instead of treating the electrons kinetically with a Maxwellian energy distribution, this distribution is replaced with a mono-energetic beam for each field line.
+This approximation leads to a slightly underestimated ablation rate in the isotropic case \autocite{pegourie_review_2007}, and could therefore lead to an underestimated pellet rocket force in our model.
+
+Second, the flux of electrons through the neutral ablation cloud is expected to follow the magnetic field lines in reality.
+In the NGS model, this path is replaced by a \enquote{ficticious} radial path according to geometric reasoning that the line integrated density is equivalent.
+This overestimates the ablation rate and thus partially compensates for the error introduced by the mono-energetic beam approximation \autocite{pegourie_review_2007}.
+Even though the validity of this approximation in the case of an asymmetric heat flux is unclear, it was needed to make the problem essentially one dimensional and thus solvable semi-analytically.
+The impact it might have on the accuracy of our model is difficult to evaluate.
+Additionally, it introduces some ambiguity in how to model the external heat flux asymmetry.
+Since the neutral ablation cloud dynamics are most important close to the pellet, a reasonable assumption is to quantify the degree of asymmetry by only considering the field lines that hit the pellet surface and artificially \enquote{spreading} them over the whole neutral cloud.
+This could potentially underestimate the asymmetry in the cloud and thus balance the mentioned overestimated ablation rate, as in the isotropic case.
+
+Additionally, \textcite{parks_effect_1978} state that only around 60 to 70 percent of the energy lost by electrons in the neutral ablation cloud is transferred as heat, while the rest is lost due to backscattering and emission of radiation.
+Again, the success of the isotropic NGS model suggests the validity of this assumption.
+However, this factor enters our expression for the pellet rocket force in a power of 2/3 (through $\mu$ in \cref{eq:prefactor_p_star}) and could thus affect our predictions significantly.
+
+With assumed boundary conditions of no heat flux onto the cryogenic pellet surface and the external heat source set far away, numerical solutions of the radial dependencies were calculated.
+Since the dynamical equations are first normalized\footnote{Normalization to the neutral gas quantities at the sonic radius and the degree of asymmetry in the external heat flux.}, these numerical solutions span all relevant parameter regions.
+This means that the essential physical quantities are provided in the form of scaling laws and no costly simulations are needed to use our semi-analytical model (\cref{eq:final_pellet_rocket_force}).
+
+While the isotropic solutions coincide with the scaling laws provided by \textcite{parks_effect_1978}, the asymmetric solutions give new insights into the physics of the pellet rocket effect.
+First, the pressure asymmetry at the pellet surface is found to be linear in the degrees of asymmetry of the external heat flux and average external electron energy.
+This linearity is presumably a result of the first order perturbation.
+However, this also means that for a large enough discrepancy in the polarity of both of those asymmetry factors, our model can predict a larger pressure on the side opposite to the higher heat flux.
+In other words, a pellet could be accelerated towards the more heated side, where the ablation dynamics are driven by more highly energetic electrons on the other side.
+It remains unclear whether this phenomenon of a reversed pellet rocket effect reflects a physical possibility or is an artifact of our approximations.
+
+Another prediction of our model is that the momentum gained by the pellet depends mainly on the pressure asymmetry. The asymmetry in ablation rate is predicted to be 2 to 6 orders of magnitude smaller.
+This finding opposes the fundamental assumption in the pellet rocket model developed by \textcite{senichenkov_pellet_2007}.
+It may depend on the boundary conditions at the pellet surface, where we neglected the finite sublimation energy.
+Again, the physical validity of this result is unclear, but it supports the semi-empirical model developed by \textcite{szepesi_radial_2007}.
+
+To provide a full model of the pellet rocket effect, the plasmoid shielding and the induced heat flux asymmetry at the neutral-ionized boundary have to be modelled.
+The developed asymmetric NGS model can in principle be applied to all different hydrogenic pellet acceleration phenomena in MCF plasmas.
+However, the use case is restricted in this thesis to the pellet rocket effect along the major radius of a tokamak.
+The drift of the ionized ablated material down the magnetic field gradient is modelled based on the ideas presented by \textcite{vallhagen_drift_2023}.
+This leads to an asymmetry in shielding length across the different field lines hitting the pellet.
+The energy and heat flux attenuation of electrons passing through the plasmoid is then modelled through two major approximations.
+First, electrons are assumed to be fully stopped if their mean free path\footnote{We consider mainly the slowing down due to collisions with the cold plasmoid electrons.} is shorter than the shielding length along the field line they follow.
+Second, the electrons that reach the neutral ablation cloud are assumed not to be slowed down at all in the plasmoid cloud.
+These assumptions are inspired by the ideas of \textcite{senichenkov_pellet_2007} and serve as a crude estimate of the plasmoid shielding.
+While this enables predictions for the heat source at the neutral-ionized boundary, the resulting asymmetry in average electron energy could be highly overestimated.
+Additionally, the plasmoid temperature and the ionization radius are not modelled in this thesis and are taken as input parameters, which have to be provided by further modelling efforts.
+
+Applying our model to the case of ASDEX Upgrade LFS pellet injection predicts pellet rocket accelerations on the order of $\qty{e5}{\m/\s^2}$. 
+This result coincides with previous theoretical and experimental efforts.
+However, we note that overestimating the asymmetry of the electron energy severely decreases the predicted acceleration.
+When disregarding the temperature gradient in the plasma, our model even predicts an acceleration towards the HFS.
+Better agreement with previous predictions is obtained when ignoring the predicted asymmetry in average electron energy.
+Predictions for pellet rocket accelerations in ITER on the order of $\qty{e6}{\m/\s^2}$ also roughly agree with predictions by \textcite{samulyak_simulation_2023}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Outlook}
+\label{sec:outlook}
+
+Our predictions confirm the potentially fast pellet deceleration in ITER, which could severely impact the effectiveness of pellet injection schemes in reactor grade devices.
+This emphasises the importance of developing accurate models for the pellet rocket effect.
+While the accuracy of the presented model could not be fully evaluated yet, several
+areas of improvement are already clear.
+
+First and foremost, the plasmoid shielding dynamics are considered in a simplified way.
+This is indicated by the fact that the effect of the average electron energy asymmetry is overestimated enough to cause a reversed pellet rocket effect, which has not yet been observed in experiments or more advanced numerical models.
+In future modelling efforts, the hot electron dynamics in the cold plasmoid could be treated with a more sophisticated kinetic model.
+
+Additionally, the energy sink due to ionization of the ablated material may be considered.
+Not only could this better inform the choice of ionization radius and plasmoid temperature, it could also lower the incident electron energy and heat flux.
+
+The important areas for improvement of the asymmetric NGS model are the mono-energetic beam approximation and the replacement of the path along the field lines with an equivalent radial path.
+The former could be resolved by treating the incident electron dynamics kinetically.
+%However, since the mono-energetic beam approximation works well for the isotropic NGS model, we recommend focussing on the latter approximation.
+While considering a radial heat flux is reasonable in the isotropic case, anisotropic dynamics are very much relevant to the pellet rocket effect.
+Lifting this latter limitation could be done by solving the full two-dimensional problem numerically, or by finding other ways to project the system of equations onto the $\cos\theta$ dependence.
+
+Finally, further investigation of the pellet rocket effect is also needed on the experimental side.
+Insights into the ablation cloud dynamics as well as the pellet trajectory could inform theoretical modelling efforts.
+Proper comparison between theoretical predictions and experimental observations will be needed to develop tools that can inform the planning and operation of pellet injection systems in future fusion reactors.
+
