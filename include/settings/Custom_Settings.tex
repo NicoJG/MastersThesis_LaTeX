@@ -48,6 +48,7 @@
   backend=biber,   % use modern biber backend
   sorting=nyt,     % Sort the references numbering by name, year, title
   style=apa,       % use [author, year] for references
+  apamaxprtauth=10,
 ]{biblatex}
 
 % have the entire citation be a link, not only the year
@@ -88,6 +89,29 @@
 
 \addbibresource{references.bib}  % the bib file to use
 
+% https://tex.stackexchange.com/questions/588454/modify-apa-style-in-biblatex
+%\DeclareFieldFormat[article,periodical]{volume}{\mkbibbold{#1}}
+\DeclareFieldFormat[article,report,book,unpublished,inproceedings,thesis]{title}{\mkbibitalic{#1}}
+\DeclareFieldFormat[article,report,book,unpublished,inproceedings,thesis]{volume}{\mkbibbold{#1}}
+\DeclareFieldFormat[article,report,book,unpublished,inproceedings,thesis]{journaltitle}{#1}
+\AtEveryBibitem{\clearfield{urldate} \clearfield{urlyear} \clearfield{urlmonth} \clearfield{urlday} }% remove "Retrieved on ..."
+\AtEveryBibitem{\clearfield{number}} % remove issue numbers
+\DeclareFieldFormat{apacase}{#1}
+%\DeclareFieldFormat[article,report,book,unpublished,inproceedings,thesis]{urldate}{}
+%\DeclareFieldFormat[article,report,book,unpublished,inproceedings,thesis]{titlecase}{#1}
+\urlstyle{tt}
+
+% make the URL have the "URL: " infront
+% taken from https://github.com/plk/biblatex-apa/blob/master/tex/latex/biblatex-apa/bbx/apa.bbx
+% and slightly edited
+\DeclareFieldFormat{doi}{\mkbibacro{URL}\addcolon\space%
+  \ifhyperref
+    {\href{https://doi.org/#1}{\nolinkurl{https://doi.org/#1}}}
+    {\nolinkurl{https://doi.org/#1}}%
+  \nopunct}
+\DeclareFieldFormat{url}{\mkbibacro{URL}\addcolon\space\url{#1}\nopunct}
+
+
 \usepackage[acronym]{glossaries} % https://www.overleaf.com/learn/latex/Glossaries
 
 \usepackage{svg}
@@ -99,6 +123,7 @@
 
 % I have a reference that contains the unicode beta
 \DeclareUnicodeCharacter{03B2}{{$\beta$}}
+\DeclareUnicodeCharacter{2207}{{$\nabla$}}
 
 
 \hypersetup{

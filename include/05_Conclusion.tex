@@ -31,7 +31,7 @@ First, instead of treating the electrons kinetically with a Maxwellian energy di
 This approximation leads to a slightly underestimated ablation rate in the isotropic case \autocite{pegourie_review_2007}, and could therefore lead to an underestimated pellet rocket force in our model.
 
 Second, the flux of electrons through the neutral ablation cloud is expected to follow the magnetic field lines in reality.
-In the NGS model, this path is replaced by a \enquote{ficticious} radial path according to geometric reasoning that the line integrated density is equivalent.
+In the NGS model, this path is replaced by a \enquote{fictitious} radial path according to geometric reasoning that the line integrated density is equivalent.
 This overestimates the ablation rate and thus partially compensates for the error introduced by the mono-energetic beam approximation \autocite{pegourie_review_2007}.
 Even though the validity of this approximation in the case of an asymmetric heat flux is unclear, it was needed to make the problem essentially one dimensional and thus solvable semi-analytically.
 The impact it might have on the accuracy of our model is difficult to evaluate.
@@ -41,7 +41,7 @@ This could potentially underestimate the asymmetry in the cloud and thus balance
 
 Additionally, \textcite{parks_effect_1978} state that only around 60 to 70 percent of the energy lost by electrons in the neutral ablation cloud is transferred as heat, while the rest is lost due to backscattering and emission of radiation.
 Again, the success of the isotropic NGS model suggests the validity of this assumption.
-However, this factor enters our expression for the pellet rocket force in a power of 2/3 (through $\mu$ in \cref{eq:prefactor_p_star}) and could thus affect our predictions significantly.
+However, this factor enters our expression for the pellet rocket force in a power of 2/3 (through $\mu^{2/3}$ in \cref{eq:prefactor_p_star}) and could thus affect our predictions significantly.
 
 With assumed boundary conditions of no heat flux onto the cryogenic pellet surface and the external heat source set far away, numerical solutions of the radial dependencies were calculated.
 Since the dynamical equations are first normalized\footnote{Normalization to the neutral gas quantities at the sonic radius and the degree of asymmetry in the external heat flux.}, these numerical solutions span all relevant parameter regions.
@@ -83,7 +83,7 @@ Predictions for pellet rocket accelerations in ITER on the order of $\qty{e6}{\m
 \label{sec:outlook}
 
 Our predictions confirm the potentially fast pellet deceleration in ITER, which could severely impact the effectiveness of pellet injection schemes in reactor grade devices.
-This emphasises the importance of developing accurate models for the pellet rocket effect.
+This emphasizes the importance of developing accurate models for the pellet rocket effect.
 While the accuracy of the presented model could not be fully evaluated yet, several
 areas of improvement are already clear.
 
@@ -96,7 +96,6 @@ Not only could this better inform the choice of ionization radius and plasmoid t
 
 The important areas for improvement of the asymmetric NGS model are the mono-energetic beam approximation and the replacement of the path along the field lines with an equivalent radial path.
 The former could be resolved by treating the incident electron dynamics kinetically.
-%However, since the mono-energetic beam approximation works well for the isotropic NGS model, we recommend focussing on the latter approximation.
 While considering a radial heat flux is reasonable in the isotropic case, anisotropic dynamics are very much relevant to the pellet rocket effect.
 Lifting this latter limitation could be done by solving the full two-dimensional problem numerically, or by finding other ways to project the system of equations onto the $\cos\theta$ dependence.
 

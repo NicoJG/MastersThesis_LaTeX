@@ -13,7 +13,7 @@ Since the neutral ablation cloud can be considered a transonic ideal gas, the eq
     &\frac{\rho}{m} = \frac{p}{T}  &\text{(ideal gas law)} \, , \label{eq:ideal_gas_law}
 %\end{align}
 \intertext{%
-with mass density $\rho$, pressure $p$, temperature\footnote{Temperatures are assumed to be in units of energy by including Boltzmann's constant.} $T$ and mass $m$ of one molecule (or atom) in the gas.
+with mass density $\rho$, pressure $p$, temperature $T$ (in units of energy) and mass $m$ of one molecule (or atom) in the gas.
 The full gas dynamics are obtained by considering the steady state conservation laws
 }
 %\begin{align}
@@ -35,11 +35,12 @@ In the case of frozen deuterium pellets, the temperature close to the pellet is 
 The external heat source $Q$ at each point in the gas is subject to the major approximations of the NGS model.
 Heat conduction in the neutral cloud is neglected, since this occurs only on a much slower timescale than the heating from highly energetic electrons losing energy in the cloud through elastic scattering and inelastic processes \autocite{parks_effect_1978}.
 While, in reality, the incoming electrons are constrained by the magnetic field to traverse the cloud on straight parallel lines, the NGS model approximates this path with an equivalent radial path, as illustrated in \cref{fig:neutral_cloud_heating}.
-Therefore, the heat source
+Denoting the energy flux of the incoming electrons by $\vec{q}(\vec{r})$, the heat source
 \begin{equation}
     Q = - \mu \vec{\nabla}\cdot \vec{q} = \mu \pdv{q}{x} \approx \mu \pdv{q}{r}
     \label{eq:heat_flux_approximation}
 \end{equation}
+is thus modelled as if the electrons lose their energy radially inwards instead of along the field lines in the direction $x$. 
 is modelled as if the electrons lose their energy radially inwards instead of along the field lines in the direction $x$. 
 This approximation is motivated by the fact that the energy flux reaching a spherical shell depends on the integrated density along the electron trajectory, which is geometrically similar for both the radial and the parallel paths \autocite{parks_model_1977-1}.
 Considering the success of the isotropic NGS model, this approximation is retained in our model.
@@ -176,7 +177,7 @@ For this purpose, for some chosen $\gamma$ and $E_\star$, we adjust $\lambda_\st
 Together with the values $q(\infty)$ and $E(\infty)$ all normalization constants are determined, and the full physical solution can be calculated. 
 Remember that $E_\star$ denotes the incident electron energy at the sonic radius, which is not known a priori.
 As a first guess, it suffices to set $E_\star \approx E_\text{bc}$, since most of the energy is absorbed only inside the sonic radius.
-However, a scan over $E_\star$ allows setting it more precisely afterwards.
+%However, a scan over $E_\star$ allows setting it more precisely afterwards.
 
 Many different methods exist to solve a set of first order differential equations numerically.
 Knowing that 
@@ -185,10 +186,14 @@ Knowing that
 \end{equation*}
 any method would work which solves initial value problems.
 Since the derivatives are determined if all quantities at one radial position are known, the full spatial dependence can be built up iteratively.
-The method of numerical integration found to work well here is an \enquote{implicit multi-step variable-order (1 to 5) method based on a backward differentiation formula for the derivative approximation}\footnote{See \url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html} .} based on the implementation by \textcite{shampine_matlab_1997}.
+The method of numerical integration found to work well here is an \enquote{implicit multi-step variable-order (1 to 5) method based on a backward differentiation formula for the derivative approximation}%
+\footnote{See \resizebox{!}{0.51\baselineskip}{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html} .}} 
+based on the implementation by \textcite{shampine_matlab_1997}.
 The solutions are calculated from $r=1$ in the directions of both increasing and decreasing $r$.
 Optimization of $\lambda_\star$ is done through minimizing the error of the boundary conditions $T(r_p) = q(r_p) = 0$.
-Here, \enquote{a modification of the Powell hybrid method as implemented in MINPACK}\footnote{See \url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html} .} is used \autocite{more_user_1980}.
+Here, \enquote{a modification of the Powell hybrid method as implemented in MINPACK}%
+\footnote{See \resizebox{!}{0.51\baselineskip}{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html} .}}
+is used \autocite{more_user_1980}.
 
 \begin{figure}
     \centering
@@ -199,12 +204,14 @@ Here, \enquote{a modification of the Powell hybrid method as implemented in MINP
 
 An example solution for $\gamma = 7/5$ and $E_\star = \qty{30}{\keV}$ is shown in \cref{fig:example_0th_order_solution}, where the subscript 0 denotes the isotropic NGS model quantities as opposed to the asymmetric NGS model quantities with a subscript 1, as introduced in the next section.
 This same solution is shown by \textcite{parks_effect_1978} in their figs. 3 and 4, which serves as a validation of our implemented numerical procedure.
-Visible is that $E(\infty) \approx 1$, which justifies $E_\star \approx E_\text{bc}$.
+Visible is that $E(\infty) = E_\text{bc}/E_\star \approx 1$, which justifies $E_\star \approx E_\text{bc}$ in this particular case.
 
-Another validation is performed by scanning over the parameters $\gamma$ and $E_\text{bc}$ and plotting the calculated results for $\lambda_\star$, $r_\text{p}$, $E(\infty)$ and $q(\infty)$, as shown in \cref{fig:ode0_scan}.
+To further quantify the energy dependence of the normalized solution, parameter scans over $\gamma$ and $E_\text{bc}$ are performed.
+\Cref{fig:ode0_scan} shows the results for $\lambda_\star$, $r_\text{p}$, $E(\infty)$ and $q(\infty)$ after having adjusted $\lambda_\star$ for each parameter combination.
 Again, we see a match to figs. 1 and 2 of the paper by \textcite{parks_effect_1978}.
-Additionally, scaling laws for $\gamma = 5/3$ (dotted lines) are given in the paper, which agree well with our results.
-It is important to note that in \cref{fig:ode0_scan} the energy dependence is shown on a logarithmic x-axis, while the variance on the y-axis is small and linear.
+Additionally, our results agree well with the scaling laws for $\gamma = 5/3$ (dotted lines) given in the paper.
+Therefore, these parameter scans serve as another validation of our implementation.
+It is important to note that in \cref{fig:ode0_scan} the energy dependence is shown on a logarithmic x-axis, while the variation on the y-axis is small and linear.
 Thus, the dependence on $E_\text{bc}$ is very weak, and the quantities can be considered nearly constant.
 The scaling laws representing our solution (dashed lines) are given in \cref{sec:appendix_scaling_laws}.
 %(Do I want to show how well the boundary conditions are met? And that the limitation $E < \qty{20}{\eV}$ might matter a bit? Also, I might want to show $p_0(r_p)$)

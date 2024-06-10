@@ -48,7 +48,7 @@ These particles follow the equation of motion
     \vec{r}(t) = (\pm c_\text{s} t) \hat{x} + \left(r_\text{i} - v_\text{p} t - \frac{1}{2} \dot{v}_\text{pl} t^2 \right) \hat{z} \, .
 \end{equation}
 The shielding length $s(z)$ along a field line at position $z$ is the distance from the plasmoid boundary to the neutral ablation cloud boundary (which lies at ${x = \pm \sqrt{r_\text{i}^2 - z^2}}$).
-Therefore, the shielding length can be estimated by eliminating the time dependence in the equation of motion\footnote{We assume a constant acceleration over the whole trajectory, which might not be true in reality.} and taking the absolute value, which gives
+Therefore, the shielding length can be estimated by eliminating the time dependence in the equation of motion\footnote{We assume a constant acceleration over the whole trajectory.} and taking the absolute value, which gives
 \begin{equation}
     s(z) = c_\text{s} \left( - \frac{v_\text{p}}{\dot{v}_\text{pl}} + \sqrt{\left(\frac{v_\text{p}}{\dot{v}_\text{pl}}\right)^2 + \frac{2}{\dot{v}_\text{pl}}(r_\text{i} - z)} \right) - \sqrt{r_\text{i}^2 - z^2} \, .
 \end{equation}
@@ -144,7 +144,7 @@ The result is again a scaling of the effective energy assumed by \textcite{parks
     \label{eq:plasmoid_shielding_E}
 \end{equation}
 The dimensionless functions $f_q(\alpha)$ and $f_E(\alpha)$ are visualized in \cref{fig:plasmoid_shielding_functions}.
-While increasing shielding length $s$, i.e. decreasing $\alpha$, attenuates the heat flux, the effective energy is enhanced.
+While increasing shielding length $s$, i.e. decreasing $\alpha$, attenuates the heat flux, the average energy is enhanced.
 This can be explained qualitatively by noticing that, with a longer shielding length through the plasmoid, fewer electrons reach the neutral cloud, but on average, those electrons are more energetic.
 Whether the quantitative prediction of this effect is accurate will need further investigation.
 
@@ -182,7 +182,7 @@ While the heat flux asymmetry depends on the temperature and density gradients, 
 Thus $\partial \alpha/\partial T_\text{bg}$ is derived from the definition of $\lambda_T$ in \cref{eq:lambda_mfp} alone\footnote{Neglecting also the Coulomb logarithm dependence $\partial \ln\Lambda/\partial T_\text{bg}$.}.
 Equivalently to the shielding length variation, we let $z = r_\text{p} \cos\theta$.
 Consequently, the variation $\var{q_\text{pl}}$ corresponds to $q_1(\infty)\cos\theta$ in our asymmetric NGS model.
-Comparison to the definition of the heat flux asymmetry parameter then leads to
+Comparison to the definition of the heat flux asymmetry parameter in \cref{eq:perturbation_normalized_bc} then leads to
 \begin{equation}
     q_\text{rel} = \frac{q_1(\infty)}{q_\text{bc}} = \frac{1}{q_\text{pl}(s_0)} \eval{\dv{q_\text{pl}}{z}}_{z=0} r_\text{p} \, .
 \end{equation}
@@ -226,7 +226,7 @@ Thus, $E_\text{rel}/q_\text{rel} \lesssim -1.17$ is possible, which would mean a
 % where the plasmoid shielding functions $f_q$ and $f_E$ are described by \cref{eq:plasmoid_shielding_q,eq:plasmoid_shielding_E}, and the shielding length variation $\eval{\partial s/\partial z}_{z=0}$ is described by \cref{eq:shielding_length_derivative}.
 % Note that in this model, $E_\text{rel}/q_\text{rel}$ is always negative, since $\partial f_E/\partial \alpha$ is negative and $\partial f_q/\partial \alpha$ is positive.
 
-In summary, the plasmoid shielding depends mainly on the pellet injection parameters $v_\text{p}$ and$r_\text{p}$, the background plasma parameters $T_\text{bg}$ and $n_\text{bg}$ (and their gradients), and the pellet position along the major radius of the magnetic confinement device $R_\text{m}$.
+In summary, the plasmoid shielding depends mainly on the pellet injection parameters $v_\text{p}$ and $r_\text{p}$, the background plasma parameters $T_\text{bg}$ and $n_\text{bg}$ (and their gradients), and the pellet position along the major radius of the magnetic confinement device $R_\text{m}$.
 Since the plasmoid formation is not fully modelled here, values have to be given for the plasmoid temperature $T_\text{pl}$ and the ionization radius $r_\text{i}$.
 Whereas, the plasmoid electron density can be estimated as
 \begin{equation}

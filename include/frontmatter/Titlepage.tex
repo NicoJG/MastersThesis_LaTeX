@@ -32,7 +32,7 @@
 \programme{Programme Name}
 \department{Department of Physics}
 \phonenumber{+46 31 772 1000}
-\supervisor{Oskar Vallhagen, Department of Physics}
+\supervisor{Oskar Vallhagen, Department of Physics \\ István Pusztai, Department of Physics \\ Sarah Newton, Department of Physics \\ and Culham Centre for Fusion Energy (UK)}
 \examiner{Tünde Fülöp, Department of Physics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -91,7 +91,7 @@ Undefined Thesis type in settings.tex
 \centering
 \vspace{1cm}	% Adjust vertical spacing here
 \includegraphics[width=0.7\linewidth]{figure/DALL-E_Illustration_2.png}\\
-\small(This image was created with the assistance of AI and does not reflect reality.)
+\scriptsize(This image was created with the assistance of AI and does not reflect reality.)
 \end{figure}
 
 % Cover text
@@ -159,9 +159,19 @@ Undefined Thesis type in settings.tex
 \thetitle\\[1cm]
 %\thesubtitle\\
 %\theauthor\\[1cm]
+% \supervisor{Oskar Vallhagen, Department of Physics \\ István Pusztai, Department of Physics \\ Sarah Newton, Department of Physics \\ and Culham Centre for Fusion Energy (UK)}
+% \examiner{Tünde Fülöp, Department of Physics}
 \copyright ~ \theauthor, \the\year.\\[1cm]
-Supervisor: \thesupervisor\\
-Examiner: \theexaminer\\[1cm]
+\begin{raggedright}
+\begin{tabular}{@{}l@{ }l@{ }l@{}}
+     Supervisors: & Oskar Vallhagen, & Department of Physics \\
+     & István Pusztai, & Department of Physics \\
+     & Sarah Newton, & Department of Physics and \\
+     & & Culham Centre for Fusion Energy (UK)\\
+     Examiner: & Tünde Fülöp, & Department of Physics
+\end{tabular}
+\end{raggedright}
+\\[1cm]
 \thereporttype \the\year\\	
 \thedepartment\\
 Division of Subatomic, High Energy and Plasma Physics\\
