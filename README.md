@@ -2,9 +2,10 @@
 
 My masters thesis at the Plasma Theory group at Chalmers in 2024 with my supervisors Oskar Vallhagen, Tünde Fülöp and Istvan Pusztai. This repository contains all the latex files and figures of my masters thesis. We developed a theory for the pellet rocket effect from first principles that is a semi-analytical model based on the neutral gas shielding model (Parks & Turnbull, 1978). Two scientific papers got published from the content of this thesis (with some additional research done afterwards), see below.
 
-- Repository containing the python code for this thesis:  [github.com/NicoJG/MastersThesis_Code](https://github.com/NicoJG/MastersThesis_Code)
-- Repository containing my notes and mathematical derivations for this thesis:   
-[github.com/NicoJG/MastersThesis_Journal](https://github.com/NicoJG/MastersThesis_Journal)
+For more context look at: 
+- Repository containing the actual thesis: [github.com/NicoJG/MastersThesis_LaTeX](https://github.com/NicoJG/MastersThesis_LaTeX)
+- Repository containing the python code for this thesis: [github.com/NicoJG/MastersThesis_Code](https://github.com/NicoJG/MastersThesis_Code)
+- Repository containing my notes and mathematical derivations for this thesis: [github.com/NicoJG/MastersThesis_Journal](https://github.com/NicoJG/MastersThesis_Journal)
 
 # Publications
 
